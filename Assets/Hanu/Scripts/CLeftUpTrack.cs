@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CStraightTrack : MonoBehaviour {
+public class CLeftUpTrack : CTrackParts {
 
 	// Use this for initialization
 	void Start () {
-		
+
+        mDirection = Vector3.up;	
 	}
 	
 	// Update is called once per frame

@@ -9,10 +9,17 @@ public class CHanMapDataMgr
     public Material MLine = null;
     public Material MOutSide = null;
 
+    public CTrack PFTrack = null;
+
     public CStartTrack PFStartTrack = null;
-    public CStraightTrack PFStraightTrack = null;
-    public CLeftTrack PFLeftTrack = null;
-    public CRightTrack PFRightTrack = null;
+    public CVerticalTrack PFVerticalTrack = null;
+    public CHorizontalTrack PFHorizontalTrack = null;
+
+    public CUpLeftTrack PFUpLeftTrack = null;
+    public CLeftUpTrack PFLeftUpTrack = null;
+    public CUpRightTrack PFUpRightTrack = null;
+    public CRightUpTrack PFRightUpTrack = null;
+
 
     private static CHanMapDataMgr mInstance = null;
 
@@ -37,9 +44,16 @@ public class CHanMapDataMgr
         MLine = Resources.Load<Material>("Material/Mline");
         MOutSide = Resources.Load<Material>("Material/MOutSide");
 
+        PFTrack = Resources.Load<CTrack>("Prefabs/PFTrack");
+
         PFStartTrack = Resources.Load<CStartTrack>("Prefabs/PFStartTrack");
-        PFStraightTrack = Resources.Load<CStraightTrack>("Prefabs/PFStraightTrack");
-        PFLeftTrack = Resources.Load<CLeftTrack>("Prefabs/PFLeftTrack");
-        PFRightTrack = Resources.Load<CRightTrack>("Prefabs/PFRightTrack");
+
+        PFVerticalTrack = Resources.Load<CVerticalTrack>("Prefabs/PFVerticalTrack");
+        PFHorizontalTrack = Resources.Load<CHorizontalTrack>("Prefabs/PFHorizontalTrack");
+
+        PFUpLeftTrack = Resources.Load<CUpLeftTrack>("Prefabs/PFUpLeftTrack");
+        PFLeftUpTrack = Resources.Load<CLeftUpTrack>("Prefabs/PFLeftUpTrack");
+        PFUpRightTrack = Resources.Load<CUpRightTrack>("Prefabs/PFUpRightTrack");
+        PFRightUpTrack = Resources.Load<CRightUpTrack>("Prefabs/PFRightUpTrack");
     }
 }

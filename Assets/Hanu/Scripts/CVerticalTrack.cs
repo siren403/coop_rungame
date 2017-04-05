@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CStartTrack : CTrackParts
-{
+public class CVerticalTrack : CTrackParts {
 
 	// Use this for initialization
 	void Start () {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CRightTrack : MonoBehaviour {
+public class CHorizontalTrack : CTrackParts {
 
 	// Use this for initialization
 	void Start () {

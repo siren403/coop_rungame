@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CStartTrack : CTrackParts
-{
+public class CTrackParts : MonoBehaviour {
+
+    public Vector3 mDirection;
+
+    public CTrackFactory.TRACKKIND mKind;
 
 	// Use this for initialization
 	void Start () {
