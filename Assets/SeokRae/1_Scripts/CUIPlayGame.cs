@@ -10,15 +10,17 @@ public class CUIPlayGame : MonoBehaviour {
     public Slider mBooster;//부스터게이지
     public Slider mJoyStick;//조이스틱
     public Vector3 mBackGround;
+    public float mPlayerSpeed = 0.0f;
 
     public delegate void CallBackBtn();
     
 
 
-    private float JoyStcikDirection = 0.0f;
-
     CallBackBtn OnJumping = null;
     CallBackBtn OnSliding = null;
+    CallBackBtn OnItemBtn_1 = null;
+    CallBackBtn OnItemBtn_2 = null;
+
 
 
 
@@ -34,14 +36,14 @@ public class CUIPlayGame : MonoBehaviour {
     void Start () {
         //InvokeRepeating("HealthDown", 1.0f, 1.0f);
         StartCoroutine(HealthBarDown());//체력바깎이는 코루틴시작
-        StartCoroutine(JoyStcikLRMove());
         StartCoroutine(Booster());
     }
 
 
 
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update()
+    {
         if (Input.GetMouseButtonUp(0))
         {
             mJoyStick.value = 2.0f;
@@ -70,31 +72,8 @@ public class CUIPlayGame : MonoBehaviour {
 
 
 
-    IEnumerator JoyStcikLRMove()
-    {
-        while(true)
-        {
-            
-                if (mJoyStick.value < 1.5f)
-                {
-                    Debug.Log("Left");
-                    // mJoyStick.value = 2;
-                    JoyStcikDirection = -1.0f;
-
-            }
-                else if (mJoyStick.value > 2.5f)
-                {
-                    Debug.Log("Right");
-                    // mJoyStick.value = 2;
-                    JoyStcikDirection = 1.0f;
-            }
-
-
-            yield return new WaitForSeconds(0.1f);
-        }
-
-    }
     
+
     public void OnClickJump()//점프버튼
     {
         if(null!=OnJumping)
@@ -106,6 +85,9 @@ public class CUIPlayGame : MonoBehaviour {
     {
         OnJumping = tA;
     }
+
+
+
     public void OnClickSlid()
     {
         if(null!=OnSliding)
@@ -118,11 +100,56 @@ public class CUIPlayGame : MonoBehaviour {
         OnSliding = tA;
     }
     
+   public float GetJoystickDirection()
+    {
+        int value = (int)mJoyStick.value;
+
+        if(value == 1)
+        {
+            return -1;
+        }
+        else if(value == 3)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+
+        //return value == 1 ? -1 : value == 3 ? 1 : 0;
+       
+    }
+
+
+    public void OnClickItemBtn_1()
+    {
+        if(null!= OnItemBtn_1)
+        {
+            OnItemBtn_1();
+        }
+    }
+    public void SetOnItemBtn_1(CallBackBtn tA)
+    {
+        OnItemBtn_1 = tA;
+    }
+
+    public void OnClickItemBtn_2()
+    {
+        if (null != OnItemBtn_2)
+        {
+            OnItemBtn_2();
+        }
+    }
+    public void SetOnItemBtn_2(CallBackBtn tA)
+    {
+        OnItemBtn_2 = tA;
+    }
 
 
 
 
-
+    /*
     public void OnClickUseItem1()
     {
         Debug.Log("UseItem1");
@@ -131,7 +158,7 @@ public class CUIPlayGame : MonoBehaviour {
     {
         Debug.Log("UseItem2");
     }
-
+    */
     /*
     public void Booster()
     {
@@ -139,7 +166,7 @@ public class CUIPlayGame : MonoBehaviour {
         mBooster.value = 100.0f;
     }
     */
-
+    
 
 
     /*
@@ -160,8 +187,5 @@ public class CUIPlayGame : MonoBehaviour {
     }
     */
     
-    public float GetJoyStickDirection()
-    {
-        return JoyStcikDirection;
-    }
+   
 }
