@@ -9,16 +9,20 @@ public class CTargetCamera : MonoBehaviour
     public Vector3 Offset = Vector3.zero;
     public Vector3 TargetOffset = Vector3.zero;
 
-
-    private void LateUpdate()
+    private void Start()
     {
-        if(Target == null)
-        {
-            return;
-        }
-
         UpdatePosition();
     }
+
+    //private void LateUpdate()
+    //{
+    //    if(Target == null)
+    //    {
+    //        return;
+    //    }
+
+    //    UpdatePosition();
+    //}
 
     [ContextMenu("Reposition")]
     public void UpdatePosition()

@@ -25,7 +25,6 @@ namespace UsePhysics
 
         private CacheComponent<Rigidbody> Body = null;
 
-
         public bool IsGround = false;
         public float Horizontal = 0;
 
@@ -39,7 +38,7 @@ namespace UsePhysics
 
         void Start()
         {
-            StartCoroutine(Loop());
+            //StartCoroutine(Loop());
         }
         IEnumerator Loop()
         {
@@ -69,6 +68,14 @@ namespace UsePhysics
             else if (Input.GetKeyDown(KeyCode.S))
             {
 
+            }
+            else if(Input.GetKeyDown(KeyCode.Z))
+            {
+                this.transform.Rotate(Vector3.up * -90,Space.Self);
+            }
+            else if(Input.GetKeyDown(KeyCode.C))
+            {
+                this.transform.Rotate(Vector3.up * 90, Space.Self);
             }
 
             Horizontal = Input.GetAxisRaw("Horizontal");
@@ -100,9 +107,14 @@ namespace UsePhysics
             if (mIsRun)
             {
                 Vector3 pos = this.transform.position;
-                pos.x += (CurrentSpeed * Horizontal) * Time.deltaTime;
-                pos.z += CurrentSpeed * Time.deltaTime;
+
+                pos += (this.transform.forward + (this.transform.right * Horizontal)) * CurrentSpeed * Time.deltaTime;
+
+                //pos.x += (CurrentSpeed * Horizontal) * Time.deltaTime;
+                //pos.z += CurrentSpeed * Time.deltaTime;
+
                 Body.Get().MovePosition(pos);
+
             }
         }
 
