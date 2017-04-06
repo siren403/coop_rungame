@@ -113,7 +113,10 @@ namespace UsePhysics
             {
 
                 Horizontal = mUIController.GetJoystickDirection();
-                Horizontal = Input.GetAxis("Horizontal");
+                if (Horizontal == 0)
+                {
+                    Horizontal = Input.GetAxis("Horizontal");
+                }
             }
             else
             {
@@ -201,8 +204,8 @@ namespace UsePhysics
             GUI.Button(new Rect(Screen.width * 0.5f, Screen.height * 0.2f, Screen.width * 0.2f, Screen.height * 0.1f), "Input Check");
 
 
-            GUI.Label(new Rect(0, Screen.height, Screen.width, Screen.height * 0.2f),
-                "좌우:A,S 또는 Joystack | 점프:Space | 좌우회전:Z,C");
+            GUI.Label(new Rect(Screen.width * 0.01f, Screen.height - Screen.height * 0.1f, Screen.width, Screen.height * 0.1f),
+                "좌우:A,S 또는 Joystack | 점프:X | 좌우회전:Z,C");
 
         }
     }
