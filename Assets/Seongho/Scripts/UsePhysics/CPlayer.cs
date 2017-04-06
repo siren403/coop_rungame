@@ -28,8 +28,16 @@ namespace UsePhysics
         public bool IsGround = false;
         public float Horizontal = 0;
 
+        public CUIPlayGame mUIController = null;
+
+        public bool mIsInputDirectionChecking = false;
+        public Vector3 mInputDirection;
+        public int mRotateDirection = 0;
+
         public Image mImage_0 = null;
         public Image mImage_1 = null;
+
+        private bool mIsRotateFail = false;
 
         private void Awake()
         {
@@ -38,6 +46,9 @@ namespace UsePhysics
 
         void Start()
         {
+            mUIController.SetOnItemBtn_1(() => this.transform.Rotate(Vector3.up * -90, Space.Self));
+            mUIController.SetOnItemBtn_2(() => this.transform.Rotate(Vector3.up * 90, Space.Self));
+
             //StartCoroutine(Loop());
         }
         IEnumerator Loop()
@@ -50,7 +61,7 @@ namespace UsePhysics
                 image.color = Color.red;
                 yield return new WaitForSeconds(0.5f);
                 image.color = Color.white;
-                Body.Get().AddForce((isRight ? Vector3.right : Vector3.left) * 10,
+                Body.Get().AddForce((isRight ? this.transform.right : -this.transform.right) * 10,
                     ForceMode.VelocityChange);
 
             }
@@ -61,7 +72,7 @@ namespace UsePhysics
             {
                 MoveStart();
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 DoJump();
             }
@@ -71,18 +82,66 @@ namespace UsePhysics
             }
             else if(Input.GetKeyDown(KeyCode.Z))
             {
-                this.transform.Rotate(Vector3.up * -90,Space.Self);
+                //this.transform.Rotate(Vector3.up * -90,Space.Self);
+                if (mIsInputDirectionChecking)
+                {
+                    mRotateDirection = -1;
+                    mInputDirection = -this.transform.right;
+                    mIsRotateFail = false;
+                }
+                else
+                {
+                    mIsRotateFail = true;
+                }
             }
             else if(Input.GetKeyDown(KeyCode.C))
             {
-                this.transform.Rotate(Vector3.up * 90, Space.Self);
+                if (mIsInputDirectionChecking)
+                {
+                    //this.transform.Rotate(Vector3.up * 90, Space.Self);
+                    mRotateDirection = 1;
+                    mInputDirection = this.transform.right;
+                    mIsRotateFail = false;
+                }
+                else
+                {
+                    mIsRotateFail = true;
+                }
             }
 
-            Horizontal = Input.GetAxisRaw("Horizontal");
+            if (mIsInputDirectionChecking == false)
+            {
+
+                Horizontal = mUIController.GetJoystickDirection();
+                Horizontal = Input.GetAxis("Horizontal");
+            }
+            else
+            {
+                Horizontal = 0;
+            }
+
             if (Input.GetKeyDown(KeyCode.W))
             {
-                Body.Get().AddForce(Vector3.right * 16, ForceMode.VelocityChange);
+                Body.Get().AddForce(this.transform.right * 16, ForceMode.VelocityChange);
             }
+        }
+
+
+        public void DoRotate(Vector3 direction)
+        {
+            if(mInputDirection == direction)
+            {
+                if(mRotateDirection == -1)
+                {
+                    this.transform.Rotate(Vector3.up * -90,Space.Self);
+                }
+                else if(mRotateDirection == 1)
+                {
+                    this.transform.Rotate(Vector3.up * 90, Space.Self);
+                }
+                mRotateDirection = 0;
+            }
+            mIsInputDirectionChecking = false;
         }
 
         void FixedUpdate()
@@ -99,7 +158,7 @@ namespace UsePhysics
             if (IsGround)
             {
                 IsGround = false;
-                Body.Get().AddForce(0, JumpPower, 0, JumpForceMode);
+                Body.Get().AddForce(this.transform.up * JumpPower, JumpForceMode);
             }
         }
         private void DoMove()
@@ -109,9 +168,6 @@ namespace UsePhysics
                 Vector3 pos = this.transform.position;
 
                 pos += (this.transform.forward + (this.transform.right * Horizontal)) * CurrentSpeed * Time.deltaTime;
-
-                //pos.x += (CurrentSpeed * Horizontal) * Time.deltaTime;
-                //pos.z += CurrentSpeed * Time.deltaTime;
 
                 Body.Get().MovePosition(pos);
 
@@ -133,6 +189,21 @@ namespace UsePhysics
                 decSpeed = this.Speed;
             }
             this.DecrementSpeed = decSpeed;
+        }
+
+        private void OnGUI()
+        {
+
+            GUI.color = Color.green;
+            GUI.Label(new Rect(Screen.width * 0.5f,Screen.height * 0.1f , 200, 80), mIsRotateFail ? "Rotate Fail" : "Rotate Success");
+
+            GUI.contentColor = mIsInputDirectionChecking ? Color.green : Color.red;
+            GUI.Button(new Rect(Screen.width * 0.5f, Screen.height * 0.2f, Screen.width * 0.2f, Screen.height * 0.1f), "Input Check");
+
+
+            GUI.Label(new Rect(0, Screen.height, Screen.width, Screen.height * 0.2f),
+                "좌우:A,S 또는 Joystack | 점프:Space | 좌우회전:Z,C");
+
         }
     }
 }

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114191961357675546}
   m_Layer: 0
   m_Name: instLeftOutside
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 114153931346410046}
   m_Layer: 0
   m_Name: instRightOutside_1
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 114361534717544782}
   m_Layer: 0
   m_Name: instMainTrack
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 114243768119498394}
   m_Layer: 0
   m_Name: instLeftOutside_1
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 114822701052756066}
   m_Layer: 0
   m_Name: instRightOutside
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -267,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4297016425127958}
   - component: {fileID: 114544331123792946}
+  - component: {fileID: 65967814496898134}
   m_Layer: 0
   m_Name: PFRightUpTrack
   m_TagString: Untagged
@@ -1107,6 +1108,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65967814496898134
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1819166429695520}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.39, y: 1, z: 13.47}
+  m_Center: {x: -4.8, y: 0, z: 0}
 --- !u!65 &65989638306887418
 BoxCollider:
   m_ObjectHideFlags: 1

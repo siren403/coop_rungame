@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 114112468102383008}
   m_Layer: 0
   m_Name: instRightOutside
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 114161084872454704}
   m_Layer: 0
   m_Name: instMainTrack
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 114063117286901262}
   m_Layer: 0
   m_Name: instLeftOutside
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 114297667595445880}
   m_Layer: 0
   m_Name: instLeftOutside_1
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,6 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4525095182602298}
   - component: {fileID: 114315233596027544}
+  - component: {fileID: 65477915362559040}
   m_Layer: 0
   m_Name: PFLeftUpTrack
   m_TagString: Untagged
@@ -1023,6 +1024,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65477915362559040
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1710665261155512}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.6, y: 1, z: 10.25}
+  m_Center: {x: 4.6, y: 0, z: 0}
 --- !u!65 &65575561575305212
 BoxCollider:
   m_ObjectHideFlags: 1

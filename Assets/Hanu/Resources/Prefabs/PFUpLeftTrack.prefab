@@ -120,7 +120,7 @@ GameObject:
   - component: {fileID: 114231719297857556}
   m_Layer: 0
   m_Name: instLeftOutside
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 114562059351911826}
   m_Layer: 0
   m_Name: instRightOutside_1
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 114618191612538734}
   m_Layer: 0
   m_Name: instLeftOutside_1
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 114664726089206206}
   m_Layer: 0
   m_Name: instRightOutside
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 114094311954294712}
   m_Layer: 0
   m_Name: instMainTrack
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -267,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4084321758303670}
   - component: {fileID: 114266735576295214}
+  - component: {fileID: 65415630401879816}
   m_Layer: 0
   m_Name: PFUpLeftTrack
   m_TagString: Untagged
@@ -1047,6 +1048,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65415630401879816
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1995643780769492}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13.07, y: 1, z: 8.4}
+  m_Center: {x: 0, y: 0, z: -5}
 --- !u!65 &65427585022427944
 BoxCollider:
   m_ObjectHideFlags: 1
