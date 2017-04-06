@@ -541,7 +541,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.022299709, y: 0.86926156}
   m_AnchorMax: {x: 0.35839254, y: 0.94500005}
-  m_AnchoredPosition: {x: 2.9950027, y: 1.1999817}
+  m_AnchoredPosition: {x: 2.994995, y: 1.1999817}
   m_SizeDelta: {x: -1.9499998, y: -2.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &344784322
@@ -689,6 +689,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mUIGame: {fileID: 567528478}
   mCube: {fileID: 274473018}
+  mPlayerSpeed: 0
 --- !u!4 &439499855
 Transform:
   m_ObjectHideFlags: 0
@@ -905,6 +906,7 @@ MonoBehaviour:
   mBooster: {fileID: 439966387}
   mJoyStick: {fileID: 1817014795}
   mBackGround: {x: 0, y: 0, z: 0}
+  mPlayerSpeed: 0
 --- !u!114 &567528479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1024,7 +1026,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.031645503, y: 0.6824746}
   m_AnchorMax: {x: 0.460254, y: 0.81123734}
-  m_AnchoredPosition: {x: 0.84200287, y: 0}
+  m_AnchoredPosition: {x: 0.84199524, y: 0}
   m_SizeDelta: {x: -2, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &690649131
@@ -1143,7 +1145,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 567528478}
-        m_MethodName: OnClickUseItem1
+        m_MethodName: OnClickItemBtn_1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1254,7 +1256,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.031645503, y: 0.77300006}
   m_AnchorMax: {x: 0.33086917, y: 0.86926156}
-  m_AnchoredPosition: {x: 2.3799992, y: 1}
+  m_AnchoredPosition: {x: 2.380005, y: 1}
   m_SizeDelta: {x: 1, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &905930045
@@ -1951,7 +1953,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 567528478}
-        m_MethodName: OnClickUseItem2
+        m_MethodName: OnClickItemBtn_2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2360,7 +2362,7 @@ MonoBehaviour:
   m_MinValue: 1
   m_MaxValue: 3
   m_WholeNumbers: 0
-  m_Value: 2
+  m_Value: 3
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
