@@ -13,6 +13,14 @@ namespace UsePhysics
         public float Speed = 100.0f;
         public float DecrementSpeed = 0.0f;
 
+        private float CurrentSpeed
+        {
+            get
+            {
+                return Speed - DecrementSpeed;
+            }
+        }
+
         public bool mIsRun = false;
 
         private CacheComponent<Rigidbody> Body = null;
@@ -92,8 +100,8 @@ namespace UsePhysics
             if (mIsRun)
             {
                 Vector3 pos = this.transform.position;
-                pos.x += (Speed * Horizontal) * Time.deltaTime;
-                pos.z += Speed * Time.deltaTime;
+                pos.x += (CurrentSpeed * Horizontal) * Time.deltaTime;
+                pos.z += CurrentSpeed * Time.deltaTime;
                 Body.Get().MovePosition(pos);
             }
         }
