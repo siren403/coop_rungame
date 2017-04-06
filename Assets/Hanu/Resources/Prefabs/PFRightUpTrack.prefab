@@ -266,7 +266,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4297016425127958}
-  - component: {fileID: 114101892866409340}
+  - component: {fileID: 114544331123792946}
   m_Layer: 0
   m_Name: PFRightUpTrack
   m_TagString: Untagged
@@ -1119,19 +1119,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114101892866409340
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1819166429695520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad09059705d0cd498eb657b2656fa46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mDirection: {x: 0, y: 0, z: 1}
-  mKind: 6
 --- !u!114 &114153931346410046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1203,6 +1190,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
+--- !u!114 &114544331123792946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1819166429695520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24549d257da27d04f835ba0b76e2f5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mDirection: {x: 0, y: 0, z: 1}
+  mKind: 6
 --- !u!114 &114594603149541900
 MonoBehaviour:
   m_ObjectHideFlags: 1

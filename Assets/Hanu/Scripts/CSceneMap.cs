@@ -8,9 +8,14 @@ public class CSceneMap : MonoBehaviour {
 
     //CTrack mTrack = null;
     public CTrackFactory mFactory = null;
-    
-	// Use this for initialization
-	void Start () {
+
+    private void Awake()
+    {
+        CHanMapDataMgr.GetInst().CreateHan();
+    }
+
+    // Use this for initialization
+    void Start () {
 
         mFactory.CreateTrack();
 

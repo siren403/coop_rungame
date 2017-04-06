@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4695561924536730}
-  - component: {fileID: 114227057067523156}
+  - component: {fileID: 114724760347431292}
   m_Layer: 0
   m_Name: PFHorizontalTrack
   m_TagString: Untagged
@@ -644,19 +644,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
---- !u!114 &114227057067523156
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1448320544703944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10af254792ca2542af34bc0b282ea10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mDirection: {x: 0, y: 0, z: 0}
-  mKind: 2
 --- !u!114 &114379276483646844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -704,6 +691,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3891d8bf4fb10aa4088f29dd29d1816a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114724760347431292
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1448320544703944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24549d257da27d04f835ba0b76e2f5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mDirection: {x: 0, y: 0, z: 0}
+  mKind: 2
 --- !u!114 &114784484899166390
 MonoBehaviour:
   m_ObjectHideFlags: 1

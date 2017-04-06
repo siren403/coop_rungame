@@ -171,7 +171,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4982780173414776}
-  - component: {fileID: 114838411600093716}
+  - component: {fileID: 114245516543623670}
   m_Layer: 0
   m_Name: PFUpRightTrack
   m_TagString: Untagged
@@ -1143,6 +1143,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
+--- !u!114 &114245516543623670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680378057862114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24549d257da27d04f835ba0b76e2f5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mDirection: {x: 1, y: 0, z: 0}
+  mKind: 5
 --- !u!114 &114315725917729826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1249,19 +1262,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
---- !u!114 &114838411600093716
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1680378057862114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f2f20291e7b3f478a10f3c3d0c898a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mDirection: {x: 1, y: 0, z: 0}
-  mKind: 5
 --- !u!114 &114847152437572976
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -190,7 +190,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4525095182602298}
-  - component: {fileID: 114534185910481088}
+  - component: {fileID: 114315233596027544}
   m_Layer: 0
   m_Name: PFLeftUpTrack
   m_TagString: Untagged
@@ -1179,6 +1179,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
+--- !u!114 &114315233596027544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1710665261155512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24549d257da27d04f835ba0b76e2f5fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mDirection: {x: 0, y: 0, z: 1}
+  mKind: 4
 --- !u!114 &114427086335292442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1203,19 +1216,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
---- !u!114 &114534185910481088
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1710665261155512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e16c3fa23a05a374eac97a5b74fd711d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mDirection: {x: 0, y: 0, z: 1}
-  mKind: 4
 --- !u!114 &114617920887599550
 MonoBehaviour:
   m_ObjectHideFlags: 1
