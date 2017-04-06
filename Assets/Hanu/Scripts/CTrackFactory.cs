@@ -7,7 +7,7 @@ public class CTrackFactory : MonoBehaviour
 {
     
     public const int TOTAL_TRACK = 11;
-    public const int TRACK_SIZE = 10;
+    public const int TRACK_SIZE = 18;
 
     public enum TRACKKIND
     {
@@ -29,32 +29,21 @@ public class CTrackFactory : MonoBehaviour
     public int mRandomNum;
     public TRACKKIND mCurrentTrack;
 
+   
 
     public Dictionary<TRACKKIND, List<TRACKKIND>> mNextTrackKind = null;
 
 
-    public IEnumerator CreateTrack()
+    public void CreateTrack()
     {
-        yield return new WaitForSeconds(5.0f);
-
-        CTrack tTrack = null;
-        //CTrackFactory tTrackFactory = null;
-        CStartTrack tStartTrack = null;
-
-        tTrack = new CTrack();
-        //tTrackFactory = new CTrackFactory();
         int ti = 0;
 
         this.CreateNextTrackKind();
-        this.CreateTrackSample(tTrack, tStartTrack);
+        this.CreateTrackSample();
         for (ti = 0; ti < TOTAL_TRACK; ti++)
         {
-            this.DistinguishTrack(tTrack);
-            yield return new WaitForSeconds(1.0f);
+            this.DistinguishTrack();
         }
-
-
-        //return tTrack;
 
     }
 
@@ -75,8 +64,9 @@ public class CTrackFactory : MonoBehaviour
     }
 
 
-    public void CreateTrackSample(CTrack tTrack, CStartTrack tStartTrack)
+    public void CreateTrackSample()
     {
+        CStartTrack tStartTrack = null;
         tStartTrack = GameObject.Instantiate<CStartTrack>(CHanMapDataMgr.GetInst().PFStartTrack, Vector3.zero, Quaternion.identity);
         mBeforePos = tStartTrack.transform.position;
         mNextPos = Vector3.zero;
@@ -86,13 +76,8 @@ public class CTrackFactory : MonoBehaviour
     }
 
 
-    public void CreateNextTrackNum()
-    {
-        SetRandomNum(Random.Range(1, 3));
 
-    }
-
-    public void DistinguishTrack(CTrack tTrack)
+    public void DistinguishTrack()
     {
         var tTrackList = mNextTrackKind[mCurrentTrack];
         var tNextTrackKind =  tTrackList[Random.Range(0, tTrackList.Count)];
@@ -140,24 +125,12 @@ public class CTrackFactory : MonoBehaviour
                 mCurrentDirection = tRightUpTrack.mDirection;
                 mNextPos = mBeforePos + mCurrentDirection * TRACK_SIZE;
                 break;
-
-
         }
 
         mCurrentTrack = tNextTrackKind;
 
     }
 
-
-    public int GetRandomNum()
-    {
-        return mRandomNum;
-    }
-
-    public void SetRandomNum(int tRandomNum)
-    {
-        mRandomNum = tRandomNum;
-    }
 
     public TRACKKIND GetCurrentTrack()
     {
