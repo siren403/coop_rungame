@@ -34,10 +34,12 @@ namespace UsePhysics
         public Vector3 mInputDirection;
         public int mRotateDirection = 0;
 
-        public Image mImage_0 = null;
-        public Image mImage_1 = null;
 
         private bool mIsRotateFail = false;
+
+        private bool mIsToLeftWind = false;
+        private bool mIsToRightWind = false;
+
 
         private void Awake()
         {
@@ -46,21 +48,30 @@ namespace UsePhysics
 
         void Start()
         {
-            mUIController.SetOnItemBtn_1(() => this.transform.Rotate(Vector3.up * -90, Space.Self));
-            mUIController.SetOnItemBtn_2(() => this.transform.Rotate(Vector3.up * 90, Space.Self));
+            mUIController.SetOnItemBtn_1(() => DoRotateInput(-1));
+            mUIController.SetOnItemBtn_2(() => DoRotateInput(1));
 
-            //StartCoroutine(Loop());
         }
         IEnumerator Loop()
         {
             while (true)
             {
+
                 bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
-                Image image = isRight ? mImage_0 : mImage_1;
                 yield return new WaitForSeconds(4.0f);
-                image.color = Color.red;
+
+                if (isRight)
+                    mIsToLeftWind = true;
+                else
+                    mIsToRightWind = true;
+
                 yield return new WaitForSeconds(0.5f);
-                image.color = Color.white;
+
+                if (isRight)
+                    mIsToLeftWind = false;
+                else
+                    mIsToRightWind = false;
+
                 Body.Get().AddForce((isRight ? this.transform.right : -this.transform.right) * 10,
                     ForceMode.VelocityChange);
 
@@ -82,36 +93,15 @@ namespace UsePhysics
             }
             else if(Input.GetKeyDown(KeyCode.Z))
             {
-                //this.transform.Rotate(Vector3.up * -90,Space.Self);
-                if (mIsInputDirectionChecking)
-                {
-                    mRotateDirection = -1;
-                    mInputDirection = -this.transform.right;
-                    mIsRotateFail = false;
-                }
-                else
-                {
-                    mIsRotateFail = true;
-                }
+                DoRotateInput(-1);
             }
             else if(Input.GetKeyDown(KeyCode.C))
             {
-                if (mIsInputDirectionChecking)
-                {
-                    //this.transform.Rotate(Vector3.up * 90, Space.Self);
-                    mRotateDirection = 1;
-                    mInputDirection = this.transform.right;
-                    mIsRotateFail = false;
-                }
-                else
-                {
-                    mIsRotateFail = true;
-                }
+                DoRotateInput(1);
             }
 
             if (mIsInputDirectionChecking == false)
             {
-
                 Horizontal = mUIController.GetJoystickDirection();
                 if (Horizontal == 0)
                 {
@@ -125,10 +115,33 @@ namespace UsePhysics
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                Body.Get().AddForce(this.transform.right * 16, ForceMode.VelocityChange);
+                bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
+                mIsToLeftWind = false;
+                mIsToRightWind = false;
+
+                if (isRight)
+                    mIsToLeftWind = true;
+                else
+                    mIsToRightWind = true;
+
+                Body.Get().AddForce((isRight ? this.transform.right : -this.transform.right) * 10,
+                    ForceMode.VelocityChange);
             }
         }
 
+        private void DoRotateInput(int direction)
+        {
+            if (mIsInputDirectionChecking)
+            {
+                mRotateDirection = direction;
+                mInputDirection = this.transform.right * direction;
+                mIsRotateFail = false;
+            }
+            else
+            {
+                mIsRotateFail = true;
+            }
+        }
 
         public void DoRotate(Vector3 direction)
         {
@@ -194,18 +207,29 @@ namespace UsePhysics
             this.DecrementSpeed = decSpeed;
         }
 
+
         private void OnGUI()
         {
 
             GUI.color = Color.green;
-            GUI.Label(new Rect(Screen.width * 0.5f,Screen.height * 0.1f , 200, 80), mIsRotateFail ? "Rotate Fail" : "Rotate Success");
+            GUI.Button(new Rect(Screen.width * 0.35f, Screen.height * 0.1f, Screen.width * 0.3f, Screen.height * 0.1f), mIsRotateFail ? "Rotate Fail" : "Rotate Success");
 
             GUI.contentColor = mIsInputDirectionChecking ? Color.green : Color.red;
-            GUI.Button(new Rect(Screen.width * 0.5f, Screen.height * 0.2f, Screen.width * 0.2f, Screen.height * 0.1f), "Input Check");
+            GUI.Button(new Rect(Screen.width * 0.35f, Screen.height * 0.2f, Screen.width * 0.3f, Screen.height * 0.1f), "Input Check");
+
+
+            GUI.contentColor = mIsToLeftWind ? Color.green : Color.black;
+            GUI.Button(new Rect(Screen.width * 0.01f, Screen.height * 0.01f, Screen.width * 0.45f, Screen.height * 0.1f), "ToLeft");
+            GUI.contentColor = mIsToRightWind ? Color.green : Color.black;
+            GUI.Button(new Rect(Screen.width * 0.55f, Screen.height * 0.01f, Screen.width * 0.45f, Screen.height * 0.1f), "ToRight");
 
 
             GUI.Label(new Rect(Screen.width * 0.01f, Screen.height - Screen.height * 0.1f, Screen.width, Screen.height * 0.1f),
                 "좌우:A,S 또는 Joystack | 점프:X | 좌우회전:Z,C");
+
+            GUI.contentColor = Color.white;
+            GUI.Button(new Rect(Screen.width * 0.03f, Screen.height * 0.75f, Screen.width * 0.3f, Screen.height * 0.05f), "JoyStick : " + mUIController.GetJoystickDirection());
+
 
         }
     }
