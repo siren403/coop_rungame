@@ -8,8 +8,10 @@ public class CTrackFactory : MonoBehaviour
     
     
 
-    public const int TOTAL_TRACK = 20;
+    public const int TOTAL_TRACK = 50;
     public const int TRACK_SIZE = 18;
+    public const int STRAIGHT_COUNT = 3;
+    public int mTrackCount = 0;
 
     public enum TRACKKIND
     {
@@ -21,6 +23,7 @@ public class CTrackFactory : MonoBehaviour
         UPRIGHT = 5,
         RIGHTUP = 6,
         TURN = 7,
+        END = 8,
     }
 
     List<TRACKKIND> mNextTrackList = null;
@@ -40,11 +43,11 @@ public class CTrackFactory : MonoBehaviour
     /// </summary>
     public void CreateTrack()
     {
-        int ti = 0;
+       // int ti = 0;
 
         this.CreateNextTrackKind();
         this.CreateStartTrack();
-        for (ti = 0; ti < TOTAL_TRACK; ti++)
+        for (mTrackCount = 0; mTrackCount < TOTAL_TRACK;)
         {
             this.DistinguishTrack();
         }
@@ -73,12 +76,13 @@ public class CTrackFactory : MonoBehaviour
     public void CreateStartTrack()
     {
         CTrackParts tStartTrack = null;
-        tStartTrack = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().PFStartTrack, Vector3.zero, Quaternion.identity);
+        SetCurrentTrack(TRACKKIND.START);
+        tStartTrack = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(this.GetCurrentTrack()), Vector3.zero, Quaternion.identity);
         mBeforePos = tStartTrack.transform.position;
         mNextPos = Vector3.zero;
         mCurrentDirection = Vector3.forward;
         mNextPos = mCurrentDirection * TRACK_SIZE;
-        SetCurrentTrack(TRACKKIND.START);
+        
     }
 
 
@@ -90,51 +94,79 @@ public class CTrackFactory : MonoBehaviour
     {
         var tTrackList = mNextTrackKind[mCurrentTrack];
         var tNextTrackKind =  tTrackList[Random.Range(0, tTrackList.Count)];
+        CTrackParts tTrackParts = null;
+
         if (tNextTrackKind != TRACKKIND.TURN)
         {
+            tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(tNextTrackKind), mNextPos, Quaternion.identity);
             if (tNextTrackKind != TRACKKIND.HORIZONTAL)
             {
-                CTrackParts tTrackParts = null;
-                tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(tNextTrackKind), mNextPos, Quaternion.identity);
-                mBeforePos = tTrackParts.transform.position;
                 mCurrentDirection = tTrackParts.mDirection;
-                mNextPos = mBeforePos + mCurrentDirection * TRACK_SIZE;
-                mCurrentTrack = tNextTrackKind;
             }
-            else
-            {
-                CTrackParts tTrackParts = null;
-                tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(tNextTrackKind), mNextPos, Quaternion.identity);
-                mBeforePos = tTrackParts.transform.position;
-                mNextPos = mBeforePos + mCurrentDirection * TRACK_SIZE;
-                mCurrentTrack = tNextTrackKind;
-            }
+            SetCurrentTrack(tNextTrackKind);
         }
         else
         {
+           
             if(Vector3.right == mCurrentDirection )
-            {
-                CTrackParts tTrackParts = null;
+            { 
                 tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.RIGHTUP), mNextPos, Quaternion.identity);
-                mBeforePos = tTrackParts.transform.position;
-                mCurrentDirection = tTrackParts.mDirection;
-                mNextPos = mBeforePos + mCurrentDirection * TRACK_SIZE;
-                mCurrentTrack = TRACKKIND.RIGHTUP;
+                SetCurrentTrack (TRACKKIND.RIGHTUP);
+                
             }
             else
             {
-                CTrackParts tTrackParts = null;
                 tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.LEFTUP), mNextPos, Quaternion.identity);
+                SetCurrentTrack(TRACKKIND.LEFTUP);
+            }
+           
+            mCurrentDirection = tTrackParts.mDirection;
+        }
+        AddTrackCount();
+        mBeforePos = tTrackParts.transform.position;
+        mNextPos = mBeforePos + mCurrentDirection * TRACK_SIZE;
+        CreateStraightTrack(tTrackParts);
+    }
+
+
+    /// <summary>
+    /// 커브트랙 다음에 생성되는 트랙이 최소 3개이상 직선트랙이 나오게 생성하는 메소드
+    /// </summary>
+    /// <param name="tTrackParts">얘는 트랙파츠ㅇㅇ</param>
+    public void CreateStraightTrack(CTrackParts tTrackParts)
+    {
+        tTrackParts = null;
+
+        for (int ti = 0; ti < STRAIGHT_COUNT; ti++)
+        {
+            if (TOTAL_TRACK > mTrackCount)
+            {
+                if (TRACKKIND.LEFTUP == GetCurrentTrack() || TRACKKIND.RIGHTUP == GetCurrentTrack())
+                {
+                    tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.VERTICAL), mNextPos, Quaternion.identity);
+                    mCurrentDirection = tTrackParts.mDirection;
+                }
+                else if (TRACKKIND.UPLEFT == GetCurrentTrack() || TRACKKIND.UPRIGHT == GetCurrentTrack())
+                {
+                    tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.HORIZONTAL), mNextPos, Quaternion.identity);
+                }
+                else
+                {
+                    return;
+                }
                 mBeforePos = tTrackParts.transform.position;
-                mCurrentDirection = tTrackParts.mDirection;
+                AddTrackCount();
                 mNextPos = mBeforePos + mCurrentDirection * TRACK_SIZE;
-                mCurrentTrack = TRACKKIND.LEFTUP;
             }
         }
-    
 
     }
 
+
+    public void AddTrackCount()
+    {
+        mTrackCount = mTrackCount + 1;
+    }
 
     public TRACKKIND GetCurrentTrack()
     {
