@@ -20,9 +20,10 @@ namespace UsePhysics
             }
         }
 
-        public bool mIsRun = false;
+        private bool mIsRun = false;
 
         private CacheComponent<Rigidbody> Body = null;
+        private CacheComponent<Animator> Anim = null;
 
         public bool IsGround = false;
         public float Horizontal = 0;
@@ -39,16 +40,21 @@ namespace UsePhysics
         private bool mIsToRightWind = false;
 
         private System.Func<int> FuncHorizontal = null;
+        private System.Action<int> CallOnRotate = null;
 
         private void Awake()
         {
-            Body = new CacheComponent<Rigidbody>(this);
+            Body = new CacheComponent<Rigidbody>(this.gameObject);
+            Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
         }
 
-        
         public void SetFuncHorizontal(System.Func<int> callFunc)
         {
             FuncHorizontal = callFunc;
+        }
+        public void SetCallOnRotate(System.Action<int> callBack)
+        {
+            CallOnRotate = callBack;
         }
 
         IEnumerator Loop()
@@ -103,7 +109,7 @@ namespace UsePhysics
             }
         }
 
-        public void DoRotateInput(int direction)
+        public void SetRotateInput(int direction)
         {
             if (mIsInputDirectionChecking)
             {
@@ -129,6 +135,7 @@ namespace UsePhysics
                 {
                     this.transform.Rotate(Vector3.up * 90, Space.Self);
                 }
+                CallOnRotate.SafeInvoke(mRotateDirection);
                 mRotateDirection = 0;
             }
             mIsInputDirectionChecking = false;
@@ -139,9 +146,10 @@ namespace UsePhysics
             DoMove();
         }
 
-        public void OnMoveStart()
+        public void SetMoveStart(bool isRun)
         {
-            mIsRun = true;
+            mIsRun = isRun;
+            Anim.Get().SetBool("AnimIsRun", mIsRun);
         }
         public void DoJump()
         {

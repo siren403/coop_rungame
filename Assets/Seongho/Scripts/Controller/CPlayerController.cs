@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System;
 
-
-
 public abstract class CPlayerController : MonoBehaviour
 {
     protected Action CallOnJump = null;
     protected Action CallOnSlide = null;
     protected Action CallOnItem_1 = null;
     protected Action CallOnItem_2 = null;
+    protected Action<int> CallOnScreenSlide = null;
+
+    protected Vector3 ScreenSlideBeganPosition;
+
+    protected float ScreenSlideDistance = 5;
 
     public void SetCallOnJump(Action callBack)
     {
@@ -26,6 +29,12 @@ public abstract class CPlayerController : MonoBehaviour
     {
         CallOnItem_2 = callBack;
     }
+    public void SetCallOnScreenSlide(Action<int> callBack)
+    {
+        CallOnScreenSlide = callBack;
+    }
 
     public abstract int GetHorizontal();
+
+    protected abstract  void UpdateScreenSlide();
 }

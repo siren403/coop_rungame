@@ -11,8 +11,6 @@ public class CUIPlayerController : CPlayerController
     public Slider mBooster = null;//부스터게이지
     public Slider mJoyStick = null;//조이스틱
 
-
-
     public override int GetHorizontal()
     {
         int value = (int)mJoyStick.value;
@@ -31,18 +29,25 @@ public class CUIPlayerController : CPlayerController
         }
     }
 
+    private void Awake()
+    {
+        base.ScreenSlideDistance = 3.0f;
+    }
+
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0)
-            || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
-        {
-            ResetJoyStick();
-        }
+
+        UpdateScreenSlide();
+        ResetJoyStick();
     }
 
     public void ResetJoyStick()
     {
-        mJoyStick.value = 2.0f;
+        if (Input.GetMouseButtonUp(0)
+           || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
+        {
+            mJoyStick.value = 2.0f;
+        }
     }
 
     #region UI Call Back
@@ -61,6 +66,31 @@ public class CUIPlayerController : CPlayerController
     public void OnClickBtnItem_2()
     {
         CallOnItem_2.SafeInvoke();
+    }
+
+    protected override void UpdateScreenSlide()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch currentTouch = Input.GetTouch(0);
+
+            switch(currentTouch.phase)
+            {
+                case TouchPhase.Began:
+                    base.ScreenSlideBeganPosition = currentTouch.position;
+                    break;
+                case TouchPhase.Ended:
+                    float distance = currentTouch.position.x - base.ScreenSlideBeganPosition.x;
+
+                    if (distance > base.ScreenSlideDistance)
+                        CallOnScreenSlide.SafeInvoke(1);
+                    else if (distance < -base.ScreenSlideDistance)
+                        CallOnScreenSlide.SafeInvoke(-1);
+
+                    break;
+            }
+
+        }
     }
     #endregion
 

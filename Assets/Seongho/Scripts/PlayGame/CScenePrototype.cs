@@ -8,6 +8,7 @@ public class CScenePrototype : MonoBehaviour
     public UsePhysics.CPlayer mPlayer = null;
     public CUIPlayerController mController = null;
     public CKeyboardPlayerController mKeyboardController = null;
+    public CTargetCamera TargetCamera = null;
 
     private bool mIsPlaying = false;
 
@@ -21,17 +22,22 @@ public class CScenePrototype : MonoBehaviour
 
 #if !UNITY_EDITOR && UNITY_ANDROID
         mController.SetCallOnJump(mPlayer.DoJump);
-        mController.SetCallOnItem_1(() => mPlayer.DoRotateInput(-1));
-        mController.SetCallOnItem_2(() => mPlayer.DoRotateInput(1));
+        mController.SetCallOnItem_1(() => mPlayer.SetRotateInput(-1));
+        mController.SetCallOnItem_2(() => mPlayer.SetRotateInput(1));
+        mController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
         mPlayer.SetFuncHorizontal(mController.GetHorizontal);
 #else
         mKeyboardController.SetCallOnJump(mPlayer.DoJump);
-        mKeyboardController.SetCallOnItem_1(() => mPlayer.DoRotateInput(-1));
-        mKeyboardController.SetCallOnItem_2(() => mPlayer.DoRotateInput(1));
+        mKeyboardController.SetCallOnItem_1(() => mPlayer.SetRotateInput(-1));
+        mKeyboardController.SetCallOnItem_2(() => mPlayer.SetRotateInput(1));
+        mKeyboardController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
+        //mPlayer.SetFuncHorizontal(mController.GetHorizontal);
         mPlayer.SetFuncHorizontal(mKeyboardController.GetHorizontal);
 #endif
+        mPlayer.SetCallOnRotate(TargetCamera.RotateCamera);
     }
 
+  
 
     private IEnumerator SeqStartStage()
     {
@@ -40,7 +46,7 @@ public class CScenePrototype : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        mPlayer.OnMoveStart();
+        mPlayer.SetMoveStart(true);
     }
 
     private void OnGUI()
@@ -60,6 +66,7 @@ public class CScenePrototype : MonoBehaviour
         {
             mPlayer.transform.position = mStartPosition;
             mPlayer.transform.rotation = mStartRotation;
+            TargetCamera.ResetAngle();
         }
     }
 

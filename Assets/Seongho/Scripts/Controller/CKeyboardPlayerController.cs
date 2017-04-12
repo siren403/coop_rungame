@@ -12,6 +12,11 @@ public class CKeyboardPlayerController : CPlayerController
     public KeyCode mKeyItem_1 = KeyCode.Z;
     public KeyCode mKeyItem_2 = KeyCode.C;
 
+    private void Awake()
+    {
+        base.ScreenSlideDistance = 30.0f;
+    }
+
     void Update()
     {
         mHorizontal = (int)Input.GetAxisRaw("Horizontal");
@@ -31,10 +36,29 @@ public class CKeyboardPlayerController : CPlayerController
         {
             CallOnItem_2.SafeInvoke();
         }
+        UpdateScreenSlide();
     }
 
     public override int GetHorizontal()
     {
         return mHorizontal;
+    }
+
+    protected override void UpdateScreenSlide()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            base.ScreenSlideBeganPosition = Input.mousePosition;
+        }
+        else if(Input.GetMouseButtonUp(0))
+        {
+            float distance = Input.mousePosition.x - base.ScreenSlideBeganPosition.x;
+
+            if (distance > base.ScreenSlideDistance)
+                CallOnScreenSlide.SafeInvoke(1);
+            else if (distance < -base.ScreenSlideDistance)
+                CallOnScreenSlide.SafeInvoke(-1);
+        }
+
     }
 }

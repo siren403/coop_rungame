@@ -4,7 +4,7 @@ public class CacheComponent<T> where T : Component
 {
     private T mComponent = null;
 
-    public CacheComponent(MonoBehaviour target)
+    public CacheComponent(GameObject target)
     {
         mComponent = target.GetComponent<T>();
     }
