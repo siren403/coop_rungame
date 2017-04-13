@@ -63,11 +63,12 @@ public class CScenePrototype : MonoBehaviour
     {
         mPlayer.transform.position = mStartPosition;
         mPlayer.transform.rotation = mStartRotation;
-        TargetCamera.ResetAngle();
 
+        mPlayer.OnReset();
+        TargetCamera.ResetAngle();
         mUIGameOver.SetActive(false);
 
-
+        mIsPlaying = false;
     }
 
     private void OnGUI()
