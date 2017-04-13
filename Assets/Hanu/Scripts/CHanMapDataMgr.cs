@@ -8,6 +8,7 @@ public class CHanMapDataMgr
     public Material MMainTrack = null;
     public Material MLine = null;
     public Material MOutSide = null;
+    public Material MWall = null;
 
     public CTrack PFTrack = null;
 
@@ -45,6 +46,7 @@ public class CHanMapDataMgr
         MMainTrack = Resources.Load<Material>("Material/MMainTrack");
         MLine = Resources.Load<Material>("Material/Mline");
         MOutSide = Resources.Load<Material>("Material/MOutSide");
+        MWall = Resources.Load<Material>("Material/MWall");
 
         PFTrack = Resources.Load<CTrack>("Prefabs/PFTrack");
 

@@ -171,7 +171,6 @@ public class CTrackFactory : MonoBehaviour
         if(TOTAL_TRACK == mTrackCount)
         {
             tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.END), mNextPos, Quaternion.identity);
-            Debug.Log(mCurrentDirection.ToString());
             if(mCurrentDirection == Vector3.right)
             {
                 tTrackParts.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
