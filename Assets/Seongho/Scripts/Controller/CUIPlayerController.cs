@@ -11,24 +11,6 @@ public class CUIPlayerController : CPlayerController
     public Slider mBooster = null;//부스터게이지
     public Slider mJoyStick = null;//조이스틱
 
-    public override int GetHorizontal()
-    {
-        int value = (int)mJoyStick.value;
-
-        if (value == 1)
-        {
-            return -1;
-        }
-        else if (value == 3)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
     private void Awake()
     {
         base.ScreenSlideDistance = 3.0f;
@@ -36,9 +18,26 @@ public class CUIPlayerController : CPlayerController
 
     private void Update()
     {
-
         UpdateScreenSlide();
         ResetJoyStick();
+    }
+
+    public override int GetHorizontal()
+    {
+        int value = (int)mJoyStick.value;
+
+        if (value < 2)
+        {
+            return -1;
+        }
+        else if (value > 2)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public void ResetJoyStick()

@@ -11,9 +11,8 @@ public class CTrackParts : MonoBehaviour {
     {
         if(other.collider.CompareTag("tagPlayer"))
         {
-            Debug.Log("player");
             var player = other.collider.GetComponent<UsePhysics.CPlayer>();
-            player.mIsInputDirectionChecking = true;
+            player.DoDirectionInputCheck();
         }
     }
 

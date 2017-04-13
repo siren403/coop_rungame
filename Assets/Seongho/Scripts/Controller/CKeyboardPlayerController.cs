@@ -7,17 +7,17 @@ public class CKeyboardPlayerController : CPlayerController
 {
     private int mHorizontal = 0;
 
-    public KeyCode mKeyJump = KeyCode.X;
-    public KeyCode mKeySlide = KeyCode.X;
-    public KeyCode mKeyItem_1 = KeyCode.Z;
-    public KeyCode mKeyItem_2 = KeyCode.C;
+    public KeyCode mKeyJump = KeyCode.W;
+    public KeyCode mKeySlide = KeyCode.S;
+    public KeyCode mKeyItem_1 = KeyCode.Alpha1;
+    public KeyCode mKeyItem_2 = KeyCode.Alpha2;
 
-    private void Awake()
+    protected void Awake()
     {
         base.ScreenSlideDistance = 30.0f;
     }
 
-    void Update()
+    protected void Update()
     {
         mHorizontal = (int)Input.GetAxisRaw("Horizontal");
         if(Input.GetKeyDown(mKeyJump))

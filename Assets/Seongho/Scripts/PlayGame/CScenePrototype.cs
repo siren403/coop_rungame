@@ -20,19 +20,22 @@ public class CScenePrototype : MonoBehaviour
         CHanMapDataMgr.GetInst().CreateHan();
         mTrackMaker.CreateTrack();
 
-#if !UNITY_EDITOR && UNITY_ANDROID
+#if UNITY_EDITOR
+        mController.SetCallOnJump(mPlayer.DoJump);
+        mKeyboardController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
+        mPlayer.SetFuncHorizontal(mController.GetHorizontal);
+#elif UNITY_STANDALONE_WIN
+        mKeyboardController.SetCallOnJump(mPlayer.DoJump);
+        mKeyboardController.SetCallOnItem_1(() => mPlayer.SetRotateInput(-1));
+        mKeyboardController.SetCallOnItem_2(() => mPlayer.SetRotateInput(1));
+        mKeyboardController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
+        mPlayer.SetFuncHorizontal(mKeyboardController.GetHorizontal);
+#elif UNITY_ANDROID
         mController.SetCallOnJump(mPlayer.DoJump);
         mController.SetCallOnItem_1(() => mPlayer.SetRotateInput(-1));
         mController.SetCallOnItem_2(() => mPlayer.SetRotateInput(1));
         mController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
         mPlayer.SetFuncHorizontal(mController.GetHorizontal);
-#else
-        mKeyboardController.SetCallOnJump(mPlayer.DoJump);
-        mKeyboardController.SetCallOnItem_1(() => mPlayer.SetRotateInput(-1));
-        mKeyboardController.SetCallOnItem_2(() => mPlayer.SetRotateInput(1));
-        mKeyboardController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
-        //mPlayer.SetFuncHorizontal(mController.GetHorizontal);
-        mPlayer.SetFuncHorizontal(mKeyboardController.GetHorizontal);
 #endif
         mPlayer.SetCallOnRotate(TargetCamera.RotateCamera);
     }

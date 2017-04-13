@@ -9,7 +9,8 @@ namespace UsePhysics
         public float JumpPower = 10.0f;
 
         public ForceMode JumpForceMode;
-        public float Speed = 100.0f;
+        public float Speed = 20.0f;
+        public float SideSpeed = 10.0f;
         public float DecrementSpeed = 0.0f;
 
         private float CurrentSpeed
@@ -21,20 +22,20 @@ namespace UsePhysics
         }
 
         private bool mIsRun = false;
+        private bool IsGround = true;
+        private bool mIsRotateFail = false;
+        private bool mIsSlide = false;
+
 
         private CacheComponent<Rigidbody> Body = null;
         private CacheComponent<Animator> Anim = null;
 
-        public bool IsGround = false;
-        public float Horizontal = 0;
+        private float Horizontal = 0;
 
+        private bool mIsDirectionInputChecking = false;
+        private Vector3 mInputDirection;
+        private int mRotateDirection = 0;
 
-        public bool mIsInputDirectionChecking = false;
-        public Vector3 mInputDirection;
-        public int mRotateDirection = 0;
-
-
-        private bool mIsRotateFail = false;
 
         private bool mIsToLeftWind = false;
         private bool mIsToRightWind = false;
@@ -84,7 +85,8 @@ namespace UsePhysics
         }
         private void Update()
         {
-            if (mIsInputDirectionChecking == false)
+            if (mIsDirectionInputChecking == false &&
+                mIsSlide == false)
             {
                 Horizontal = FuncHorizontal.SafeInvoke();
             }
@@ -93,25 +95,29 @@ namespace UsePhysics
                 Horizontal = 0;
             }
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
-                mIsToLeftWind = false;
-                mIsToRightWind = false;
+            //if (Input.GetKeyDown(KeyCode.W))
+            //{
+            //    bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
+            //    mIsToLeftWind = false;
+            //    mIsToRightWind = false;
 
-                if (isRight)
-                    mIsToLeftWind = true;
-                else
-                    mIsToRightWind = true;
+            //    if (isRight)
+            //        mIsToLeftWind = true;
+            //    else
+            //        mIsToRightWind = true;
 
-                Body.Get().AddForce((isRight ? this.transform.right : -this.transform.right) * 10,
-                    ForceMode.VelocityChange);
-            }
+            //    Body.Get().AddForce((isRight ? this.transform.right : -this.transform.right) * 10,
+            //        ForceMode.VelocityChange);
+            //}
+        }
+        public void DoDirectionInputCheck()
+        {
+            mIsDirectionInputChecking = true;
         }
 
         public void SetRotateInput(int direction)
         {
-            if (mIsInputDirectionChecking)
+            if (mIsDirectionInputChecking)
             {
                 mRotateDirection = direction;
                 mInputDirection = this.transform.right * direction;
@@ -138,7 +144,7 @@ namespace UsePhysics
                 CallOnRotate.SafeInvoke(mRotateDirection);
                 mRotateDirection = 0;
             }
-            mIsInputDirectionChecking = false;
+            mIsDirectionInputChecking = false;
         }
 
         void FixedUpdate()
@@ -153,9 +159,11 @@ namespace UsePhysics
         }
         public void DoJump()
         {
-            if (IsGround)
+            if (IsGround && mIsSlide == false)
             {
                 IsGround = false;
+                //Anim.Get().SetBool("AnimIsJump", !IsGround);
+                Anim.Get().SetTrigger("AnimIsJump");
                 Body.Get().AddForce(this.transform.up * JumpPower, JumpForceMode);
             }
         }
@@ -165,18 +173,37 @@ namespace UsePhysics
             {
                 Vector3 pos = this.transform.position;
 
-                pos += (this.transform.forward + (this.transform.right * Horizontal)) * CurrentSpeed * Time.deltaTime;
+                pos += ((this.transform.forward * CurrentSpeed) + (this.transform.right * SideSpeed * Horizontal)) * Time.deltaTime;
 
                 Body.Get().MovePosition(pos);
 
             }
         }
 
+        public void DoSlide()
+        {
+            if(mIsSlide == false)
+            {
+                mIsSlide = true;
+                Anim.Get().SetTrigger("AnimIsSlide");
+            }
+        }
+        public void ResetSlide()
+        {
+            mIsSlide = false;
+        }
+        public void SetGround()
+        {
+            IsGround = true;
+        }
+
+
         private void OnCollisionEnter(Collision other)
         {
             if (other.collider.CompareTag("tagGround"))
             {
-                IsGround = true;
+                //IsGround = true;
+                Anim.Get().SetTrigger("AnimTrigJumpToGround");
             }
         }
 
@@ -200,7 +227,7 @@ namespace UsePhysics
             guiRect.size = new Vector2(Screen.width * 0.18f, Screen.height * 0.08f);
             GUI.Button(guiRect.rect, mIsRotateFail ? "Rotate Fail" : "Rotate Success");
 
-            GUI.contentColor = mIsInputDirectionChecking ? Color.green : Color.red;
+            GUI.contentColor = mIsDirectionInputChecking ? Color.green : Color.red;
             guiRect.center = new Vector2(Screen.width * 0.5f, Screen.height * 0.25f);
             GUI.Button(guiRect.rect, "Input Check");
 
