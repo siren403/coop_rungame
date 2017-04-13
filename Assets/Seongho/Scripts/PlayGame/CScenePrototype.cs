@@ -25,16 +25,9 @@ public class CScenePrototype : MonoBehaviour
         mController.SetCallOnSlide(mPlayer.DoSlide);
         mKeyboardController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
         mPlayer.SetFuncHorizontal(mController.GetHorizontal);
-#elif UNITY_STANDALONE_WIN
-        mKeyboardController.SetCallOnJump(mPlayer.DoJump);
-        mKeyboardController.SetCallOnItem_1(() => mPlayer.SetRotateInput(-1));
-        mKeyboardController.SetCallOnItem_2(() => mPlayer.SetRotateInput(1));
-        mKeyboardController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
-        mPlayer.SetFuncHorizontal(mKeyboardController.GetHorizontal);
 #elif UNITY_ANDROID
         mController.SetCallOnJump(mPlayer.DoJump);
-        mController.SetCallOnItem_1(() => mPlayer.SetRotateInput(-1));
-        mController.SetCallOnItem_2(() => mPlayer.SetRotateInput(1));
+        mController.SetCallOnSlide(mPlayer.DoSlide);
         mController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
         mPlayer.SetFuncHorizontal(mController.GetHorizontal);
 #endif
