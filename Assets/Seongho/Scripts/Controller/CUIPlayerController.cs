@@ -24,7 +24,7 @@ public class CUIPlayerController : CPlayerController
 
     public override int GetHorizontal()
     {
-        int value = (int)mJoyStick.value;
+        float value = mJoyStick.value;
 
         if (value < 2)
         {
