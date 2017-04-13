@@ -22,6 +22,7 @@ public class CScenePrototype : MonoBehaviour
 
 #if UNITY_EDITOR
         mController.SetCallOnJump(mPlayer.DoJump);
+        mController.SetCallOnSlide(mPlayer.DoSlide);
         mKeyboardController.SetCallOnScreenSlide(mPlayer.SetRotateInput);
         mPlayer.SetFuncHorizontal(mController.GetHorizontal);
 #elif UNITY_STANDALONE_WIN
