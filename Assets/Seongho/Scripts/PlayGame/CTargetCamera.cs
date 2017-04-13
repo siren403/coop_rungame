@@ -40,6 +40,7 @@ public class CTargetCamera : MonoBehaviour
         pos.z += Mathf.Sin(Angle * Mathf.Deg2Rad) * Distance;
 
         pos += Offset;
+        pos.y = Mathf.Clamp(pos.y, 0, 100);
         this.transform.position = pos;
 
         Vector3 targetPos = Target.transform.position;
