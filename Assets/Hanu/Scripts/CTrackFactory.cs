@@ -10,7 +10,7 @@ public class CTrackFactory : MonoBehaviour
 
     public const int TOTAL_TRACK = 50;
     public const int TRACK_SIZE = 18;
-    public const int STRAIGHT_COUNT = 3;
+    public const int STRAIGHT_COUNT = 5;
     public int mTrackCount = 0;
 
     public enum TRACKKIND
@@ -126,6 +126,7 @@ public class CTrackFactory : MonoBehaviour
         mBeforePos = tTrackParts.transform.position;
         mNextPos = mBeforePos + mCurrentDirection * TRACK_SIZE;
         CreateStraightTrack(tTrackParts);
+        CreateEndTrack(tTrackParts);
     }
 
 
@@ -144,7 +145,6 @@ public class CTrackFactory : MonoBehaviour
                 if (TRACKKIND.LEFTUP == GetCurrentTrack() || TRACKKIND.RIGHTUP == GetCurrentTrack())
                 {
                     tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.VERTICAL), mNextPos, Quaternion.identity);
-                    mCurrentDirection = tTrackParts.mDirection;
                 }
                 else if (TRACKKIND.UPLEFT == GetCurrentTrack() || TRACKKIND.UPRIGHT == GetCurrentTrack())
                 {
@@ -162,6 +162,28 @@ public class CTrackFactory : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 마지막트랙 생성 메소드
+    /// </summary>
+    /// <param name="tTrackParts">얘는 트랙파츠라니깐?</param>
+    public void CreateEndTrack(CTrackParts tTrackParts)
+    {
+        if(TOTAL_TRACK == mTrackCount)
+        {
+            tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.END), mNextPos, Quaternion.identity);
+            Debug.Log(mCurrentDirection.ToString());
+            if(mCurrentDirection == Vector3.right)
+            {
+                tTrackParts.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+            }
+            else if(mCurrentDirection == Vector3.left)
+            {
+                tTrackParts.transform.Rotate(new Vector3(0.0f,-90.0f,0.0f));
+            }
+        } 
+        
+
+    }
 
     public void AddTrackCount()
     {
