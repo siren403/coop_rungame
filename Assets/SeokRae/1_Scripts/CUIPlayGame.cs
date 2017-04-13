@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System;
 
 public class CUIPlayGame : MonoBehaviour {
-    
+
     public Slider mHealthBarSlider;//체력바
     public Slider mBooster;//부스터게이지
     public Slider mJoyStick;//조이스틱
@@ -13,7 +13,7 @@ public class CUIPlayGame : MonoBehaviour {
     public float mPlayerSpeed = 0.0f;
 
     public delegate void CallBackBtn();
-    
+
 
 
     CallBackBtn OnJumping = null;
@@ -33,7 +33,7 @@ public class CUIPlayGame : MonoBehaviour {
 
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         //InvokeRepeating("HealthDown", 1.0f, 1.0f);
         StartCoroutine(HealthBarDown());//체력바깎이는 코루틴시작
         StartCoroutine(Booster());
@@ -72,11 +72,11 @@ public class CUIPlayGame : MonoBehaviour {
 
 
 
-    
+
 
     public void OnClickJump()//점프버튼
     {
-        if(null!=OnJumping)
+        if (null != OnJumping)
         {
             OnJumping();
         }
@@ -90,7 +90,7 @@ public class CUIPlayGame : MonoBehaviour {
 
     public void OnClickSlid()
     {
-        if(null!=OnSliding)
+        if (null != OnSliding)
         {
             OnSliding();
         }
@@ -99,16 +99,16 @@ public class CUIPlayGame : MonoBehaviour {
     {
         OnSliding = tA;
     }
-    
-   public float GetJoystickDirection()
-    {
-        int value = (int)mJoyStick.value;
 
-        if(value == 1)
+    public float GetJoystickDirection()
+    {
+        float value = mJoyStick.value;
+
+        if (value<2)
         {
             return -1;
         }
-        else if(value == 3)
+        else if (value>2)
         {
             return 1;
         }
