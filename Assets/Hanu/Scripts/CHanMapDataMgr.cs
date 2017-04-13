@@ -19,6 +19,7 @@ public class CHanMapDataMgr
     public CTrackParts PFLeftUpTrack = null;
     public CTrackParts PFUpRightTrack = null;
     public CTrackParts PFRightUpTrack = null;
+    public CTrackParts PFEndTrack = null;
 
     public Dictionary<CTrackFactory.TRACKKIND,CTrackParts> mTrackKind = null;
 
@@ -57,6 +58,8 @@ public class CHanMapDataMgr
         PFUpRightTrack = Resources.Load<CTrackParts>("Prefabs/PFUpRightTrack");
         PFRightUpTrack = Resources.Load<CTrackParts>("Prefabs/PFRightUpTrack");
 
+        PFEndTrack = Resources.Load<CTrackParts>("Prefabs/PFEndTrack");
+
         mTrackKind = new Dictionary<CTrackFactory.TRACKKIND, CTrackParts>();
 
         mTrackKind.Add(CTrackFactory.TRACKKIND.START, PFStartTrack);
@@ -68,6 +71,8 @@ public class CHanMapDataMgr
         mTrackKind.Add(CTrackFactory.TRACKKIND.LEFTUP, PFLeftUpTrack);
         mTrackKind.Add(CTrackFactory.TRACKKIND.UPRIGHT, PFUpRightTrack);
         mTrackKind.Add(CTrackFactory.TRACKKIND.RIGHTUP, PFRightUpTrack);
+        mTrackKind.Add(CTrackFactory.TRACKKIND.END, PFEndTrack);
+
     }
 
     public CTrackParts GetPrefab(CTrackFactory.TRACKKIND tTrackKind)
