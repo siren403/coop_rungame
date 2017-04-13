@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 65076860199380100}
   - component: {fileID: 23073989057923242}
   - component: {fileID: 114427086335292442}
+  - component: {fileID: 114251068277914084}
   m_Layer: 0
   m_Name: instMainTrack_1
   m_TagString: Untagged
@@ -118,6 +119,7 @@ GameObject:
   - component: {fileID: 65875128917492428}
   - component: {fileID: 23802767811126724}
   - component: {fileID: 114112468102383008}
+  - component: {fileID: 114414802529309966}
   m_Layer: 0
   m_Name: instRightOutside
   m_TagString: tagGround
@@ -137,6 +139,7 @@ GameObject:
   - component: {fileID: 65999199700214052}
   - component: {fileID: 23514613239637536}
   - component: {fileID: 114161084872454704}
+  - component: {fileID: 114489165453300920}
   m_Layer: 0
   m_Name: instMainTrack
   m_TagString: tagGround
@@ -156,6 +159,7 @@ GameObject:
   - component: {fileID: 65575561575305212}
   - component: {fileID: 23416814973074440}
   - component: {fileID: 114063117286901262}
+  - component: {fileID: 114048564866527054}
   m_Layer: 0
   m_Name: instLeftOutside
   m_TagString: tagGround
@@ -175,6 +179,7 @@ GameObject:
   - component: {fileID: 65927605797342844}
   - component: {fileID: 23751293081914270}
   - component: {fileID: 114297667595445880}
+  - component: {fileID: 114115246005775698}
   m_Layer: 0
   m_Name: instLeftOutside_1
   m_TagString: tagGround
@@ -211,6 +216,7 @@ GameObject:
   - component: {fileID: 65145298679643098}
   - component: {fileID: 23596624482043128}
   - component: {fileID: 114105204971709572}
+  - component: {fileID: 114787849325580940}
   m_Layer: 0
   m_Name: instRightOutside_1
   m_TagString: Untagged
@@ -281,13 +287,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1238114032421806}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 2.75, y: 0, z: 0}
   m_LocalScale: {x: 7, y: 1, z: 12.5}
   m_Children: []
   m_Father: {fileID: 4525095182602298}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4053115875373794
 Transform:
   m_ObjectHideFlags: 1
@@ -1132,6 +1138,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114048564866527054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1461263657507196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bb50a18cd2c7142be280296c7e715f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114063117286901262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1168,6 +1185,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
+--- !u!114 &114115246005775698
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1586399728409046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bb50a18cd2c7142be280296c7e715f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114161084872454704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1180,6 +1208,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
+--- !u!114 &114251068277914084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1238114032421806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0103e2f436ebd3479aba06835f6583b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114297667595445880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1205,6 +1244,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mDirection: {x: 0, y: 0, z: 1}
   mKind: 4
+--- !u!114 &114414802529309966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289025581260558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bb50a18cd2c7142be280296c7e715f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114427086335292442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1229,6 +1279,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
+--- !u!114 &114489165453300920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380622152940746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0103e2f436ebd3479aba06835f6583b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114617920887599550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1252,6 +1313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3891d8bf4fb10aa4088f29dd29d1816a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mMaterial: {fileID: 0}
 --- !u!114 &114710328842514386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1263,6 +1325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3891d8bf4fb10aa4088f29dd29d1816a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mMaterial: {fileID: 0}
 --- !u!114 &114783853085396708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1275,6 +1338,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mMaterial: {fileID: 0}
+--- !u!114 &114787849325580940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1780174963747148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8bb50a18cd2c7142be280296c7e715f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114850513444441468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1298,3 +1372,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3891d8bf4fb10aa4088f29dd29d1816a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mMaterial: {fileID: 0}
