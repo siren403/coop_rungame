@@ -10,8 +10,12 @@ namespace UsePhysics
         public float JumpPower = 10.0f;
 
         public ForceMode JumpForceMode;
+
+
         public float Speed = 20.0f;
+
         public float SideSpeed = 10.0f;
+
         public float DecrementSpeed = 0.0f;
 
         private float CurrentSpeed
@@ -197,7 +201,8 @@ namespace UsePhysics
             {
                 Vector3 pos = this.transform.position;
 
-                pos += ((this.transform.forward * CurrentSpeed) + (this.transform.right * SideSpeed * Horizontal)) * Time.deltaTime;
+                pos += ((this.transform.forward * CurrentSpeed) + 
+                    (this.transform.right * SideSpeed * Horizontal)) * Time.deltaTime;
 
                 Body.Get().MovePosition(pos);
 
