@@ -101,6 +101,12 @@ namespace UsePhysics
                 Horizontal = 0;
             }
 
+
+            if(this.transform.position.y < -10)
+            {
+                GameOver();
+                this.gameObject.SetActive(false);
+            }
             //if (Input.GetKeyDown(KeyCode.W))
             //{
             //    bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
@@ -153,12 +159,17 @@ namespace UsePhysics
             }
             else//게임오버 처리
             {
-                SetMoveStart(false);
-                Anim.Get().SetTrigger("AnimTrigGameOver");
-                CallOnGameOver.SafeInvoke();
+                GameOver();
             }
 
             mIsDirectionInputChecking = false;
+        }
+
+        private void GameOver()
+        {
+            SetMoveStart(false);
+            Anim.Get().SetTrigger("AnimTrigGameOver");
+            CallOnGameOver.SafeInvoke();
         }
 
         void FixedUpdate()
@@ -231,6 +242,8 @@ namespace UsePhysics
 
         public void OnReset()
         {
+            IsGround = true;
+            this.gameObject.SetActive(true);
             Anim.Get().CrossFade("Idle", 0.0f);
         }
 
