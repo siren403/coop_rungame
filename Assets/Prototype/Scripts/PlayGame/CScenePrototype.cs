@@ -8,7 +8,7 @@ public class CScenePrototype : MonoBehaviour
     public CTrackFactory mTrackMaker = null;
 
     //Player
-    public UsePhysics.CPlayer mPlayer = null;
+    public CPlayer mPlayer = null;
 
     //Controller
     public CUIPlayerController mController = null;

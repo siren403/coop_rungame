@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CTestPlayerController : CKeyboardPlayerController
 {
-    public UsePhysics.CPlayer TargetPlayer = null;
+    public CPlayer TargetPlayer = null;
 
     protected new void Awake()
     {
