@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 81943536430793254}
   - component: {fileID: 114752906788075090}
   m_Layer: 0
-  m_Name: InstPlayerCamera
+  m_Name: PFTargetCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,6 +74,8 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
+  m_AllowMSAA: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -103,9 +105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f62519ac7e16844581535714bb20f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
+  mTarget: {fileID: 0}
   Offset: {x: 0, y: 3.93, z: -5}
   TargetOffset: {x: 0, y: 2.52, z: 0}
+  Distance: 5
+  Angle: 270
 --- !u!124 &124772504075308264
 Behaviour:
   m_ObjectHideFlags: 1

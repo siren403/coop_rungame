@@ -212,9 +212,8 @@ public class CPlayer : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag("tagGround"))
+        if (other.collider.CompareTag(CTagManager.TAG_GROUND))
         {
-            //IsGround = true;
             Anim.Get().SetTrigger("AnimTrigJumpToGround");
         }
     }
