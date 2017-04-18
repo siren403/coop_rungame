@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 namespace UsePhysics
 {
     public class CPlayer : MonoBehaviour
@@ -9,8 +10,12 @@ namespace UsePhysics
         public float JumpPower = 10.0f;
 
         public ForceMode JumpForceMode;
+
+
         public float Speed = 20.0f;
+
         public float SideSpeed = 10.0f;
+
         public float DecrementSpeed = 0.0f;
 
         private float CurrentSpeed
@@ -42,6 +47,8 @@ namespace UsePhysics
 
         private System.Func<int> FuncHorizontal = null;
         private System.Action<int> CallOnRotate = null;
+        private System.Action CallOnGameOver = null;
+
 
         private void Awake()
         {
@@ -57,7 +64,10 @@ namespace UsePhysics
         {
             CallOnRotate = callBack;
         }
-
+        public void SetCallOnGameOver(System.Action callBack)
+        {
+            CallOnGameOver = callBack;
+        }
         IEnumerator Loop()
         {
             while (true)
@@ -95,6 +105,12 @@ namespace UsePhysics
                 Horizontal = 0;
             }
 
+
+            if(this.transform.position.y < -10)
+            {
+                GameOver();
+                this.gameObject.SetActive(false);
+            }
             //if (Input.GetKeyDown(KeyCode.W))
             //{
             //    bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
@@ -143,8 +159,21 @@ namespace UsePhysics
                 }
                 CallOnRotate.SafeInvoke(mRotateDirection);
                 mRotateDirection = 0;
+                mInputDirection = Vector2.zero;
             }
+            else//게임오버 처리
+            {
+                GameOver();
+            }
+
             mIsDirectionInputChecking = false;
+        }
+
+        private void GameOver()
+        {
+            SetMoveStart(false);
+            Anim.Get().SetTrigger("AnimTrigGameOver");
+            CallOnGameOver.SafeInvoke();
         }
 
         void FixedUpdate()
@@ -162,7 +191,6 @@ namespace UsePhysics
             if (IsGround && mIsSlide == false)
             {
                 IsGround = false;
-                //Anim.Get().SetBool("AnimIsJump", !IsGround);
                 Anim.Get().SetTrigger("AnimIsJump");
                 Body.Get().AddForce(this.transform.up * JumpPower, JumpForceMode);
             }
@@ -173,7 +201,8 @@ namespace UsePhysics
             {
                 Vector3 pos = this.transform.position;
 
-                pos += ((this.transform.forward * CurrentSpeed) + (this.transform.right * SideSpeed * Horizontal)) * Time.deltaTime;
+                pos += ((this.transform.forward * CurrentSpeed) + 
+                    (this.transform.right * SideSpeed * Horizontal)) * Time.deltaTime;
 
                 Body.Get().MovePosition(pos);
 
@@ -216,9 +245,22 @@ namespace UsePhysics
             this.DecrementSpeed = decSpeed;
         }
 
+        public void OnReset()
+        {
+            IsGround = true;
+            this.gameObject.SetActive(true);
+            Anim.Get().CrossFade("Idle", 0.0f);
+        }
 
+#if UNITY_EDITOR
+        public bool IsOnGUI = true;
         private void OnGUI()
         {
+            if(IsOnGUI == false)
+            {
+                return;
+            }
+
             GUIRect guiRect = new GUIRect();
            
 
@@ -230,8 +272,6 @@ namespace UsePhysics
             GUI.contentColor = mIsDirectionInputChecking ? Color.green : Color.red;
             guiRect.center = new Vector2(Screen.width * 0.5f, Screen.height * 0.25f);
             GUI.Button(guiRect.rect, "Input Check");
-
-
 
             GUI.contentColor = mIsToLeftWind ? Color.green : Color.black;
             guiRect.center = new Vector2(Screen.width * 0.25f, Screen.height * 0.05f);
@@ -250,5 +290,6 @@ namespace UsePhysics
             GUI.Button(new Rect(Screen.width * 0.03f, Screen.height * 0.75f, Screen.width * 0.3f, Screen.height * 0.05f), "JoyStick : " + FuncHorizontal.SafeInvoke());
 
         }
+#endif
     }
 }

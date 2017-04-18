@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class CScenePrototype : MonoBehaviour
 {
+    //Map
     public CTrackFactory mTrackMaker = null;
+
+    //Player
     public UsePhysics.CPlayer mPlayer = null;
+
+    //Controller
     public CUIPlayerController mController = null;
     public CKeyboardPlayerController mKeyboardController = null;
+
+    //UI
+    public GameObject mUIGameOver = null;
+
     public CTargetCamera TargetCamera = null;
 
     private bool mIsPlaying = false;
@@ -32,9 +41,9 @@ public class CScenePrototype : MonoBehaviour
         mPlayer.SetFuncHorizontal(mController.GetHorizontal);
 #endif
         mPlayer.SetCallOnRotate(TargetCamera.RotateCamera);
+        mPlayer.SetCallOnGameOver(OnGameOver);
     }
 
-  
 
     private IEnumerator SeqStartStage()
     {
@@ -44,6 +53,22 @@ public class CScenePrototype : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         mPlayer.SetMoveStart(true);
+    }
+    private void OnGameOver()
+    {
+        mUIGameOver.SetActive(true);
+    }
+
+    public void OnRestart()
+    {
+        mPlayer.transform.position = mStartPosition;
+        mPlayer.transform.rotation = mStartRotation;
+
+        mPlayer.OnReset();
+        TargetCamera.ResetAngle();
+        mUIGameOver.SetActive(false);
+
+        mIsPlaying = false;
     }
 
     private void OnGUI()
@@ -61,9 +86,7 @@ public class CScenePrototype : MonoBehaviour
         guiRect.center = new Vector2(Screen.width * 0.55f, Screen.height * 0.9f);
         if (GUI.Button(guiRect.rect, "RESET"))
         {
-            mPlayer.transform.position = mStartPosition;
-            mPlayer.transform.rotation = mStartRotation;
-            TargetCamera.ResetAngle();
+            OnRestart();
         }
     }
 
