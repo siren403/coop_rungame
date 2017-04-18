@@ -47,7 +47,6 @@ public class CPlayer : MonoBehaviour
     private System.Action<int> CallOnRotate = null;
     private System.Action CallOnGameOver = null;
 
-
     private void Awake()
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);

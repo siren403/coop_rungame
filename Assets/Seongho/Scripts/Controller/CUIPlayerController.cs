@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using Inspector;
 
 public class CUIPlayerController : CPlayerController
 {
-
+    [ReadOnly]
     public Slider InstSliderHPBar = null;//체력바
+    [ReadOnly]
     public Slider InstSliderBoostBar = null;//부스터게이지
+    [ReadOnly]
     public Slider InstSliderJoyStick = null;//조이스틱
 
     private void Awake()
