@@ -11,7 +11,7 @@ public class CTrackParts : MonoBehaviour {
     {
         if(other.collider.CompareTag("tagPlayer"))
         {
-            var player = other.collider.GetComponent<UsePhysics.CPlayer>();
+            var player = other.collider.GetComponent<CPlayer>();
             player.DoDirectionInputCheck();
         }
     }
@@ -20,7 +20,7 @@ public class CTrackParts : MonoBehaviour {
     {
         if (other.collider.CompareTag("tagPlayer"))
         {
-            var player = other.collider.GetComponent<UsePhysics.CPlayer>();
+            var player = other.collider.GetComponent<CPlayer>();
             player.DoRotate(mDirection);
         }
     }

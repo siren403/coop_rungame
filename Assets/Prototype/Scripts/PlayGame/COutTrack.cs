@@ -6,9 +6,9 @@ public class COutTrack : MonoBehaviour {
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag("tagPlayer"))
+        if (other.collider.CompareTag(CTagManager.TAG_PLAYER))
         {
-            other.collider.GetComponent<UsePhysics.CPlayer>().SetDecrementSpeed(15.0f);
+            other.collider.GetComponent<CPlayer>().SetDecrementSpeed(15.0f);
         }
     }
 

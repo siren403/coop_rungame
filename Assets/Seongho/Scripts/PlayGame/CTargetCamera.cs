@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using Inspector;
 
 public class CTargetCamera : MonoBehaviour
 {
-    public GameObject Target = null;
+    [SerializeField]
+    [ReadOnly]
+    private GameObject mTarget = null;
 
     public Vector3 Offset = Vector3.zero;
     public Vector3 TargetOffset = Vector3.zero;
@@ -18,7 +20,7 @@ public class CTargetCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Target == null)
+        if (mTarget == null)
         {
             return;
         }
@@ -29,12 +31,10 @@ public class CTargetCamera : MonoBehaviour
     public float Distance = 5.0f;
     public float Angle = 270.0f;
 
-    private Coroutine CurrentSeqRotate = null;
-
     [ContextMenu("Reposition")]
     public void UpdatePosition()
     {
-        Vector3 pos = Target.transform.position;
+        Vector3 pos = mTarget.transform.position;
 
         pos.x += Mathf.Cos(Angle * Mathf.Deg2Rad) * Distance;
         pos.z += Mathf.Sin(Angle * Mathf.Deg2Rad) * Distance;
@@ -43,7 +43,7 @@ public class CTargetCamera : MonoBehaviour
         pos.y = Mathf.Clamp(pos.y, 0, 100);
         this.transform.position = pos;
 
-        Vector3 targetPos = Target.transform.position;
+        Vector3 targetPos = mTarget.transform.position;
         targetPos += TargetOffset;
         this.transform.LookAt(targetPos);
 
@@ -62,5 +62,9 @@ public class CTargetCamera : MonoBehaviour
         DOTween.To(() => Angle, (n) => Angle = n, Angle + (-tDirection * 90), 0.15f).SetId("AngleRotate");
     }
 
+    public void SetTarget(GameObject tTarget)
+    {
+        mTarget = tTarget;
+    }
     
 }
