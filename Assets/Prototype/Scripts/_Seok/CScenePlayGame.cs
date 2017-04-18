@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+namespace Seok
+{
 public class CScenePlayGame : MonoBehaviour {
 
     private float JumpAndSlidDirection = 0.0f;
@@ -82,4 +83,5 @@ public class CScenePlayGame : MonoBehaviour {
     {
         return JumpAndSlidDirection;
     }
+}
 }
