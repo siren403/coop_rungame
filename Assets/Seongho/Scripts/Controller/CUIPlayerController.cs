@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using Inspector;
 
 public class CUIPlayerController : CPlayerController
 {
-
-    public Slider mHealthBarSlider = null;//체력바
-    public Slider mBooster = null;//부스터게이지
-    public Slider mJoyStick = null;//조이스틱
+    [ReadOnly]
+    public Slider InstSliderHPBar = null;//체력바
+    [ReadOnly]
+    public Slider InstSliderBoostBar = null;//부스터게이지
+    [ReadOnly]
+    public Slider InstSliderJoyStick = null;//조이스틱
 
     private void Awake()
     {
@@ -24,7 +27,7 @@ public class CUIPlayerController : CPlayerController
 
     public override int GetHorizontal()
     {
-        int value = (int)mJoyStick.value;
+        float value = InstSliderJoyStick.value;
 
         if (value < 2)
         {
@@ -45,7 +48,7 @@ public class CUIPlayerController : CPlayerController
         if (Input.GetMouseButtonUp(0)
            || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended))
         {
-            mJoyStick.value = 2.0f;
+            InstSliderJoyStick.value = 2.0f;
         }
     }
 
