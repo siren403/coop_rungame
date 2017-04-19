@@ -61,6 +61,8 @@ public class CScenePlayGame : MonoBehaviour
         //일시정지 UI On,Off
         mUIPlayGame.InstBtnPause.onClick.AddListener(() => OnPause(true));
         mUIPlayGame.InstBtnPauseClose.onClick.AddListener(() => OnPause(false));
+        //포기 확인
+        mUIPlayGame.InstBtnSubmitRetire.onClick.AddListener(() => Debug.Log("Submit Retire"));
 
         InstPlayer.CurrentHp.Subscribe((hp) => mUIPlayGame.InstSliderHPBar.value = (float)hp / InstPlayer.Hp);
         InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);

@@ -19,6 +19,9 @@ public class CKeyboardPlayerController : CPlayerController
 
     protected void Update()
     {
+        if (Time.timeScale == 0)
+            return;
+
         mHorizontal = (int)Input.GetAxisRaw("Horizontal");
         if(Input.GetKeyDown(mKeyJump))
         {
