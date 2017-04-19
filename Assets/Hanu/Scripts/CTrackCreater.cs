@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< HEAD
 public class CTrackCreater { 
 
     public const int TOTAL_TRACK = 50;
@@ -12,6 +13,15 @@ public class CTrackCreater {
 
 
     public CLoadAboutMap LoadAboutMap = null;
+=======
+public class CTrackCreater
+{ 
+
+    public const int TOTAL_TRACK = 50;
+    public const int TRACK_SIZE = 18;
+    public const int STRAIGHT_COUNT = 5;
+    
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
 
     public enum TRACKKIND
     {
@@ -39,15 +49,19 @@ public class CTrackCreater {
 
     public Dictionary<TRACKKIND, List<TRACKKIND>> NextTrackKind = null;
 
+<<<<<<< HEAD
     public Dictionary<int,TRACKKIND> Trackist = null;
 
     public CTrackTile[] TrackListSemple = null;
 
+=======
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
     /// <summary>
     /// 트랙을 설치하는 메소드
     /// </summary>
     public void CreateTrack()
     {
+<<<<<<< HEAD
         TrackListSemple = new CTrackTile[TOTAL_TRACK + END_TRACK_COUNT];
         //타일프리팹들을 불러옴.
         LoadAboutMap = new CLoadAboutMap();
@@ -70,6 +84,17 @@ public class CTrackCreater {
             TrackListSemple[ti].gameObject.SetActive(false);
         }
       
+=======
+        // int ti = 0;
+
+        this.CreateNextTrackKind();
+        this.CreateStartTrack();
+        for (TrackCount = 0; TrackCount < TOTAL_TRACK;)
+        {
+            this.DistinguishTrack();
+        }
+
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
     }
 
 
@@ -93,6 +118,7 @@ public class CTrackCreater {
     /// </summary>
     public void CreateStartTrack()
     {
+<<<<<<< HEAD
         CTrackTile tTrackTile = null;
         SetCurrentTrack(TRACKKIND.START);
         //tTrackTile = GameObject.Instantiate<CTrackTile>(LoadAboutMap.GetPrefab(TRACKKIND.START), Vector3.zero, Quaternion.identity);
@@ -102,6 +128,12 @@ public class CTrackCreater {
         AddTrackCount();
 
         BeforePos = tTrackTile.transform.position;
+=======
+        CTrackParts tStartTrack = null;
+        SetCurrentTrack(TRACKKIND.START);
+       // tStartTrack = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(this.GetCurrentTrack()), Vector3.zero, Quaternion.identity);
+        BeforePos = tStartTrack.transform.position;
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
         NextPos = Vector3.zero;
         CurrentDirection = Vector3.forward;
         NextPos = CurrentDirection * TRACK_SIZE;
@@ -117,6 +149,7 @@ public class CTrackCreater {
     {
         var tTrackList = NextTrackKind[CurrentTrack];
         var tNextTrackKind = tTrackList[Random.Range(0, tTrackList.Count)];
+<<<<<<< HEAD
         CTrackTile tTrackTile = null;
 
         if (tNextTrackKind != TRACKKIND.TURN)
@@ -128,6 +161,16 @@ public class CTrackCreater {
             if (tNextTrackKind != TRACKKIND.HORIZONTAL)
             {
                 CurrentDirection = tTrackTile.Direction;
+=======
+        CTrackParts tTrackParts = null;
+
+        if (tNextTrackKind != TRACKKIND.TURN)
+        {
+            //tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(tNextTrackKind), NextPos, Quaternion.identity);
+            if (tNextTrackKind != TRACKKIND.HORIZONTAL)
+            {
+                CurrentDirection = tTrackParts.mDirection;
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
             }
             SetCurrentTrack(tNextTrackKind);
         }
@@ -136,14 +179,19 @@ public class CTrackCreater {
 
             if (Vector3.right == CurrentDirection)
             {
+<<<<<<< HEAD
                 // tTrackTile = GameObject.Instantiate<CTrackTile>(LoadAboutMap.GetPrefab(TRACKKIND.RIGHTUP), NextPos, Quaternion.identity);
                 Trackist.Add(GetTrackCount(), GetCurrentTrack());
 
+=======
+               // tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.RIGHTUP), NextPos, Quaternion.identity);
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
                 SetCurrentTrack(TRACKKIND.RIGHTUP);
 
             }
             else
             {
+<<<<<<< HEAD
                 // tTrackTile = GameObject.Instantiate<CTrackTile>(LoadAboutMap.GetPrefab(TRACKKIND.LEFTUP), NextPos, Quaternion.identity);
                 Trackist.Add(GetTrackCount(), GetCurrentTrack());
 
@@ -160,16 +208,36 @@ public class CTrackCreater {
         NextPos = BeforePos + CurrentDirection * TRACK_SIZE;
         CreateStraightTrack(tTrackTile);
         CreateEndTrack(tTrackTile);
+=======
+                //tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.LEFTUP), NextPos, Quaternion.identity);
+                SetCurrentTrack(TRACKKIND.LEFTUP);
+            }
+
+            CurrentDirection = tTrackParts.mDirection;
+        }
+        AddTrackCount();
+        BeforePos = tTrackParts.transform.position;
+        NextPos = BeforePos + CurrentDirection * TRACK_SIZE;
+        CreateStraightTrack(tTrackParts);
+        CreateEndTrack(tTrackParts);
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
     }
 
 
     /// <summary>
     /// 커브트랙 다음에 생성되는 트랙이 최소 3개이상 직선트랙이 나오게 생성하는 메소드
     /// </summary>
+<<<<<<< HEAD
     /// <param name="tTrackTile">얘는 트랙파츠ㅇㅇ</param>
     public void CreateStraightTrack(CTrackTile tTrackTile)
     {
         tTrackTile = null;
+=======
+    /// <param name="tTrackParts">얘는 트랙파츠ㅇㅇ</param>
+    public void CreateStraightTrack(CTrackParts tTrackParts)
+    {
+        tTrackParts = null;
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
 
         for (int ti = 0; ti < STRAIGHT_COUNT; ti++)
         {
@@ -177,6 +245,7 @@ public class CTrackCreater {
             {
                 if (TRACKKIND.LEFTUP == GetCurrentTrack() || TRACKKIND.RIGHTUP == GetCurrentTrack())
                 {
+<<<<<<< HEAD
                     //tTrackTile = GameObject.Instantiate<CTrackTile>(LoadAboutMap.GetPrefab(TRACKKIND.VERTICAL), NextPos, Quaternion.identity);
                     Trackist.Add(GetTrackCount(), GetCurrentTrack());
 
@@ -202,6 +271,21 @@ public class CTrackCreater {
                
                 
                 
+=======
+                    //tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.VERTICAL), NextPos, Quaternion.identity);
+                }
+                else if (TRACKKIND.UPLEFT == GetCurrentTrack() || TRACKKIND.UPRIGHT == GetCurrentTrack())
+                {
+                    //tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.HORIZONTAL), NextPos, Quaternion.identity);
+                }
+                else
+                {
+                    return;
+                }
+                BeforePos = tTrackParts.transform.position;
+                AddTrackCount();
+                NextPos = BeforePos + CurrentDirection * TRACK_SIZE;
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
             }
         }
 
@@ -211,6 +295,7 @@ public class CTrackCreater {
     /// 마지막트랙 생성 메소드
     /// </summary>
     /// <param name="tTrackParts">얘는 트랙파츠라니깐?</param>
+<<<<<<< HEAD
     public void CreateEndTrack(CTrackTile tTrackTile)
     {
         if (TOTAL_TRACK == TrackCount)
@@ -228,6 +313,21 @@ public class CTrackCreater {
             }
             //SetTrackList(tTrackTile);
             AddTrackCount();
+=======
+    public void CreateEndTrack(CTrackParts tTrackParts)
+    {
+        if (TOTAL_TRACK == TrackCount)
+        {
+           // tTrackParts = GameObject.Instantiate<CTrackParts>(CHanMapDataMgr.GetInst().GetPrefab(TRACKKIND.END), NextPos, Quaternion.identity);
+            if (CurrentDirection == Vector3.right)
+            {
+                tTrackParts.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
+            }
+            else if (CurrentDirection == Vector3.left)
+            {
+                tTrackParts.transform.Rotate(new Vector3(0.0f, -90.0f, 0.0f));
+            }
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
         }
 
 
@@ -238,6 +338,7 @@ public class CTrackCreater {
         TrackCount = TrackCount + 1;
     }
 
+<<<<<<< HEAD
     public int GetTrackCount()
     {
         return TrackCount;
@@ -249,6 +350,8 @@ public class CTrackCreater {
         //tTrackTile.SetIndex(GetTrackCount());
     }
 
+=======
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
     public TRACKKIND GetCurrentTrack()
     {
         return CurrentTrack;

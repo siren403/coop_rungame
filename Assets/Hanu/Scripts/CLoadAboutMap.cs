@@ -15,7 +15,11 @@ public class CLoadAboutMap
     public CTrackTile PFRightUpTrack = null;
     public CTrackTile PFEndTrack = null;
 
+<<<<<<< HEAD
     public Dictionary<CTrackCreater.TRACKKIND, CTrackTile> TrackKind = null;
+=======
+   // public Dictionary<CTrackCreater.TRACKKIND, CTrackTile> TrackKind = null;
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
 
 
 
@@ -34,9 +38,13 @@ public class CLoadAboutMap
         PFRightUpTrack = Resources.Load<CTrackTile>("Prefabs/PFRightUpTrack");
 
         PFEndTrack = Resources.Load<CTrackTile>("Prefabs/PFEndTrack");
+<<<<<<< HEAD
         
 
 
+=======
+        /*
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
         TrackKind = new Dictionary<CTrackCreater.TRACKKIND, CTrackTile>();
 
         TrackKind.Add(CTrackCreater.TRACKKIND.START, PFStartTrack);
@@ -49,6 +57,7 @@ public class CLoadAboutMap
         TrackKind.Add(CTrackCreater.TRACKKIND.UPRIGHT, PFUpRightTrack);
         TrackKind.Add(CTrackCreater.TRACKKIND.RIGHTUP, PFRightUpTrack);
         TrackKind.Add(CTrackCreater.TRACKKIND.END, PFEndTrack);
+<<<<<<< HEAD
         
     }
 
@@ -58,4 +67,10 @@ public class CLoadAboutMap
         return TrackKind[tTrackKind];
     }
 
+=======
+        */
+    }
+
+
+>>>>>>> df8349728c48d901342990625a74ee37954456f7
 }
