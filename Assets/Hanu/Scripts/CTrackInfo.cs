@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CTrackPrefabs : MonoBehaviour {
+public class CTrackInfo : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
