@@ -10,6 +10,8 @@ public class CScenePlayGame : MonoBehaviour
 
     private PlayGamePrefabs mPlayGamePrefabs = new PlayGamePrefabs();
 
+    //GameState
+    private IntReactiveProperty mScore = null;
 
     //Ref
     [ReadOnly]
@@ -58,6 +60,9 @@ public class CScenePlayGame : MonoBehaviour
 
         InstPlayer.CurrentHp.Subscribe((hp) => mUIPlayGame.InstSliderHPBar.value = (float)hp / InstPlayer.Hp);
         InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);
+
+        mScore = new IntReactiveProperty();
+        mScore.Subscribe((score) => mUIPlayGame.SetTxtScore(score));
     }
 
 
@@ -105,5 +110,21 @@ public class CScenePlayGame : MonoBehaviour
     public void OnIncrementBoost()
     {
         InstPlayer.IncrementBoost(5.7f);
+    }
+    [Button]
+    public void OnIncrementScore()
+    {
+        mScore.Value += Random.Range(50, 150);
+    }
+    private void OnGUI()
+    {
+        GUIRect guiRect = new GUIRect();
+        guiRect.center = new Vector2(Screen.width * 0.5f, Screen.height * 0.1f);
+        guiRect.size = new Vector2(Screen.width * 0.1f, Screen.height * 0.05f);
+
+        if(GUI.Button(guiRect.rect,"PAUSE"))
+        {
+            Time.timeScale = Time.timeScale == 1 ? 0 : 1;
+        }
     }
 }

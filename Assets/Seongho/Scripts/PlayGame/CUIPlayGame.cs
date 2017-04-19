@@ -13,5 +13,11 @@ public class CUIPlayGame : MonoBehaviour
 
     public Button InstBtnRestart = null;
 
+    public Text InstTxtScore = null;
+
+    public void SetTxtScore(int value)
+    {
+        InstTxtScore.text = string.Format("SCORE : {0}", value.ToString());
+    }
 }
 
