@@ -3190,9 +3190,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1885985786}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 5000
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 5000
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3305,7 +3305,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1445669586}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 1000
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -7547,14 +7547,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JumpPower: 14
   JumpForceMode: 1
-  Hp: 1000
-  Boost: 100
   Speed: 20
   SideSpeed: 10
   DecrementSpeed: 0
-  mIsDirectionInputChecking: 0
-  mInputDirection: {x: 0, y: 0, z: 0}
-  mRotateDirection: 0
   IsOnGUI: 1
 --- !u!136 &1840565242
 CapsuleCollider:

@@ -10,6 +10,8 @@ public class CScenePlayGame : MonoBehaviour
 
     private PlayGamePrefabs mPlayGamePrefabs = new PlayGamePrefabs();
 
+    //Game State
+
 
     //Ref
     [ReadOnly]
@@ -25,6 +27,8 @@ public class CScenePlayGame : MonoBehaviour
     private Vector3 mStartPosition = Vector3.zero;
     private Quaternion mStartRotation = Quaternion.identity;
 
+
+
     private void Awake()
     {
         CreateBasicPrefabs();
@@ -35,13 +39,11 @@ public class CScenePlayGame : MonoBehaviour
 
         CPlayerController tController = null;
 
-
 #if UNITY_EDITOR
         tController = GetComponentInChildren<CKeyboardPlayerController>();
 #elif UNITY_ANDROID
         tController = GetComponentInChildren<CUIPlayerController>();
 #endif
-
 
         //플레이어 컨트롤러 세팅
         tController.SetCallOnJump(InstPlayer.DoJump);
@@ -56,8 +58,6 @@ public class CScenePlayGame : MonoBehaviour
         //재시작 콜백
         mUIPlayGame.InstBtnRestart.onClick.AddListener(OnRestartRun);
 
-        InstPlayer.CurrentHp.Subscribe((hp) => mUIPlayGame.InstSliderHPBar.value = (float)hp / InstPlayer.Hp);
-        InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);
     }
 
 
@@ -94,16 +94,5 @@ public class CScenePlayGame : MonoBehaviour
         InstPlayer.OnReset();
         InstTargetCamera.ResetAngle();
         mUIPlayGame.InstUIGameOver.SetActive(false);
-    }
-
-    [Button]
-    public void OnDecrementHp()
-    {
-        InstPlayer.DecrementHp(10);
-    }
-    [Button]
-    public void OnIncrementBoost()
-    {
-        InstPlayer.IncrementBoost(5.7f);
     }
 }
