@@ -47,10 +47,20 @@ public class CPlayer : MonoBehaviour
     private System.Action<int> CallOnRotate = null;
     private System.Action CallOnGameOver = null;
 
+    public Collider StandCollider = null;
+    public Collider SlideCollider = null;
+
     private void Awake()
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
         Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
+<<<<<<< HEAD
+=======
+
+        CurrentHp.Value = Hp;
+
+        SwitchPlayerCollider(true);
+>>>>>>> master
     }
 
     public void SetFuncHorizontal(System.Func<int> callFunc)
@@ -65,10 +75,30 @@ public class CPlayer : MonoBehaviour
     {
         CallOnGameOver = callBack;
     }
+<<<<<<< HEAD
     IEnumerator Loop()
     {
         while (true)
         {
+=======
+    private void SwitchPlayerCollider(bool isStand)
+    {
+        StandCollider.enabled = isStand;
+        SlideCollider.enabled = !isStand;
+    }
+    //IEnumerator Loop()
+    //{
+    //    while (true)
+    //    {
+
+    //        bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
+    //        yield return new WaitForSeconds(4.0f);
+
+    //        if (isRight)
+    //            mIsToLeftWind = true;
+    //        else
+    //            mIsToRightWind = true;
+>>>>>>> master
 
             bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
             yield return new WaitForSeconds(4.0f);
@@ -197,11 +227,13 @@ public class CPlayer : MonoBehaviour
         {
             mIsSlide = true;
             Anim.Get().SetTrigger("AnimIsSlide");
+            SwitchPlayerCollider(false);
         }
     }
     public void ResetSlide()
     {
         mIsSlide = false;
+        SwitchPlayerCollider(true);
     }
     public void SetGround()
     {
@@ -211,7 +243,7 @@ public class CPlayer : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag(CTagManager.TAG_GROUND))
+        if (other.collider.CompareTag(CTag.TAG_GROUND))
         {
             Anim.Get().SetTrigger("AnimTrigJumpToGround");
         }
