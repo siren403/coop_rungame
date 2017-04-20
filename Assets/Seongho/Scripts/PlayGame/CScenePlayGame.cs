@@ -10,8 +10,8 @@ public class CScenePlayGame : MonoBehaviour
 
     private PlayGamePrefabs mPlayGamePrefabs = new PlayGamePrefabs();
 
-    //Game State
-
+    //GameState
+    private IntReactiveProperty mScore = null;
 
     //Ref
     [ReadOnly]
@@ -23,11 +23,11 @@ public class CScenePlayGame : MonoBehaviour
     [SerializeField]
     private CUIPlayGame mUIPlayGame = null;
 
+    private Coroutine mCoroutineTickHp = null;
+
     //Editor Test
     private Vector3 mStartPosition = Vector3.zero;
     private Quaternion mStartRotation = Quaternion.identity;
-
-
 
     private void Awake()
     {
@@ -37,13 +37,14 @@ public class CScenePlayGame : MonoBehaviour
 
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
 
-        CPlayerController tController = null;
 
+        CPlayerController tController = null;
 #if UNITY_EDITOR
         tController = GetComponentInChildren<CKeyboardPlayerController>();
 #elif UNITY_ANDROID
         tController = GetComponentInChildren<CUIPlayerController>();
 #endif
+
 
         //플레이어 컨트롤러 세팅
         tController.SetCallOnJump(InstPlayer.DoJump);
@@ -53,14 +54,46 @@ public class CScenePlayGame : MonoBehaviour
 
         //플레이어의 상태 변화 콜백
         InstPlayer.SetCallOnRotate(InstTargetCamera.RotateCamera);
-        InstPlayer.SetCallOnGameOver(() => mUIPlayGame.InstUIGameOver.SetActive(true));
+        InstPlayer.SetCallOnGameOver(OnGameOver);
 
         //재시작 콜백
         mUIPlayGame.InstBtnRestart.onClick.AddListener(OnRestartRun);
+        //일시정지 UI On,Off
+        mUIPlayGame.InstBtnPause.onClick.AddListener(() => OnPause(true));
+        mUIPlayGame.InstBtnPauseClose.onClick.AddListener(() => OnPause(false));
+        //포기 확인
+        mUIPlayGame.InstBtnSubmitRetire.onClick.AddListener(OnRetire);
 
+        InstPlayer.CurrentHp.Subscribe((hp) => mUIPlayGame.InstSliderHPBar.value = (float)hp / InstPlayer.Hp);
+        InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);
+
+        mScore = new IntReactiveProperty();
+        mScore.Subscribe((score) => mUIPlayGame.SetTxtScore(score));
+    }
+    private void OnPause(bool isPause)
+    {
+        if(isPause)
+        {
+            Time.timeScale = 0;
+            mUIPlayGame.ShowUIPause(mScore.Value);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            mUIPlayGame.HideUIPause();
+        }
     }
 
-
+    private void OnGameOver()
+    {
+        mUIPlayGame.InstUIGameOver.SetActive(true);
+        if (mCoroutineTickHp != null)
+            StopCoroutine(mCoroutineTickHp);
+    }
+    private void OnRetire()
+    {
+        
+    }
     [Button]
     public void CreateBasicPrefabs()
     {
@@ -83,6 +116,15 @@ public class CScenePlayGame : MonoBehaviour
         mStartPosition = InstPlayer.transform.position;
         mStartRotation = InstPlayer.transform.rotation;
         InstPlayer.SetMoveStart(true);
+        mCoroutineTickHp = StartCoroutine(TickHp());
+    }
+    private IEnumerator TickHp()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(0.5f);
+            InstPlayer.DecrementHp(10);
+        }
     }
 
     [Button]
@@ -95,4 +137,22 @@ public class CScenePlayGame : MonoBehaviour
         InstTargetCamera.ResetAngle();
         mUIPlayGame.InstUIGameOver.SetActive(false);
     }
+
+    [Button]
+    public void OnDecrementHp()
+    {
+        InstPlayer.DecrementHp(10);
+    }
+    [Button]
+    public void OnIncrementBoost()
+    {
+        InstPlayer.IncrementBoost(5.7f);
+    }
+    [Button]
+    public void OnIncrementScore()
+    {
+        mScore.Value += Random.Range(50, 150);
+    }
+
+
 }

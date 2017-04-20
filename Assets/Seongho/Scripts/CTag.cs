@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public static class CTagManager
+public static class CTag
 {
     public const string TAG_GROUND = "tagGround";
     public const string TAG_PLAYER = "tagPlayer";

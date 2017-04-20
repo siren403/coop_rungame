@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Inspector;
 
 public class CPlayer : MonoBehaviour
 {
@@ -9,14 +10,39 @@ public class CPlayer : MonoBehaviour
 
     public ForceMode JumpForceMode;
 
+    //State Values
+    public int Hp = 1000;
+    private IntReactiveProperty mCurrentHp = null;
+    public IntReactiveProperty CurrentHp
+    {
+        get
+        {
+            if(mCurrentHp == null)
+            {
+                mCurrentHp = new IntReactiveProperty();
+            }
+            return mCurrentHp;
+        }
+    }
+    public float Boost = 100.0f;
+    private FloatReactiveProperty mCurrentBoost = null;
+    public FloatReactiveProperty CurrentBoost
+    {
+        get
+        {
+            if(mCurrentBoost == null)
+            {
+                mCurrentBoost = new FloatReactiveProperty();
+            }
+            return mCurrentBoost;
+        }
+    }
+    
 
     public float Speed = 20.0f;
-
     public float SideSpeed = 10.0f;
-
     public float DecrementSpeed = 0.0f;
-
-    private float CurrentSpeed
+    public float CurrentSpeed
     {
         get
         {
@@ -25,81 +51,100 @@ public class CPlayer : MonoBehaviour
     }
 
     private bool mIsRun = false;
-    private bool IsGround = true;
+    private bool mIsGround = true;
     private bool mIsRotateFail = false;
     private bool mIsSlide = false;
+    private float mHorizontal = 0;
 
 
     private CacheComponent<Rigidbody> Body = null;
     private CacheComponent<Animator> Anim = null;
 
-    private float Horizontal = 0;
 
+    [ReadOnly]
+    [SerializeField]
     private bool mIsDirectionInputChecking = false;
+    [ReadOnly]
+    [SerializeField]
     private Vector3 mInputDirection;
+    [ReadOnly]
+    [SerializeField]
     private int mRotateDirection = 0;
 
+    //private bool mIsToLeftWind = false;
+    //private bool mIsToRightWind = false;
 
-    private bool mIsToLeftWind = false;
-    private bool mIsToRightWind = false;
+    private System.Func<int> mFuncHorizontal = null;
+    private System.Action<int> mCallOnRotate = null;
+    private System.Action mCallOnGameOver = null;
 
-    private System.Func<int> FuncHorizontal = null;
-    private System.Action<int> CallOnRotate = null;
-    private System.Action CallOnGameOver = null;
+    public Collider StandCollider = null;
+    public Collider SlideCollider = null;
 
     private void Awake()
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
         Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
+
+        CurrentHp.Value = Hp;
+
+        SwitchPlayerCollider(true);
     }
 
     public void SetFuncHorizontal(System.Func<int> callFunc)
     {
-        FuncHorizontal = callFunc;
+        mFuncHorizontal = callFunc;
     }
     public void SetCallOnRotate(System.Action<int> callBack)
     {
-        CallOnRotate = callBack;
+        mCallOnRotate = callBack;
     }
     public void SetCallOnGameOver(System.Action callBack)
     {
-        CallOnGameOver = callBack;
+        mCallOnGameOver = callBack;
     }
-    IEnumerator Loop()
+    private void SwitchPlayerCollider(bool isStand)
     {
-        while (true)
-        {
-
-            bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
-            yield return new WaitForSeconds(4.0f);
-
-            if (isRight)
-                mIsToLeftWind = true;
-            else
-                mIsToRightWind = true;
-
-            yield return new WaitForSeconds(0.5f);
-
-            if (isRight)
-                mIsToLeftWind = false;
-            else
-                mIsToRightWind = false;
-
-            Body.Get().AddForce((isRight ? this.transform.right : -this.transform.right) * 10,
-                ForceMode.VelocityChange);
-
-        }
+        StandCollider.enabled = isStand;
+        SlideCollider.enabled = !isStand;
     }
+    //IEnumerator Loop()
+    //{
+    //    while (true)
+    //    {
+
+    //        bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
+    //        yield return new WaitForSeconds(4.0f);
+
+    //        if (isRight)
+    //            mIsToLeftWind = true;
+    //        else
+    //            mIsToRightWind = true;
+
+    //        yield return new WaitForSeconds(0.5f);
+
+    //        if (isRight)
+    //            mIsToLeftWind = false;
+    //        else
+    //            mIsToRightWind = false;
+
+    //        Body.Get().AddForce((isRight ? this.transform.right : -this.transform.right) * 10,
+    //            ForceMode.VelocityChange);
+
+    //    }
+    //}
+
+
     private void Update()
     {
         if (mIsDirectionInputChecking == false &&
             mIsSlide == false)
         {
-            Horizontal = FuncHorizontal.SafeInvoke();
+            mHorizontal = mFuncHorizontal.SafeInvoke();
         }
         else
         {
-            Horizontal = 0;
+            mHorizontal = 0;
         }
 
         if (this.transform.position.y < -10)
@@ -139,7 +184,7 @@ public class CPlayer : MonoBehaviour
             {
                 this.transform.Rotate(Vector3.up * 90, Space.Self);
             }
-            CallOnRotate.SafeInvoke(mRotateDirection);
+            mCallOnRotate.SafeInvoke(mRotateDirection);
             mRotateDirection = 0;
             mInputDirection = Vector2.zero;
         }
@@ -155,7 +200,7 @@ public class CPlayer : MonoBehaviour
     {
         SetMoveStart(false);
         Anim.Get().SetTrigger("AnimTrigGameOver");
-        CallOnGameOver.SafeInvoke();
+        mCallOnGameOver.SafeInvoke();
     }
 
     void FixedUpdate()
@@ -170,9 +215,9 @@ public class CPlayer : MonoBehaviour
     }
     public void DoJump()
     {
-        if (IsGround && mIsSlide == false)
+        if (mIsGround && mIsSlide == false)
         {
-            IsGround = false;
+            mIsGround = false;
             Anim.Get().SetTrigger("AnimIsJump");
             Body.Get().AddForce(this.transform.up * JumpPower, JumpForceMode);
         }
@@ -184,7 +229,7 @@ public class CPlayer : MonoBehaviour
             Vector3 pos = this.transform.position;
 
             pos += ((this.transform.forward * CurrentSpeed) +
-                (this.transform.right * SideSpeed * Horizontal)) * Time.deltaTime;
+                (this.transform.right * SideSpeed * mHorizontal)) * Time.deltaTime;
 
             Body.Get().MovePosition(pos);
 
@@ -197,21 +242,23 @@ public class CPlayer : MonoBehaviour
         {
             mIsSlide = true;
             Anim.Get().SetTrigger("AnimIsSlide");
+            SwitchPlayerCollider(false);
         }
     }
     public void ResetSlide()
     {
         mIsSlide = false;
+        SwitchPlayerCollider(true);
     }
     public void SetGround()
     {
-        IsGround = true;
+        mIsGround = true;
     }
 
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag(CTagManager.TAG_GROUND))
+        if (other.collider.CompareTag(CTag.TAG_GROUND))
         {
             Anim.Get().SetTrigger("AnimTrigJumpToGround");
         }
@@ -228,11 +275,30 @@ public class CPlayer : MonoBehaviour
 
     public void OnReset()
     {
-        IsGround = true;
+        mIsGround = true;
         this.gameObject.SetActive(true);
         Anim.Get().CrossFade("Idle", 0.0f);
     }
 
+    public void DecrementHp(int value)
+    {
+        mCurrentHp.Value -= value;
+        Debug.Log(mCurrentHp.Value);
+        if (mCurrentHp.Value < 0)
+        {
+            mCurrentHp.Value = 0;
+            GameOver();
+        }
+    }
+    public void IncrementBoost(float value)
+    {
+        mCurrentBoost.Value += value;
+        if(mCurrentBoost.Value >= Boost)
+        {
+            mCurrentBoost.Value = 0;
+            Debug.Log("Boost On");
+        }
+    }
 #if UNITY_EDITOR
     public bool IsOnGUI = true;
     private void OnGUI()
@@ -254,21 +320,21 @@ public class CPlayer : MonoBehaviour
         guiRect.center = new Vector2(Screen.width * 0.5f, Screen.height * 0.25f);
         GUI.Button(guiRect.rect, "Input Check");
 
-        GUI.contentColor = mIsToLeftWind ? Color.green : Color.black;
-        guiRect.center = new Vector2(Screen.width * 0.25f, Screen.height * 0.05f);
-        guiRect.size = new Vector2(Screen.width * 0.45f, Screen.height * 0.1f);
-        GUI.Button(guiRect.rect, "ToLeft");
+        //GUI.contentColor = mIsToLeftWind ? Color.green : Color.black;
+        //guiRect.center = new Vector2(Screen.width * 0.25f, Screen.height * 0.05f);
+        //guiRect.size = new Vector2(Screen.width * 0.45f, Screen.height * 0.1f);
+        //GUI.Button(guiRect.rect, "ToLeft");
 
-        GUI.contentColor = mIsToRightWind ? Color.green : Color.black;
-        guiRect.center = new Vector2(Screen.width * 0.75f, Screen.height * 0.05f);
-        GUI.Button(guiRect.rect, "ToRight");
+        //GUI.contentColor = mIsToRightWind ? Color.green : Color.black;
+        //guiRect.center = new Vector2(Screen.width * 0.75f, Screen.height * 0.05f);
+        //GUI.Button(guiRect.rect, "ToRight");
 
 
         GUI.Label(new Rect(Screen.width * 0.01f, Screen.height - Screen.height * 0.1f, Screen.width, Screen.height * 0.1f),
             "좌우:A,S 또는 Joystack | 점프:X | 좌우회전:Z,C");
 
         GUI.contentColor = Color.white;
-        GUI.Button(new Rect(Screen.width * 0.03f, Screen.height * 0.75f, Screen.width * 0.3f, Screen.height * 0.05f), "JoyStick : " + FuncHorizontal.SafeInvoke());
+        GUI.Button(new Rect(Screen.width * 0.03f, Screen.height * 0.75f, Screen.width * 0.3f, Screen.height * 0.05f), "JoyStick : " + mFuncHorizontal.SafeInvoke());
 
     }
 #endif
