@@ -1,40 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Inspector;
+
 
 public class CSceneMapEdit : MonoBehaviour {
 
-<<<<<<< HEAD
+
     public CTrackCreater TrackCreater = null;
+    public GameObject hi = null;
+    public int PlayerPosition = 0;
 
-=======
-    public CLoadAboutMap LoadAboutMap = null;
-    public CTrackCreater TrackCreater = null;
-
-
-    void Awake()
-    {
-        LoadAboutMap = new CLoadAboutMap();
-        LoadAboutMap.LoadAboutPrefabs();
-    }
-
-    // Use this for initialization
->>>>>>> df8349728c48d901342990625a74ee37954456f7
     void Start () {
         TrackCreater = new CTrackCreater();
 
-        TrackCreater.CreateTrack();
-<<<<<<< HEAD
+        TrackCreater.CreateTrack(this.transform);
         
-    }
-	
 
-=======
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
->>>>>>> df8349728c48d901342990625a74ee37954456f7
+
+    #region Track Generate Test
+    private IEnumerator SeqTrack()
+    {
+        while(PlayerPosition < TrackCreater.TrackList.Count)
+        {
+            TrackCreater.UpdateTrack(PlayerPosition);
+            yield return new WaitForSeconds(1.0f);
+            //yield return null;
+            PlayerPosition++;
+        }
+    }
+    [Button]
+    public void TrackGenerateTest()
+    {
+        StartCoroutine(SeqTrack());
+    }
+    #endregion
+
 }
