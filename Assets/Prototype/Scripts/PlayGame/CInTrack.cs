@@ -6,7 +6,7 @@ public class CInTrack : MonoBehaviour {
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag(CTagManager.TAG_PLAYER))
+        if (other.collider.CompareTag(CTag.TAG_PLAYER))
         {
             other.collider.GetComponent<CPlayer>().SetDecrementSpeed(0.0f);
         }

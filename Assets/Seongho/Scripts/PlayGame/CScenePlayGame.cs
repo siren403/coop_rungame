@@ -62,7 +62,7 @@ public class CScenePlayGame : MonoBehaviour
         mUIPlayGame.InstBtnPause.onClick.AddListener(() => OnPause(true));
         mUIPlayGame.InstBtnPauseClose.onClick.AddListener(() => OnPause(false));
         //포기 확인
-        mUIPlayGame.InstBtnSubmitRetire.onClick.AddListener(() => Debug.Log("Submit Retire"));
+        mUIPlayGame.InstBtnSubmitRetire.onClick.AddListener(OnRetire);
 
         InstPlayer.CurrentHp.Subscribe((hp) => mUIPlayGame.InstSliderHPBar.value = (float)hp / InstPlayer.Hp);
         InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);
@@ -90,7 +90,10 @@ public class CScenePlayGame : MonoBehaviour
         if (mCoroutineTickHp != null)
             StopCoroutine(mCoroutineTickHp);
     }
-
+    private void OnRetire()
+    {
+        
+    }
     [Button]
     public void CreateBasicPrefabs()
     {
