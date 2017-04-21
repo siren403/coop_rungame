@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Inspector;
+using ResourceLoader;
 
 public class CTrackCreater { 
 
@@ -20,7 +21,16 @@ public class CTrackCreater {
     public const int RIGHTUP_COUNT = 5;
 
 
-    public CLoadAboutMap LoadAboutMap = null;
+
+    public CTrackTileLoader TrackTileLoader
+    {
+        get
+        {
+            return TrackTileLoaderList[CurrentTrackTileLoaderIndex];
+        }
+    } 
+    public List<CTrackTileLoader> TrackTileLoaderList = null;
+    public int CurrentTrackTileLoaderIndex = 0;
 
     public enum TRACKKIND
     {
@@ -51,11 +61,16 @@ public class CTrackCreater {
     //생성해야될 트랙들의 정보를 담고있는 리스트.
     public Dictionary<int,TRACKKIND> TrackList = null;
     //미리 준비된 트랙타일 프리팹을 담고있는 리스트.
-    public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage = null;
+    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage0 = null;
+    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage1 = null;
+    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage2 = null;
+    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage3 = null;
+
+
     //지정된 곳에 자식으로 넣을 위치
     private Transform mTrackParent = null;
 
-   
+
 
    /// <summary>
    /// 트랙이 생성 될 수 있도록 데이터를 생성하는 메소드
@@ -78,43 +93,28 @@ public class CTrackCreater {
             
         }
         Debug.Log(GetTrackCount().ToString());
+
+        TrackTileLoaderList = new List<CTrackTileLoader>();
+        TrackTileLoaderList.Add(new CTheme0TileLoader());
+        TrackTileLoaderList.Add(new CTheme1TileLoader());
+        TrackTileLoaderList.Add(new CTheme2TileLoader());
+        TrackTileLoaderList.Add(new CTheme3TileLoader());
+
+        foreach(var loader in TrackTileLoaderList)
+        {
+            loader.Load();
+            loader.InitTrackStorage(tParent);
+        }
+
+        CurrentTrackTileLoaderIndex = 2;
+
         //타일프리팹들을 불러옴.
-        LoadAboutMap = new CLoadAboutMap();
-        LoadAboutMap.LoadAboutPrefabs();
+        //TrackTileLoader = new CTheme0TileLoader();
+        //TrackTileLoader.Load();
 
         //트랙창고로 트랙타일들을 미리 만들어서 둔다.
-        TrackStorage = new Dictionary<TRACKKIND, List<CTrackTile>>();
-        var tTrackKinds = System.Enum.GetValues(typeof(TRACKKIND)).GetEnumerator();
-        while(tTrackKinds.MoveNext())
-        {
-            TRACKKIND tKind = (TRACKKIND)tTrackKinds.Current;
-            int tCreateCount = 0;
+        //TrackTileLoader.InitTrackStorage(tParent);
 
-            if(tKind == TRACKKIND.START || tKind == TRACKKIND.END)
-            {
-                tCreateCount = 1;
-            }
-            else if(tKind != TRACKKIND.TURN)
-            {
-                tCreateCount = 5;
-            }
-
-            for (int i = 0; i < tCreateCount; i++)
-            {
-                if (TrackStorage.ContainsKey(tKind) == false)
-                {
-                    TrackStorage.Add(tKind, new List<CTrackTile>());
-                }
-                if(LoadAboutMap.GetPrefab(tKind) == null)
-                {
-                    Debug.Log("Prefab is Null");
-                }
-                CTrackTile tile = GameObject.Instantiate(LoadAboutMap.GetPrefab(tKind), Vector3.zero, Quaternion.identity);
-                tile.gameObject.SetActive(false);
-                tile.transform.SetParent(tParent);
-                TrackStorage[tKind].Add(tile);
-            }
-        }
     }
 
 
@@ -278,7 +278,7 @@ public class CTrackCreater {
     /// <returns>화면에 보이게 되는 타일을 반환</returns>
     public CTrackTile DistinguishTrack(TRACKKIND tTrackKind)
     {
-        var tTile = GetTrackTile(tTrackKind);
+        var tTile = TrackTileLoader.GetTrackTile(tTrackKind);
 
         tTile.transform.position = NextPos + (CurrentDirection * TRACK_SIZE);
         NextPos = tTile.transform.position;
@@ -308,7 +308,7 @@ public class CTrackCreater {
     }
 
 
-
+    /*
     /// <summary>
     /// 트랙창고리스트에서 원하는 종류의 트랙타일을 받아오는 메소드 IF 창고안에 비활성화 된 트랙타일이 없을시 생성하여 가져옵니다.
     /// </summary>
@@ -318,27 +318,27 @@ public class CTrackCreater {
     {
         CTrackTile tTile = null;
 
-        if(TrackStorage.ContainsKey(tTrackKind))
+        if(TrackStorage0.ContainsKey(tTrackKind))
         {
-            for (int i = 0; i < TrackStorage[tTrackKind].Count; i++)
+            for (int i = 0; i < TrackStorage0[tTrackKind].Count; i++)
             {
-                if(TrackStorage[tTrackKind][i].gameObject.activeSelf == false)
+                if(TrackStorage0[tTrackKind][i].gameObject.activeSelf == false)
                 {
-                    tTile = TrackStorage[tTrackKind][i];
+                    tTile = TrackStorage0[tTrackKind][i];
                     return tTile;
                 }
             }
 
-            tTile = GameObject.Instantiate(LoadAboutMap.GetPrefab(tTrackKind), Vector3.zero, Quaternion.identity);
+            tTile = GameObject.Instantiate(TrackTileLoader.GetPrefab(tTrackKind), Vector3.zero, Quaternion.identity);
             tTile.gameObject.SetActive(false);
             tTile.transform.SetParent(mTrackParent);
-            TrackStorage[tTrackKind].Add(tTile);
+            TrackStorage0[tTrackKind].Add(tTile);
             return tTile;
         }
 
         return null;
     }
-
+    */
 
 
 
