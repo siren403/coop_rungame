@@ -22,19 +22,19 @@ namespace ResourceLoader
             public string PathEndTrack;
         }
 
-        public CTrackTile PFStartTrack = null;
+        private CTrackTile PFStartTrack = null;
 
-        public CTrackTile PFVerticalTrack = null;
-        public CTrackTile PFHorizontalTrack = null;
+        private CTrackTile PFVerticalTrack = null;
+        private CTrackTile PFHorizontalTrack = null;
 
-        public CTrackTile PFUpLeftTrack = null;
-        public CTrackTile PFLeftUpTrack = null;
-        public CTrackTile PFUpRightTrack = null;
-        public CTrackTile PFRightUpTrack = null;
+        private CTrackTile PFUpLeftTrack = null;
+        private CTrackTile PFLeftUpTrack = null;
+        private CTrackTile PFUpRightTrack = null;
+        private CTrackTile PFRightUpTrack = null;
 
-        public CTrackTile PFEndTrack = null;
+        private CTrackTile PFEndTrack = null;
 
-        public Dictionary<CTrackCreater.TRACKKIND, CTrackTile> TrackKind = null;
+        private Dictionary<CTrackCreater.TRACKKIND, CTrackTile> TrackKind = null;
 
 
         protected abstract TilePaths InitTilePaths();
