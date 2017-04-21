@@ -19,22 +19,20 @@ public class CLoadAboutMap
 
 
 
-
-
     public void LoadAboutPrefabs()
     {
        
-        PFStartTrack = Resources.Load<CTrackTile>("Prefabs/PFStartTrack");
+        PFStartTrack = Resources.Load<CTrackTile>("Prefabs/Thema0/PFStartTrack");
 
-        PFVerticalTrack = Resources.Load<CTrackTile>("Prefabs/PFVerticalTrack");
-        PFHorizontalTrack = Resources.Load<CTrackTile>("Prefabs/PFHorizontalTrack");
+        PFVerticalTrack = Resources.Load<CTrackTile>("Prefabs/Thema0/PFVerticalTrack");
+        PFHorizontalTrack = Resources.Load<CTrackTile>("Prefabs/Thema0/PFHorizontalTrack");
 
-        PFUpLeftTrack = Resources.Load<CTrackTile>("Prefabs/PFUpLeftTrack");
-        PFLeftUpTrack = Resources.Load<CTrackTile>("Prefabs/PFLeftUpTrack");
-        PFUpRightTrack = Resources.Load<CTrackTile>("Prefabs/PFUpRightTrack");
-        PFRightUpTrack = Resources.Load<CTrackTile>("Prefabs/PFRightUpTrack");
+        PFUpLeftTrack = Resources.Load<CTrackTile>("Prefabs/Thema0/PFUpLeftTrack");
+        PFLeftUpTrack = Resources.Load<CTrackTile>("Prefabs/Thema0/PFLeftUpTrack");
+        PFUpRightTrack = Resources.Load<CTrackTile>("Prefabs/Thema0/PFUpRightTrack");
+        PFRightUpTrack = Resources.Load<CTrackTile>("Prefabs/Thema0/PFRightUpTrack");
 
-        PFEndTrack = Resources.Load<CTrackTile>("Prefabs/PFEndTrack");
+        PFEndTrack = Resources.Load<CTrackTile>("Prefabs/Thema0/PFEndTrack");
 
         
 

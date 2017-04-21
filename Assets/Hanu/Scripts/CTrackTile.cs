@@ -12,7 +12,6 @@ public class CTrackTile : MonoBehaviour {
     public void SetIndex(int tIndex)
     {
         Index = tIndex;
-
     }
 
 }
