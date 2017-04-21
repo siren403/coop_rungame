@@ -2,20 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System;
 public class CSceneMainLobby : MonoBehaviour {
 
 
     public CUIMainLobby mUIMainLobby;
+
+
+ 
+    TimeSpan start = TimeSpan.FromTicks(DateTime.Now.Ticks);
+
+    double SaveTime;
+    double NowTime;
+
+
+    int Count = 0;
+
+    public GameObject[] HeartArray;
+    //public Stack heartStack = new Stack();
+
     
-
-
     void Start () {
 
-        
-    }
-	
-	void Update () {
         mUIMainLobby.SetStart(OnStart);
         mUIMainLobby.SetJump(OnJump);
         mUIMainLobby.SetSlid(OnSlid);
@@ -25,11 +33,30 @@ public class CSceneMainLobby : MonoBehaviour {
         mUIMainLobby.SetHeartShop(OnHeartShopEnter);
         mUIMainLobby.SetBackTitle(OnBackToTitle);
 
+
+    }
+
+    void Update () {
+
+        Timer();
     }
     
     void OnStart()
     {
-        Debug.Log("하트지워지게!!!");
+        
+
+        SaveTime = (TimeSpan.FromTicks(DateTime.Now.Ticks) - start).TotalSeconds;
+
+        Debug.Log("하트지워지게!!!"+SaveTime);
+        if (Count < HeartArray.Length)
+        {
+            HeartArray[Count].SetActive(false);
+
+            Count++;
+        }
+
+
+
     }
 
     void OnJump()
@@ -66,4 +93,16 @@ public class CSceneMainLobby : MonoBehaviour {
     {
         SceneManager.LoadScene("MainTitleScene");
     }
+
+    void Timer()
+    {
+        Debug.Log((TimeSpan.FromTicks(DateTime.Now.Ticks) - start).TotalSeconds);
+        NowTime = (TimeSpan.FromTicks(DateTime.Now.Ticks) - start).TotalSeconds;
+        
+
+    }
+
+
+
+
 }

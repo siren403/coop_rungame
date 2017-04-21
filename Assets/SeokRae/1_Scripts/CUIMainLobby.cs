@@ -15,11 +15,11 @@ public class CUIMainLobby : MonoBehaviour {
     CallBackBtn OnHeartShop = null;
     CallBackBtn OnBackToTitle = null;
     
+    
 
 
 
     void Start () {
-		
 	}
 
 
