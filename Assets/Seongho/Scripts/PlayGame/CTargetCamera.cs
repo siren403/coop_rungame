@@ -7,7 +7,6 @@ using Inspector;
 public class CTargetCamera : MonoBehaviour
 {
     [SerializeField]
-    [ReadOnly]
     private GameObject mTarget = null;
 
     public Vector3 Offset = Vector3.zero;

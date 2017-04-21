@@ -11,7 +11,16 @@ public class CPlayer : MonoBehaviour
     public ForceMode JumpForceMode;
 
     //State Values
-    public int Hp = 1000;
+    [SerializeField]
+    private CPlayerData mData = null;
+
+    public int Hp
+    {
+        get
+        {
+            return mData.Hp;
+        }
+    }
     private IntReactiveProperty mCurrentHp = null;
     public IntReactiveProperty CurrentHp
     {
@@ -37,10 +46,21 @@ public class CPlayer : MonoBehaviour
             return mCurrentBoost;
         }
     }
-    
 
-    public float Speed = 20.0f;
-    public float SideSpeed = 10.0f;
+    public float Speed
+    {
+        get
+        {
+            return mData.Speed;
+        }
+    }
+    public float SideSpeed
+    {
+        get
+        {
+            return mData.SideSpeed;
+        }
+    }
     public float DecrementSpeed = 0.0f;
     public float CurrentSpeed
     {

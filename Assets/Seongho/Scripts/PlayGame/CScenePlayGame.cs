@@ -14,9 +14,7 @@ public class CScenePlayGame : MonoBehaviour
     private IntReactiveProperty mScore = null;
 
     //Ref
-    [ReadOnly]
     public CPlayer InstPlayer = null;
-    [ReadOnly]
     public CTargetCamera InstTargetCamera = null;
     public CTrackFactory InstTrackCreator = null;
     [ReadOnly]
@@ -31,12 +29,12 @@ public class CScenePlayGame : MonoBehaviour
 
     private void Awake()
     {
-        CreateBasicPrefabs();
+        
+        //CreateBasicPrefabs();
         CHanMapDataMgr.GetInst().CreateHan();
         InstTrackCreator.CreateTrack();
 
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
-
 
         CPlayerController tController = null;
 #if UNITY_EDITOR
@@ -69,7 +67,10 @@ public class CScenePlayGame : MonoBehaviour
 
         mScore = new IntReactiveProperty();
         mScore.Subscribe((score) => mUIPlayGame.SetTxtScore(score));
+
+
     }
+
     private void OnPause(bool isPause)
     {
         if(isPause)
@@ -94,21 +95,23 @@ public class CScenePlayGame : MonoBehaviour
     {
         
     }
-    [Button]
-    public void CreateBasicPrefabs()
-    {
-        mPlayGamePrefabs.Load();
-        if(InstPlayer == null)
-        {
-            InstPlayer = Instantiate(mPlayGamePrefabs.PFPlayer, Vector3.zero, Quaternion.identity);
-        }
-        if(InstTargetCamera == null)
-        {
-            InstTargetCamera = Instantiate(mPlayGamePrefabs.PFTargetCamera, Vector3.zero, Quaternion.identity);
-            InstTargetCamera.SetTarget(InstPlayer.gameObject);
-            InstTargetCamera.UpdatePosition();
-        }
-    }
+
+    
+    //[Button]
+    //public void CreateBasicPrefabs()
+    //{
+    //    mPlayGamePrefabs.Load();
+    //    if(InstPlayer == null)
+    //    {
+    //        InstPlayer = Instantiate(mPlayGamePrefabs.PFPlayer, Vector3.zero, Quaternion.identity);
+    //    }
+    //    if(InstTargetCamera == null)
+    //    {
+    //        InstTargetCamera = Instantiate(mPlayGamePrefabs.PFTargetCamera, Vector3.zero, Quaternion.identity);
+    //        InstTargetCamera.SetTarget(InstPlayer.gameObject);
+    //        InstTargetCamera.UpdatePosition();
+    //    }
+    //}
 
     [Button]
     public void OnStartRun()
