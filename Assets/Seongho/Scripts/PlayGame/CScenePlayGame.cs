@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Inspector;
-using PrefabLoader;
+using ResourceLoader;
 
 public class CScenePlayGame : MonoBehaviour
 {
