@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PrefabLoader
+namespace ResourceLoader
 {
-    public abstract class PrefabLoader
+    public abstract class ResourceLoader
     {
         public abstract void Load();
         protected virtual void PrefabLoad<T>(ref T tVariable,string tPath) where T : MonoBehaviour
