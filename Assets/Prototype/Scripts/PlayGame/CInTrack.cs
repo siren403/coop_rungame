@@ -8,7 +8,7 @@ public class CInTrack : MonoBehaviour {
     {
         if (other.collider.CompareTag(CTag.TAG_PLAYER))
         {
-            other.collider.GetComponent<CPlayer>().SetDecrementSpeed(0.0f);
+            other.collider.GetComponent<CPlayer>().SetDecrementSpeedRatio(1.0f);
         }
     }
 }

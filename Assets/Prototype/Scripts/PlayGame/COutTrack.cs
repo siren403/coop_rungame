@@ -8,7 +8,7 @@ public class COutTrack : MonoBehaviour {
     {
         if (other.collider.CompareTag(CTag.TAG_PLAYER))
         {
-            other.collider.GetComponent<CPlayer>().SetDecrementSpeed(15.0f);
+            other.collider.GetComponent<CPlayer>().SetDecrementSpeedRatio(0.5f);
         }
     }
 

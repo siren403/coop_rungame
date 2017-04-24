@@ -61,12 +61,12 @@ public class CPlayer : MonoBehaviour
             return mData.SideSpeed;
         }
     }
-    public float DecrementSpeed = 0.0f;
+    public float DecrementSpeedRatio = 1.0f;
     public float CurrentSpeed
     {
         get
         {
-            return Speed - DecrementSpeed;
+            return Speed * DecrementSpeedRatio;
         }
     }
 
@@ -107,6 +107,7 @@ public class CPlayer : MonoBehaviour
             return mScenePlayGame;
         }
     }
+
 
 
     private void Awake()
@@ -206,7 +207,7 @@ public class CPlayer : MonoBehaviour
 
     public void DoRotate(Vector3 direction)
     {
-        if (mInputDirection == direction)
+        if (mInputDirection == direction && mIsGround && !mIsSlide)
         {
             if (mRotateDirection == -1)
             {
@@ -296,13 +297,14 @@ public class CPlayer : MonoBehaviour
         }
     }
 
-    public void SetDecrementSpeed(float decSpeed)
+    public void SetDecrementSpeedRatio(float ratio)
     {
-        if (decSpeed > this.Speed)
-        {
-            decSpeed = this.Speed;
-        }
-        this.DecrementSpeed = decSpeed;
+        //if (decSpeed > this.Speed)
+        //{
+        //    decSpeed = this.Speed;
+        //}
+        //this.DecrementSpeed = decSpeed;
+        this.DecrementSpeedRatio = ratio;
     }
 
     public void OnReset()

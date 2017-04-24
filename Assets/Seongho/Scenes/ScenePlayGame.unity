@@ -560,6 +560,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 104ff387c38d17644820f25158911c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HpTickTime: 0.5
+  HpTickPerHp: 10
+  HpTickPerHpRatio: 1
+  ScoreTickTime: 0.01
+  CoinPerScore: 20
+  CoinPerBoost: 1
   InstPlayer: {fileID: 11748525}
   InstTargetCamera: {fileID: 35888679}
   InstTrackCreator: {fileID: 496927993}
@@ -2424,7 +2430,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1899898139334034, guid: ced8fc647f86eb4448effc2542500860, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ced8fc647f86eb4448effc2542500860, type: 2}
