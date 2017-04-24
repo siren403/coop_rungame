@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Inspector;
 using ResourceLoader;
+using UnityEngine.SceneManagement;
 
 public class CScenePlayGame : MonoBehaviour
 {
@@ -34,7 +35,6 @@ public class CScenePlayGame : MonoBehaviour
     //Ref
     public CPlayer InstPlayer = null;
     public CTargetCamera InstTargetCamera = null;
-    public CTrackFactory InstTrackCreator = null;
     public CItemTimer InstItemTimer = null;
     [ReadOnly]
     [SerializeField]
@@ -79,8 +79,8 @@ public class CScenePlayGame : MonoBehaviour
         InstPlayer.SetCallOnRotate(InstTargetCamera.RotateCamera);
         InstPlayer.SetCallOnGameOver(OnGameOver);
 
-        //재시작 콜백
-        mUIPlayGame.InstBtnRestart.onClick.AddListener(OnRestartRun);
+        //게임오버 - 로비 이동
+        mUIPlayGame.InstBtnMoveLobby.onClick.AddListener(OnMoveLobby);
         //일시정지 UI On,Off
         mUIPlayGame.InstBtnPause.onClick.AddListener(() => OnPause(true));
         mUIPlayGame.InstBtnPauseClose.onClick.AddListener(() => OnPause(false));
@@ -94,8 +94,12 @@ public class CScenePlayGame : MonoBehaviour
         mScore.Subscribe((score) => mUIPlayGame.SetTxtScore((int)score + (mCoin.Value * (int)CoinPerScore)));
         mCoin = new IntReactiveProperty();
         mCoin.Subscribe((coin) => mUIPlayGame.SetTxtCoin(coin));
-
        
+    }
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(1.0f);
+        OnStartRun();
     }
 
     private void OnPause(bool isPause)
@@ -114,7 +118,7 @@ public class CScenePlayGame : MonoBehaviour
 
     private void OnGameOver()
     {
-        mUIPlayGame.InstUIGameOver.SetActive(true);
+        mUIPlayGame.ShowUIGameOver(0, (int)mScore.Value, mCoin.Value);
         InstItemTimer.Reset();
         mIsPlaying = false;
     }
@@ -177,15 +181,19 @@ public class CScenePlayGame : MonoBehaviour
 
         InstPlayer.OnReset();
         InstTargetCamera.ResetAngle();
-        mUIPlayGame.InstUIGameOver.SetActive(false);
+        mUIPlayGame.HideUIGameOver();
         mCoroutineTickHp = StartCoroutine(TickHp());
         mCoroutineTickScore = StartCoroutine(TickScore());
+
         mCoin.Value = 0;
         mScore.Value = 0;
         HpTickPerHpRatio = 1.0f;
 
-        mTrackCreater.UpdateTrack(0);
+    }
 
+    private void OnMoveLobby()
+    {
+        SceneManager.LoadScene("SceneMainLobby");
     }
 
     [Button]
