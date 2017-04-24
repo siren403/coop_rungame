@@ -76,10 +76,8 @@ public class CPlayer : MonoBehaviour
     private bool mIsSlide = false;
     private float mHorizontal = 0;
 
-
     private CacheComponent<Rigidbody> Body = null;
     private CacheComponent<Animator> Anim = null;
-
 
     [ReadOnly]
     [SerializeField]
@@ -101,6 +99,16 @@ public class CPlayer : MonoBehaviour
     public Collider StandCollider = null;
     public Collider SlideCollider = null;
 
+    private CScenePlayGame mScenePlayGame = null;
+    public CScenePlayGame ScenePlayGame
+    {
+        get
+        {
+            return mScenePlayGame;
+        }
+    }
+
+
     private void Awake()
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
@@ -111,6 +119,10 @@ public class CPlayer : MonoBehaviour
         SwitchPlayerCollider(true);
     }
 
+    public void SetScene(CScenePlayGame tScene)
+    {
+        mScenePlayGame = tScene;
+    }
     public void SetFuncHorizontal(System.Func<int> callFunc)
     {
         mFuncHorizontal = callFunc;
@@ -303,7 +315,6 @@ public class CPlayer : MonoBehaviour
     public void DecrementHp(int value)
     {
         mCurrentHp.Value -= value;
-        Debug.Log(mCurrentHp.Value);
         if (mCurrentHp.Value < 0)
         {
             mCurrentHp.Value = 0;

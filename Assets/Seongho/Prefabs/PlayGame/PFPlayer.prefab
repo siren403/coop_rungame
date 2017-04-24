@@ -725,6 +725,8 @@ GameObject:
   - component: {fileID: 54113583569763058}
   - component: {fileID: 136342336416063942}
   - component: {fileID: 136135770910332398}
+  - component: {fileID: 65151379726701696}
+  - component: {fileID: 65268216870074000}
   m_Layer: 0
   m_Name: PFPlayer
   m_TagString: tagPlayer
@@ -5056,6 +5058,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &65151379726701696
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288451374299136}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 3, z: 1.5}
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!65 &65268216870074000
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288451374299136}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1, z: 1.5}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!95 &95139303500748860
 Animator:
   serializedVersion: 3
@@ -5092,8 +5118,8 @@ MonoBehaviour:
   mIsDirectionInputChecking: 0
   mInputDirection: {x: 0, y: 0, z: 0}
   mRotateDirection: 0
-  StandCollider: {fileID: 136342336416063942}
-  SlideCollider: {fileID: 136135770910332398}
+  StandCollider: {fileID: 65151379726701696}
+  SlideCollider: {fileID: 65268216870074000}
   IsOnGUI: 1
 --- !u!136 &136135770910332398
 CapsuleCollider:
@@ -5116,7 +5142,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1288451374299136}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 3.3
   m_Direction: 1

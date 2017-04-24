@@ -12,6 +12,7 @@ public class CScenePlayGame : MonoBehaviour
 
     //GameState
     private IntReactiveProperty mScore = null;
+    private IntReactiveProperty mCoin = null;
 
     //Ref
     public CPlayer InstPlayer = null;
@@ -29,7 +30,8 @@ public class CScenePlayGame : MonoBehaviour
 
     private void Awake()
     {
-        
+        InstPlayer.SetScene(this);
+
         //CreateBasicPrefabs();
         CHanMapDataMgr.GetInst().CreateHan();
         InstTrackCreator.CreateTrack();
@@ -65,10 +67,12 @@ public class CScenePlayGame : MonoBehaviour
         InstPlayer.CurrentHp.Subscribe((hp) => mUIPlayGame.InstSliderHPBar.value = (float)hp / InstPlayer.Hp);
         InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);
 
+
+
         mScore = new IntReactiveProperty();
         mScore.Subscribe((score) => mUIPlayGame.SetTxtScore(score));
-
-
+        mCoin = new IntReactiveProperty();
+        mCoin.Subscribe((coin) => mUIPlayGame.SetTxtCoin(coin));
     }
 
     private void OnPause(bool isPause)
@@ -156,6 +160,9 @@ public class CScenePlayGame : MonoBehaviour
     {
         mScore.Value += Random.Range(50, 150);
     }
-
+    public void OnIncrementCoin()
+    {
+        mCoin.Value += 1;
+    }
 
 }
