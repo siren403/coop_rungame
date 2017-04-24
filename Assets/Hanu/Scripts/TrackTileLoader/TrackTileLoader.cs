@@ -38,6 +38,7 @@ namespace ResourceLoader
 
         public Dictionary<CTrackCreater.TRACKKIND, List<CTrackTile>> TrackStorage = null;
 
+        private CTrackCreater mTrackCreater = null;
         private Transform mTrackParent;
 
         protected abstract TilePaths InitTilePaths();
@@ -73,11 +74,13 @@ namespace ResourceLoader
             TrackKind.Add(CTrackCreater.TRACKKIND.END, PFEndTrack);
         }
 
-        public void InitTrackStorage(Transform tParent)
+        public void InitTrackStorage(Transform tParent, CTrackCreater tTrackCreater)
         {
+            mTrackParent = tParent;
+            mTrackCreater = tTrackCreater;
+
             TrackStorage = new Dictionary<CTrackCreater.TRACKKIND, List<CTrackTile>>();
             var tTrackKinds = System.Enum.GetValues(typeof(CTrackCreater.TRACKKIND)).GetEnumerator();
-            mTrackParent = tParent;
 
             while (tTrackKinds.MoveNext())
             {
@@ -106,6 +109,7 @@ namespace ResourceLoader
                     CTrackTile tile = GameObject.Instantiate(GetPrefab(tKind), Vector3.zero, Quaternion.identity);
                     tile.gameObject.SetActive(false);
                     tile.transform.SetParent(tParent);
+                    tile.SetTrackCreater(mTrackCreater);
                     TrackStorage[tKind].Add(tile);
                 }
             }
