@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 65461672233342166}
   m_Layer: 0
   m_Name: PFEndTrack
-  m_TagString: Untagged
+  m_TagString: tagGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -806,8 +806,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 16, y: 8, z: 16}
-  m_Center: {x: 0, y: 4, z: 53}
+  m_Size: {x: 16, y: 8, z: 8}
+  m_Center: {x: 0, y: 4, z: 49}
 --- !u!65 &65461672233342166
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -819,7 +819,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 18, y: 1, z: 54}
-  m_Center: {x: 0, y: 0.5, z: 18}
+  m_Center: {x: 0, y: -0.5, z: 18}
 --- !u!65 &65504157940362230
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mDirection: {x: 0, y: 0, z: 1}
-  IsEnd: 0
+  IsEnd: 1
 --- !u!114 &114437359079255358
 MonoBehaviour:
   m_ObjectHideFlags: 1
