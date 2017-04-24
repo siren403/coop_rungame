@@ -254,7 +254,7 @@ public class CPlayer : MonoBehaviour
 
     private void GameOver()
     {
-        return;
+        //return;
         SetMoveStart(false);
         Anim.Get().SetTrigger("AnimTrigGameOver");
         mCallOnGameOver.SafeInvoke();

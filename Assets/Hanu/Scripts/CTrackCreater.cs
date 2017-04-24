@@ -6,7 +6,7 @@ using ResourceLoader;
 
 public class CTrackCreater { 
 
-    public const int TOTAL_TRACK = 15;
+    public const int TOTAL_TRACK = 70;
     public const int END_TRACK_COUNT = 6;
     public const int NOT_CURVE_COUNT = 10;
 
