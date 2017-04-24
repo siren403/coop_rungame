@@ -78,12 +78,17 @@ public class CPlayer : MonoBehaviour
     private System.Action<int> mCallOnRotate = null;
     private System.Action mCallOnGameOver = null;
 
+    public Collider StandCollider = null;
+    public Collider SlideCollider = null;
+
     private void Awake()
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
         Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
 
         CurrentHp.Value = Hp;
+
+        SwitchPlayerCollider(true);
     }
 
     public void SetFuncHorizontal(System.Func<int> callFunc)
@@ -97,6 +102,11 @@ public class CPlayer : MonoBehaviour
     public void SetCallOnGameOver(System.Action callBack)
     {
         mCallOnGameOver = callBack;
+    }
+    private void SwitchPlayerCollider(bool isStand)
+    {
+        StandCollider.enabled = isStand;
+        SlideCollider.enabled = !isStand;
     }
     //IEnumerator Loop()
     //{
@@ -232,11 +242,13 @@ public class CPlayer : MonoBehaviour
         {
             mIsSlide = true;
             Anim.Get().SetTrigger("AnimIsSlide");
+            SwitchPlayerCollider(false);
         }
     }
     public void ResetSlide()
     {
         mIsSlide = false;
+        SwitchPlayerCollider(true);
     }
     public void SetGround()
     {
@@ -246,7 +258,7 @@ public class CPlayer : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.collider.CompareTag(CTagManager.TAG_GROUND))
+        if (other.collider.CompareTag(CTag.TAG_GROUND))
         {
             Anim.Get().SetTrigger("AnimTrigJumpToGround");
         }

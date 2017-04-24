@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloatReactiveProperty
+public class ReactiveProperty<T>
 {
-    private float mValue = 0;
-    public float Value
+    private T mValue;
+    public virtual T Value
     {
         set
         {
-            if(mValue != value)
+            if (!mValue.Equals(value))
             {
                 mCallBack.SafeInvoke(value);
             }
@@ -20,10 +20,9 @@ public class FloatReactiveProperty
             return mValue;
         }
     }
+    private System.Action<T> mCallBack = null;
 
-    private System.Action<float> mCallBack = null;
-
-    public void Subscribe(System.Action<float> callBack)
+    public void Subscribe(System.Action<T> callBack)
     {
         mCallBack += callBack;
     }

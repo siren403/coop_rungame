@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace PrefabLoader
+namespace ResourceLoader
 {
-    public class PlayGamePrefabs : PrefabLoader
+    public class PlayGamePrefabs : ResourceLoader
     {
         public CPlayer PFPlayer = null;
         public CTargetCamera PFTargetCamera = null;
