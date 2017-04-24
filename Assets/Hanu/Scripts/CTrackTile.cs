@@ -29,6 +29,7 @@ public class CTrackTile : MonoBehaviour {
         if (other.collider.CompareTag(CTag.TAG_PLAYER))
         {
             TrackCreater.SetPlayerIndex(GetIndex());
+            TrackCreater.UpdateTrack(GetIndex());
         }
     }
 

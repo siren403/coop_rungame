@@ -183,6 +183,9 @@ public class CScenePlayGame : MonoBehaviour
         mCoin.Value = 0;
         mScore.Value = 0;
         HpTickPerHpRatio = 1.0f;
+
+        mTrackCreater.UpdateTrack(0);
+
     }
 
     [Button]
