@@ -120,7 +120,7 @@ public class CPlayer : MonoBehaviour
         }
     }
 
-
+    private bool mIsRotateDelay = false;
 
     private void Awake()
     {
@@ -200,6 +200,9 @@ public class CPlayer : MonoBehaviour
     }
     public void DoDirectionInputCheck()
     {
+        if (mIsRotateDelay)
+            return;
+
         mIsDirectionInputChecking = true;
     }
 
@@ -234,6 +237,8 @@ public class CPlayer : MonoBehaviour
             mCallOnRotate.SafeInvoke(mRotateDirection);
             mRotateDirection = 0;
             mInputDirection = Vector2.zero;
+            mIsRotateDelay = true;
+            Invoke("Rotateable", 0.3f);
         }
         else//게임오버 처리
         {
@@ -242,9 +247,14 @@ public class CPlayer : MonoBehaviour
 
         mIsDirectionInputChecking = false;
     }
+    private void Rotateable()
+    {
+        mIsRotateDelay = false;
+    }
 
     private void GameOver()
     {
+        //return;
         SetMoveStart(false);
         Anim.Get().SetTrigger("AnimTrigGameOver");
         mCallOnGameOver.SafeInvoke();

@@ -34,13 +34,14 @@ public class CTrackTile : MonoBehaviour {
         {
             mPlacementObject = GetRandomPlacementObject();
             mPlacementObject.transform.SetParent(this.transform);
+            mPlacementObject.transform.rotation = Quaternion.Euler(Vector3.up * 90);
             mPlacementObject.transform.localPosition = Vector3.zero;
         }
         else if (Kind == CTrackCreater.TRACKKIND.HORIZONTAL)
         {
             mPlacementObject = GetRandomPlacementObject();
             mPlacementObject.transform.SetParent(this.transform);
-            mPlacementObject.transform.rotation = Quaternion.Euler(Vector3.up * 90);
+
             mPlacementObject.transform.localPosition = Vector3.zero;
         }
     }
