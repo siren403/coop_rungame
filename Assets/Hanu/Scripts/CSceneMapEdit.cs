@@ -25,7 +25,7 @@ public class CSceneMapEdit : MonoBehaviour {
         while(PlayerPosition < TrackCreater.TrackList.Count)
         {
             TrackCreater.UpdateTrack(PlayerPosition);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
             //yield return null;
             PlayerPosition++;
         }

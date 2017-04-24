@@ -239,7 +239,7 @@ public class CTrackCreater {
             }
         }
 
-        /*
+          /*
           if(TRACKKIND.VERTICAL == GetCurrentTrack() || TRACKKIND.HORIZONTAL == GetCurrentTrack())
           {
               SetCurrentTrack(tCurrentTrarck);
@@ -303,23 +303,32 @@ public class CTrackCreater {
     /// </summary>
     /// <param name="tTrackKind">원하는 트랙타일</param>
     /// <returns>화면에 보이게 되는 타일을 반환</returns>
-    public CTrackTile DistinguishTrack(TRACKKIND tTrackKind)
+    public CTrackTile DistinguishTrack(TRACKKIND tTrackKind, int tIndex)
     {
         var tTile = TrackTileLoader.GetTrackTile(tTrackKind);
+        
+        tTile.SetIndex(tIndex);
 
-        tTile.SetIndex(0);
+        if(tTrackKind == TRACKKIND.END)
+        {
+            SetNextStage(NEXTROTATION.LEFT);
+            
+            
+        }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if (tTrackKind != TRACKKIND.END)
+        if (TrackList.Count - 3 != tIndex)
         {
             tTile.transform.position = NextPos + (CurrentDirection * TRACK_SIZE);
             NextPos = tTile.transform.position;
         }
         else
         {
+            
             Debug.Log("너나옴?");
-            SetNextStage(NEXTROTATION.LEFT);
-            tTile.transform.position = NextPos + (Vector3.right * 54 * (int)NextRotantion) + Vector3.forward * -54 ;
+            
+            tTile.transform.position = NextPos + (Vector3.right * 54 ) * (int)NextRotantion + Vector3.forward * 54 ;
             NextPos = tTile.transform.position;
+            CurrentDirection = Vector3.right*(int)NextRotantion;
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         if (tTrackKind != TRACKKIND.HORIZONTAL)
@@ -392,8 +401,10 @@ public class CTrackCreater {
                 if (ActiveTrackTileIndex.Contains(tPlayerPositionIndex + ti) == false)
                 {
 
-                    CTrackTile tTile = DistinguishTrack(tKind);
+                    CTrackTile tTile = DistinguishTrack(tKind, tPlayerPositionIndex+ti);
+
                     ActiveTrackTileIndex.Enqueue(tPlayerPositionIndex + ti);
+
 
                     if(ActiveTrackTile.Count < mSight)
                     {
@@ -411,7 +422,6 @@ public class CTrackCreater {
                 break;
             }
         }
-
         //EndNextTrackReady();
     }
 
