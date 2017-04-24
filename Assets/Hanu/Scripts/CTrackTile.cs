@@ -9,6 +9,11 @@ public class CTrackTile : MonoBehaviour {
     public CTrackCreater.TRACKKIND Kind;
 
     public int Index;
+    
+    public void SetTrackCreater(CTrackCreater tTrackCreater)
+    {
+        TrackCreater = tTrackCreater;
+    }
 
     public void SetIndex(int tIndex)
     {
