@@ -217,9 +217,11 @@ public class CPlayer : MonoBehaviour
         }
     }
 
-    public void DoRotate(Vector3 direction)
+    public void DoRotate(Vector3 direction, bool tIsEnd)
     {
-        if (mInputDirection == direction && mIsGround && !mIsSlide)
+        if ((mInputDirection == direction 
+            || (tIsEnd && (mInputDirection == Vector3.left || mInputDirection == Vector3.right)))
+            && mIsGround && !mIsSlide)
         {
             if (mRotateDirection == -1)
             {

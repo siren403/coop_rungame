@@ -5,6 +5,7 @@ using UnityEngine;
 public class CRotateArea : MonoBehaviour {
 
     public Vector3 mDirection;
+    public bool IsEnd = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,7 +20,7 @@ public class CRotateArea : MonoBehaviour {
         if (other.CompareTag(CTag.TAG_PLAYER))
         {
             var player = other.GetComponent<CPlayer>();
-            player.DoRotate(mDirection);
+            player.DoRotate(mDirection, IsEnd);
         }
     }
 

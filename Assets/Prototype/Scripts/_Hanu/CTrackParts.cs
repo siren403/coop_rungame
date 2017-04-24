@@ -23,7 +23,7 @@ public class CTrackParts : MonoBehaviour {
         if (other.collider.CompareTag("tagPlayer_"))
         {
             var player = other.collider.GetComponent<CPlayer>();
-            player.DoRotate(mDirection);
+            player.DoRotate(mDirection,false);
         }
     }
 
