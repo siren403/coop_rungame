@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CTrackTile : MonoBehaviour {
 
+    public CTrackCreater TrackCreater = null;
     public Vector3 Direction;
     public CTrackCreater.TRACKKIND Kind;
 
@@ -12,6 +13,19 @@ public class CTrackTile : MonoBehaviour {
     public void SetIndex(int tIndex)
     {
         Index = tIndex;
+    }
+
+    public int GetIndex()
+    {
+        return Index;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.CompareTag(CTag.TAG_PLAYER))
+        {
+            TrackCreater.SetPlayerIndex(GetIndex());
+        }
     }
 
 }
