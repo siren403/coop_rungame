@@ -67,11 +67,19 @@ public class CPlayer : MonoBehaviour
     [ReadOnly]
     [SerializeField]
     private float BoostSpeedRatio = 1.0f;
+    public float TotalSpeedRatio
+    {
+        get
+        {
+            return SpeedRatio * BoostSpeedRatio;
+        }
+    }
+
     public float CurrentSpeed
     {
         get
         {
-            return Speed * (SpeedRatio * BoostSpeedRatio);
+            return Speed * TotalSpeedRatio;
         }
     }
 
