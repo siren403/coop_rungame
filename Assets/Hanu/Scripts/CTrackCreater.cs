@@ -82,7 +82,7 @@ public class CTrackCreater {
 
     public int PlayerIndex = 0;
 
-
+    public int StageNumber = 0;
    /// <summary>
    /// 트랙이 생성 될 수 있도록 데이터를 생성하는 메소드
    /// </summary>
@@ -92,7 +92,7 @@ public class CTrackCreater {
         mTrackParent = tParent;
 
         this.CreateNextTrackKind();
-        SetTrackList();
+        SetTrackList(0);
 
         //설치될 트랙타일들의 정보들을 로그를 찍어봄
         for(int ti = 0; ti < TrackList.Count;ti++)
@@ -151,16 +151,24 @@ public class CTrackCreater {
     /// <summary>
     /// 랜덤배치할 트랙타일들의 정보를 셋팅하는 메소드
     /// </summary>
-    public void SetTrackList()
+    public void SetTrackList(int tStageNumber)
     {
         TrackList = new Dictionary<int, TRACKKIND>();
         Vector3 tDirection = Vector3.zero;
         CTrackCreater.TRACKKIND tCurrentTrarck = TRACKKIND.END;
-        ////
-        SetCurrentTrack(TRACKKIND.START);
-        TrackList.Add(GetTrackCount(), GetCurrentTrack());
-        AddTrackCount();
-   
+        if (0 == GetStageNumber())
+        {
+            SetCurrentTrack(TRACKKIND.START);
+            TrackList.Add(GetTrackCount(), GetCurrentTrack());
+            AddTrackCount();
+        }
+        else
+        {
+            SetCurrentTrack(TRACKKIND.HORIZONTAL);
+            TrackList.Add(GetTrackCount(), GetCurrentTrack());
+            AddTrackCount();
+        }
+
         for (TrackCount = 1; TrackCount < TOTAL_TRACK - END_TRACK_COUNT;)
         {
             var tNextTrackList = NextTrackKind[CurrentTrack];
@@ -420,10 +428,13 @@ public class CTrackCreater {
             }
             else
             {
+                AddStageNumber();
+                ReSetData();
+                ReSetTrackList(tPlayerPositionIndex);
                 break;
             }
         }
-        //EndNextTrackReady();
+       
     }
 
    
@@ -438,9 +449,18 @@ public class CTrackCreater {
         if(TrackList.Count == tPlayerPositionIndex)
         {
             TrackList.Clear();
+            SetTrackList(GetStageNumber());
 
         }
     }
+
+    public void ReSetData()
+    {
+        ActiveTrackTileIndex.Clear();
+        ActiveTrackTile.Clear();
+        ReSetTrackCount();
+    }
+
 
 
     public void TrackListAddToEndReadyTrack()
@@ -452,30 +472,18 @@ public class CTrackCreater {
         }
     }
 
-    public void EndNextTrackReady()
+   
+
+    public void AddStageNumber()
     {
-        if (ActiveTrackTileIndex.Contains(TrackList.Count) == true)
-        {
-            var tTile = TrackTileLoader.GetTrackTile(TRACKKIND.HORIZONTAL);
-
-            tTile.transform.position = NextPos;// + (Vector3.right) * 100;// + (CurrentDirection*54);
-            NextPos = tTile.transform.position;
-            /*
-            if (tTrackKind != TRACKKIND.HORIZONTAL)
-            {
-                if (tTrackKind != TRACKKIND.END)
-                    CurrentDirection = tTile.Direction;
-            }
-            */
-
-            tTile.gameObject.SetActive(true);
-            ActiveTrackTile.Enqueue(tTile);
-        }
+        StageNumber++;
     }
 
-    ///////////////////
-    
-    
+    public int GetStageNumber()
+    {
+        return StageNumber;
+    }
+
 
 
 
@@ -492,6 +500,11 @@ public class CTrackCreater {
     public void AddTrackCount()
     {
         TrackCount = TrackCount + 1;
+    }
+
+    public void ReSetTrackCount()
+    {
+        TrackCount = 0;
     }
 
     public int GetTrackCount()
