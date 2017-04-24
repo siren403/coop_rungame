@@ -14,7 +14,6 @@ public class CTrackTile : MonoBehaviour {
     {
         Index = tIndex;
     }
-
     public int GetIndex()
     {
         return Index;
