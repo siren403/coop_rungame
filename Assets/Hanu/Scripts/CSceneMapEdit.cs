@@ -11,7 +11,14 @@ public class CSceneMapEdit : MonoBehaviour {
     public GameObject hi = null;
     public int PlayerPosition = 0;
 
+    public CCoinObject PFCoin = null;
+    public CItemObject PFItem = null;
+    public CPlacementObject PFPlacement = null;
+
     void Start () {
+
+
+
         TrackCreater = new CTrackCreater();
 
         TrackCreater.CreateTrack(this.transform);
@@ -28,6 +35,10 @@ public class CSceneMapEdit : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);
             //yield return null;
             PlayerPosition++;
+            if(TrackCreater.TrackList.Count == PlayerPosition)
+            {
+                PlayerPosition = 0;
+            }
         }
     }
     [Button]

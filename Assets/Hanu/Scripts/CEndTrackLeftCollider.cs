@@ -6,9 +6,9 @@ public class CEndTrackLeftCollider : MonoBehaviour {
 
     public CTrackCreater TrackCreater = null;
 
-    private void Start()
+    public void SetTrackCreater(CTrackCreater tTrackCreater)
     {
-        TrackCreater = new CTrackCreater();
+        TrackCreater = tTrackCreater;
     }
 
     private void OnCollisionEnter(Collision other)

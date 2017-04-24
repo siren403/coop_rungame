@@ -150,6 +150,7 @@ namespace ResourceLoader
                 tTile = GameObject.Instantiate(GetPrefab(tTrackKind), Vector3.zero, Quaternion.identity);
                 tTile.gameObject.SetActive(false);
                 tTile.transform.SetParent(mTrackParent);
+                tTile.SetTrackCreater(mTrackCreater);
                 TrackStorage[tTrackKind].Add(tTile);
                 return tTile;
             }

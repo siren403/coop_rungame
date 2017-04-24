@@ -345,10 +345,10 @@ public class CTrackCreater {
             if(tTrackKind != TRACKKIND.END)
                 CurrentDirection = tTile.Direction;
         }
-       
-      
 
-        tTile.gameObject.SetActive(true);
+
+
+        tTile.Show();//gameObject.SetActive(true);
         return tTile;
     }
 
@@ -388,7 +388,7 @@ public class CTrackCreater {
 
 
     //플레이어 위치에 따른 보여지는 값 = mSight
-    private int mSight = 5;
+    private int mSight = 50;
     //한번 활성화 된 트랙타일의 인덱스값을 갖는 자료구조
     private Queue<int> ActiveTrackTileIndex = new Queue<int>();
     //화면에 보이는 트랙타일을 갖고있는 자료구조
@@ -421,7 +421,7 @@ public class CTrackCreater {
                     }
                     else
                     {
-                        ActiveTrackTile.Dequeue().gameObject.SetActive(false);
+                        ActiveTrackTile.Dequeue().Hide();// gameObject.SetActive(false);
                         ActiveTrackTile.Enqueue(tTile);
                     }
                 }
@@ -456,13 +456,17 @@ public class CTrackCreater {
 
     public void ReSetData()
     {
+        /*
+        while(ActiveTrackTile.Count > 0)
+        {
+            ActiveTrackTile.Dequeue().Hide();
+        }
         ActiveTrackTileIndex.Clear();
-        ActiveTrackTile.Clear();
+        */
         ReSetTrackCount();
     }
 
-
-
+    
     public void TrackListAddToEndReadyTrack()
     {
         for (int ti = 0; ti < 3; ti++)

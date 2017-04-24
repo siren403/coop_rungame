@@ -7,11 +7,11 @@ public class CEndTrackRightCollider : MonoBehaviour {
 
     public CTrackCreater TrackCreater = null;
 
-    private void Start()
+    public void SetTrackCreater(CTrackCreater tTrackCreater)
     {
-        TrackCreater = new CTrackCreater();
+        TrackCreater = tTrackCreater;
     }
-    [Button]
+    
     private void OnCollisionEnter(Collision other)
     {
         if (other.collider.CompareTag(CTag.TAG_PLAYER))
