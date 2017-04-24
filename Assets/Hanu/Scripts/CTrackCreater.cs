@@ -156,8 +156,10 @@ public class CTrackCreater {
         TrackList = new Dictionary<int, TRACKKIND>();
         Vector3 tDirection = Vector3.zero;
         CTrackCreater.TRACKKIND tCurrentTrarck = TRACKKIND.END;
-        if (0 == GetStageNumber())
+        Debug.Log("NuM" + tStageNumber);
+        if (0 == tStageNumber)
         {
+         
             SetCurrentTrack(TRACKKIND.START);
             TrackList.Add(GetTrackCount(), GetCurrentTrack());
             AddTrackCount();
@@ -168,7 +170,7 @@ public class CTrackCreater {
             TrackList.Add(GetTrackCount(), GetCurrentTrack());
             AddTrackCount();
         }
-
+        
         for (TrackCount = 1; TrackCount < TOTAL_TRACK - END_TRACK_COUNT;)
         {
             var tNextTrackList = NextTrackKind[CurrentTrack];
@@ -199,7 +201,7 @@ public class CTrackCreater {
             }
             else
             {
-                if (Vector3.right == tDirection)
+                if (Vector3.right == tDirection || Vector3.right == CurrentDirection )
                 {
                     SetCurrentTrack(TRACKKIND.RIGHTUP);
                     TrackList.Add(GetTrackCount(), GetCurrentTrack());
@@ -388,11 +390,13 @@ public class CTrackCreater {
 
 
     //플레이어 위치에 따른 보여지는 값 = mSight
-    private int mSight = 50;
+    private int mSight = 9;
     //한번 활성화 된 트랙타일의 인덱스값을 갖는 자료구조
     private Queue<int> ActiveTrackTileIndex = new Queue<int>();
     //화면에 보이는 트랙타일을 갖고있는 자료구조
     private Queue<CTrackTile> ActiveTrackTile = new Queue<CTrackTile>();
+
+   
 
     /// <summary>
     /// 플레이어 위치값에 따른 트랙타일을 화면에서 꺼주는 메소드
@@ -428,10 +432,35 @@ public class CTrackCreater {
             }
             else
             {
-                AddStageNumber();
-                ReSetData();
-                ReSetTrackList(tPlayerPositionIndex);
+               
+                
+                
                 break;
+            }
+        }
+        if(tPlayerPositionIndex == TrackList.Count-2)
+        {
+            Debug.Log("여긴옴?");
+            AddStageNumber();
+            ReSetData();
+            ReSetTrackList(tPlayerPositionIndex);
+            for (int ti = 0; ti < 3; ti++)
+            {
+                if (ActiveTrackTileIndex.Contains(ti) == false)
+                {
+                    CTrackTile tTile_0 = DistinguishTrack(TrackList[ti], ti);
+                    ActiveTrackTileIndex.Enqueue(ti);
+
+                    if (ActiveTrackTile.Count < mSight)
+                    {
+                        ActiveTrackTile.Enqueue(tTile_0);
+                    }
+                    else
+                    {
+                        ActiveTrackTile.Dequeue().Hide();// gameObject.SetActive(false);
+                        ActiveTrackTile.Enqueue(tTile_0);
+                    }
+                }
             }
         }
        
@@ -446,23 +475,22 @@ public class CTrackCreater {
 
     public void ReSetTrackList(int tPlayerPositionIndex)
     {
-        if(TrackList.Count == tPlayerPositionIndex)
-        {
+
+            Debug.Log("리셋??");
             TrackList.Clear();
             SetTrackList(GetStageNumber());
-
-        }
+        
     }
 
     public void ReSetData()
     {
-        /*
-        while(ActiveTrackTile.Count > 0)
+        
+        while(ActiveTrackTile.Count > 3)
         {
             ActiveTrackTile.Dequeue().Hide();
         }
         ActiveTrackTileIndex.Clear();
-        */
+        
         ReSetTrackCount();
     }
 
