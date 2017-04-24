@@ -114,7 +114,7 @@ public class CTrackCreater {
         foreach(var loader in TrackTileLoaderList)
         {
             loader.Load();
-            loader.InitTrackStorage(tParent);
+            loader.InitTrackStorage(tParent, this);
         }
 
         CurrentTrackTileLoaderIndex = 2;
