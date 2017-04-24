@@ -12,6 +12,8 @@ public class CUIPlayGame : MonoBehaviour
     public Slider InstSliderJoyStick = null;//조이스틱
     [SerializeField]
     private Text InstTxtScore = null;
+    [SerializeField]
+    private Text InstTxtCoin = null;
     public Button InstBtnPause = null;
     public Button InstBtnPauseClose = null;
 
@@ -34,6 +36,10 @@ public class CUIPlayGame : MonoBehaviour
     public void SetTxtScore(int value)
     {
         InstTxtScore.text = string.Format("SCORE : {0}", value.ToString());
+    }
+    public void SetTxtCoin(int value)
+    {
+        InstTxtCoin.text = string.Format("COIN : {0}", value.ToString());
     }
     public void ShowUIPause(int score)
     {

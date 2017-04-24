@@ -12,11 +12,17 @@ public class CScenePlayGame : MonoBehaviour
 
     //GameState
     private IntReactiveProperty mScore = null;
+    private IntReactiveProperty mCoin = null;
+
+    public float HpTickTime = 0.5f;
+    public int HpTickPerHp = 10;
+    public float HpTickPerHpRatio = 1.0f;
+    public float ScoreTickTime = 0.01f;
+    public float CoinPerScore = 20.0f;
+    public float CoinPerBoost = 1.0f;
 
     //Ref
-    [ReadOnly]
     public CPlayer InstPlayer = null;
-    [ReadOnly]
     public CTargetCamera InstTargetCamera = null;
     public CTrackFactory InstTrackCreator = null;
     [ReadOnly]
@@ -24,6 +30,7 @@ public class CScenePlayGame : MonoBehaviour
     private CUIPlayGame mUIPlayGame = null;
 
     private Coroutine mCoroutineTickHp = null;
+    private Coroutine mCoroutineTickScore = null;
 
     //Editor Test
     private Vector3 mStartPosition = Vector3.zero;
@@ -31,12 +38,13 @@ public class CScenePlayGame : MonoBehaviour
 
     private void Awake()
     {
-        CreateBasicPrefabs();
+        InstPlayer.SetScene(this);
+
+        //CreateBasicPrefabs();
         CHanMapDataMgr.GetInst().CreateHan();
         InstTrackCreator.CreateTrack();
 
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
-
 
         CPlayerController tController = null;
 #if UNITY_EDITOR
@@ -68,8 +76,11 @@ public class CScenePlayGame : MonoBehaviour
         InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);
 
         mScore = new IntReactiveProperty();
-        mScore.Subscribe((score) => mUIPlayGame.SetTxtScore(score));
+        mScore.Subscribe((score) => mUIPlayGame.SetTxtScore(score + (mCoin.Value * (int)CoinPerScore)));
+        mCoin = new IntReactiveProperty();
+        mCoin.Subscribe((coin) => mUIPlayGame.SetTxtCoin(coin));
     }
+
     private void OnPause(bool isPause)
     {
         if(isPause)
@@ -94,21 +105,23 @@ public class CScenePlayGame : MonoBehaviour
     {
         
     }
-    [Button]
-    public void CreateBasicPrefabs()
-    {
-        mPlayGamePrefabs.Load();
-        if(InstPlayer == null)
-        {
-            InstPlayer = Instantiate(mPlayGamePrefabs.PFPlayer, Vector3.zero, Quaternion.identity);
-        }
-        if(InstTargetCamera == null)
-        {
-            InstTargetCamera = Instantiate(mPlayGamePrefabs.PFTargetCamera, Vector3.zero, Quaternion.identity);
-            InstTargetCamera.SetTarget(InstPlayer.gameObject);
-            InstTargetCamera.UpdatePosition();
-        }
-    }
+
+    
+    //[Button]
+    //public void CreateBasicPrefabs()
+    //{
+    //    mPlayGamePrefabs.Load();
+    //    if(InstPlayer == null)
+    //    {
+    //        InstPlayer = Instantiate(mPlayGamePrefabs.PFPlayer, Vector3.zero, Quaternion.identity);
+    //    }
+    //    if(InstTargetCamera == null)
+    //    {
+    //        InstTargetCamera = Instantiate(mPlayGamePrefabs.PFTargetCamera, Vector3.zero, Quaternion.identity);
+    //        InstTargetCamera.SetTarget(InstPlayer.gameObject);
+    //        InstTargetCamera.UpdatePosition();
+    //    }
+    //}
 
     [Button]
     public void OnStartRun()
@@ -117,13 +130,23 @@ public class CScenePlayGame : MonoBehaviour
         mStartRotation = InstPlayer.transform.rotation;
         InstPlayer.SetMoveStart(true);
         mCoroutineTickHp = StartCoroutine(TickHp());
+        mCoroutineTickScore = StartCoroutine(TickScore());
+
     }
     private IEnumerator TickHp()
     {
         while(true)
         {
-            yield return new WaitForSeconds(0.5f);
-            InstPlayer.DecrementHp(10);
+            yield return new WaitForSeconds(HpTickTime);
+            InstPlayer.DecrementHp((int)(HpTickPerHp * HpTickPerHpRatio));
+        }
+    }
+    private IEnumerator TickScore()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(ScoreTickTime);
+            mScore.Value += 1;
         }
     }
 
@@ -153,6 +176,10 @@ public class CScenePlayGame : MonoBehaviour
     {
         mScore.Value += Random.Range(50, 150);
     }
-
+    public void OnIncrementCoin()
+    {
+        mCoin.Value += 1;
+        InstPlayer.IncrementBoost(CoinPerBoost);
+    }
 
 }
