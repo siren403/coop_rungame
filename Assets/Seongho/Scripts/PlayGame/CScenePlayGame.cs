@@ -28,7 +28,6 @@ public class CScenePlayGame : MonoBehaviour
     public int HpTickPerHp = 10;
     public float HpTickPerHpRatio = 1.0f;
     public float ScoreTickTime = 0.01f;
-    public float ScoreTickRatio = 1.0f;
     public float CoinPerScore = 20.0f;
     public float CoinPerBoost = 1.0f;
 
@@ -161,7 +160,7 @@ public class CScenePlayGame : MonoBehaviour
         while(mIsPlaying)
         {
             yield return new WaitForSeconds(ScoreTickTime);
-            mScore.Value += 1 * ScoreTickRatio;
+            mScore.Value += 1 * InstPlayer.TotalSpeedRatio;
         }
     }
 
@@ -177,6 +176,9 @@ public class CScenePlayGame : MonoBehaviour
         mUIPlayGame.InstUIGameOver.SetActive(false);
         mCoroutineTickHp = StartCoroutine(TickHp());
         mCoroutineTickScore = StartCoroutine(TickScore());
+        mCoin.Value = 0;
+        mScore.Value = 0;
+        HpTickPerHpRatio = 1.0f;
     }
 
     [Button]

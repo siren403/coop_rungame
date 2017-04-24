@@ -14,14 +14,14 @@ public class CTrackBoostItem : CTrackItem
     {
         Debug.Log("Activate");
         mPlayer.SetBoostSpeedRatio(2.0f);
-        mPlayer.ScenePlayGame.ScoreTickRatio = 2.0f;
+        //mPlayer.ScenePlayGame.ScoreTickRatio = 2.0f;
     }
 
     public override void Deactivate()
     {
         Debug.Log("Deactivate");
         mPlayer.SetBoostSpeedRatio(1.0f);
-        mPlayer.ScenePlayGame.ScoreTickRatio = 1.0f;
+        //mPlayer.ScenePlayGame.ScoreTickRatio = 1.0f;
     }
 
 }
