@@ -8,6 +8,8 @@ public class CTrackCreater {
 
     public const int TOTAL_TRACK = 70;
     public const int END_TRACK_COUNT = 6;
+    public const int NOT_CURVE_COUNT = 10;
+
     public const int TRACK_SIZE = 18;
     public const int STRAIGHT_COUNT = 5;
     public const int STARTING_TRACK = 5;
@@ -20,6 +22,7 @@ public class CTrackCreater {
     public const int UPRIGHT_COUNT = 5;
     public const int RIGHTUP_COUNT = 5;
 
+   
 
 
     public CTrackTileLoader TrackTileLoader
@@ -31,6 +34,12 @@ public class CTrackCreater {
     } 
     public List<CTrackTileLoader> TrackTileLoaderList = null;
     public int CurrentTrackTileLoaderIndex = 0;
+
+    public enum NEXTROTATION
+    {
+        LEFT = 1,
+        RIGHT = -1,
+    }
 
     public enum TRACKKIND
     {
@@ -45,7 +54,8 @@ public class CTrackCreater {
         END = 8,
     }
 
-    
+    public NEXTROTATION NextRotantion;
+
     //트랙타일을 조립하기 위해 쓰이는 위치값들
     public Vector3 BeforePos;
     public Vector3 NextPos;
@@ -86,7 +96,7 @@ public class CTrackCreater {
         //설치될 트랙타일들의 정보들을 로그를 찍어봄
         for(int ti = 0; ti < TrackList.Count;ti++)
         {
-            if (ti == 44)
+            if (ti == 64)
                 Debug.Log("=======================================");
 
             Debug.Log(TrackList[ti]);
@@ -136,7 +146,7 @@ public class CTrackCreater {
     }
 
 
-
+    
     /// <summary>
     /// 랜덤배치할 트랙타일들의 정보를 셋팅하는 메소드
     /// </summary>
@@ -145,20 +155,21 @@ public class CTrackCreater {
         TrackList = new Dictionary<int, TRACKKIND>();
         Vector3 tDirection = Vector3.zero;
         CTrackCreater.TRACKKIND tCurrentTrarck = TRACKKIND.END;
+        ////
         SetCurrentTrack(TRACKKIND.START);
         TrackList.Add(GetTrackCount(), GetCurrentTrack());
         AddTrackCount();
-
+   
         for (TrackCount = 1; TrackCount < TOTAL_TRACK - END_TRACK_COUNT;)
         {
             var tNextTrackList = NextTrackKind[CurrentTrack];
             var tNextTrackKind = tNextTrackList[Random.Range(0, tNextTrackList.Count)];
 
-            if (TOTAL_TRACK - END_TRACK_COUNT <  GetTrackCount())
+            if (TOTAL_TRACK - NOT_CURVE_COUNT < GetTrackCount())
             {
                 tNextTrackKind = tNextTrackList[0];
             }
-            
+
 
             if (tNextTrackKind != TRACKKIND.TURN)
             {
@@ -171,7 +182,7 @@ public class CTrackCreater {
                     tDirection = Vector3.right;
 
                 }
-                else if(tNextTrackKind == TRACKKIND.UPLEFT)
+                else if (tNextTrackKind == TRACKKIND.UPLEFT)
                 {
                     tDirection = Vector3.left;
                 }
@@ -191,12 +202,13 @@ public class CTrackCreater {
                 }
             }
             AddTrackCount();
-            
+
 
             for (int ti = 0; ti < STRAIGHT_COUNT; ti++)
             {
-                if (TOTAL_TRACK - END_TRACK_COUNT > TrackCount)
+                if (TOTAL_TRACK - END_TRACK_COUNT > GetTrackCount())
                 {
+                    tCurrentTrarck = TRACKKIND.END;
                     if (TRACKKIND.LEFTUP == GetCurrentTrack() || TRACKKIND.RIGHTUP == GetCurrentTrack())
                     {
                         TrackList.Add(GetTrackCount(), TRACKKIND.VERTICAL);
@@ -212,17 +224,29 @@ public class CTrackCreater {
                 }
                 else
                 {
+                    if (tCurrentTrarck != TRACKKIND.END)
+                    {
+                        Debug.Log("a11asd" + tCurrentTrarck.ToString());
+                        SetCurrentTrack(tCurrentTrarck);
+                    }
                     break;
                 }
             }
+            if (tCurrentTrarck != TRACKKIND.END)
+            {
+                Debug.Log("a11" + tCurrentTrarck.ToString());
+                SetCurrentTrack(tCurrentTrarck);
+            }
         }
 
-        if(TRACKKIND.VERTICAL == tCurrentTrarck || TRACKKIND.HORIZONTAL == tCurrentTrarck)
-        {
-            SetCurrentTrack(tCurrentTrarck);
-        }
-
-
+        /*
+          if(TRACKKIND.VERTICAL == GetCurrentTrack() || TRACKKIND.HORIZONTAL == GetCurrentTrack())
+          {
+              SetCurrentTrack(tCurrentTrarck);
+          }
+          */
+        Debug.Log("지금?!" + GetCurrentTrack().ToString());
+        
         switch (GetCurrentTrack())
         {
             case TRACKKIND.UPLEFT:
@@ -258,6 +282,7 @@ public class CTrackCreater {
                 break;
         }
         
+        
 
         for (int ti = 0; ti < STRAIGHT_COUNT; ti++)
         {
@@ -268,6 +293,8 @@ public class CTrackCreater {
         SetCurrentTrack(TRACKKIND.END);
         TrackList.Add(GetTrackCount(), GetCurrentTrack());
         AddTrackCount();
+
+        TrackListAddToEndReadyTrack();
     }
 
 
@@ -280,28 +307,28 @@ public class CTrackCreater {
     {
         var tTile = TrackTileLoader.GetTrackTile(tTrackKind);
 
-        tTile.transform.position = NextPos + (CurrentDirection * TRACK_SIZE);
-        NextPos = tTile.transform.position;
-
+        tTile.SetIndex(0);
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (tTrackKind != TRACKKIND.END)
+        {
+            tTile.transform.position = NextPos + (CurrentDirection * TRACK_SIZE);
+            NextPos = tTile.transform.position;
+        }
+        else
+        {
+            Debug.Log("너나옴?");
+            SetNextStage(NEXTROTATION.LEFT);
+            tTile.transform.position = NextPos + (Vector3.right * 54 * (int)NextRotantion) + Vector3.forward * -54 ;
+            NextPos = tTile.transform.position;
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         if (tTrackKind != TRACKKIND.HORIZONTAL)
         {
             if(tTrackKind != TRACKKIND.END)
                 CurrentDirection = tTile.Direction;
         }
        
-        if(tTrackKind == TRACKKIND.END)
-        {
-
-            if (CurrentDirection == Vector3.right)
-            {
-                tTile.transform.Rotate(new Vector3(0.0f, 90.0f, 0.0f));
-            }
-            else if (CurrentDirection == Vector3.left)
-            {
-                tTile.transform.Rotate(new Vector3(0.0f, -90.0f, 0.0f));
-            }
-        }
-
+      
 
         tTile.gameObject.SetActive(true);
         return tTile;
@@ -343,7 +370,7 @@ public class CTrackCreater {
 
 
     //플레이어 위치에 따른 보여지는 값 = mSight
-    private int mSight = 50;
+    private int mSight = 5;
     //한번 활성화 된 트랙타일의 인덱스값을 갖는 자료구조
     private Queue<int> ActiveTrackTileIndex = new Queue<int>();
     //화면에 보이는 트랙타일을 갖고있는 자료구조
@@ -364,6 +391,7 @@ public class CTrackCreater {
                 
                 if (ActiveTrackTileIndex.Contains(tPlayerPositionIndex + ti) == false)
                 {
+
                     CTrackTile tTile = DistinguishTrack(tKind);
                     ActiveTrackTileIndex.Enqueue(tPlayerPositionIndex + ti);
 
@@ -383,8 +411,56 @@ public class CTrackCreater {
                 break;
             }
         }
+
+        //EndNextTrackReady();
     }
+
    
+
+    public void SetNextStage(NEXTROTATION tNEXTROTATION)
+    {
+        NextRotantion = tNEXTROTATION;
+    }
+
+    public void ReSetTrackList(int tPlayerPositionIndex)
+    {
+        if(TrackList.Count == tPlayerPositionIndex)
+        {
+            TrackList.Clear();
+
+        }
+    }
+
+
+    public void TrackListAddToEndReadyTrack()
+    {
+        for (int ti = 0; ti < 3; ti++)
+        {
+            TrackList.Add(GetTrackCount(), TRACKKIND.HORIZONTAL);
+            AddTrackCount();
+        }
+    }
+
+    public void EndNextTrackReady()
+    {
+        if (ActiveTrackTileIndex.Contains(TrackList.Count) == true)
+        {
+            var tTile = TrackTileLoader.GetTrackTile(TRACKKIND.HORIZONTAL);
+
+            tTile.transform.position = NextPos;// + (Vector3.right) * 100;// + (CurrentDirection*54);
+            NextPos = tTile.transform.position;
+            /*
+            if (tTrackKind != TRACKKIND.HORIZONTAL)
+            {
+                if (tTrackKind != TRACKKIND.END)
+                    CurrentDirection = tTile.Direction;
+            }
+            */
+
+            tTile.gameObject.SetActive(true);
+            ActiveTrackTile.Enqueue(tTile);
+        }
+    }
 
     ///////////////////
     
