@@ -80,6 +80,7 @@ public class CTrackCreater {
     //지정된 곳에 자식으로 넣을 위치
     private Transform mTrackParent = null;
 
+    public int PlayerIndex = 0;
 
 
    /// <summary>
@@ -478,9 +479,15 @@ public class CTrackCreater {
 
 
 
+    public void SetPlayerIndex(int tIndex)
+    {
+        PlayerIndex = tIndex;
+    }
 
-
-
+    public int GetPlayerIndex()
+    {
+        return PlayerIndex;
+    }
 
     public void AddTrackCount()
     {
