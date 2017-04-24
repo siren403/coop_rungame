@@ -13,6 +13,14 @@ public abstract class CPlacementObject : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag(CTag.TAG_PLAYER))
+        {
+            OnPlayerEnter(other.GetComponent<CPlayer>());
+        }
+    }
+
     protected abstract void OnPlayerEnter(CPlayer tPlayer);
 
 }

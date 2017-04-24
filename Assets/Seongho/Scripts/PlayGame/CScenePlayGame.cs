@@ -11,13 +11,24 @@ public class CScenePlayGame : MonoBehaviour
     private PlayGamePrefabs mPlayGamePrefabs = new PlayGamePrefabs();
 
     //GameState
-    private IntReactiveProperty mScore = null;
+    [ReadOnly]
+    [SerializeField]
+    private bool mIsPlaying = false;
+    public bool IsPlaying
+    {
+        get
+        {
+            return mIsPlaying;
+        }
+    }
+    private FloatReactiveProperty mScore = null;
     private IntReactiveProperty mCoin = null;
 
     public float HpTickTime = 0.5f;
     public int HpTickPerHp = 10;
     public float HpTickPerHpRatio = 1.0f;
     public float ScoreTickTime = 0.01f;
+    public float ScoreTickRatio = 1.0f;
     public float CoinPerScore = 20.0f;
     public float CoinPerBoost = 1.0f;
 
@@ -25,6 +36,7 @@ public class CScenePlayGame : MonoBehaviour
     public CPlayer InstPlayer = null;
     public CTargetCamera InstTargetCamera = null;
     public CTrackFactory InstTrackCreator = null;
+    public CItemTimer InstItemTimer = null;
     [ReadOnly]
     [SerializeField]
     private CUIPlayGame mUIPlayGame = null;
@@ -36,9 +48,11 @@ public class CScenePlayGame : MonoBehaviour
     private Vector3 mStartPosition = Vector3.zero;
     private Quaternion mStartRotation = Quaternion.identity;
 
+
     private void Awake()
     {
         InstPlayer.SetScene(this);
+        InstItemTimer.SetScene(this);
 
         //CreateBasicPrefabs();
         CHanMapDataMgr.GetInst().CreateHan();
@@ -75,8 +89,8 @@ public class CScenePlayGame : MonoBehaviour
         InstPlayer.CurrentHp.Subscribe((hp) => mUIPlayGame.InstSliderHPBar.value = (float)hp / InstPlayer.Hp);
         InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);
 
-        mScore = new IntReactiveProperty();
-        mScore.Subscribe((score) => mUIPlayGame.SetTxtScore(score + (mCoin.Value * (int)CoinPerScore)));
+        mScore = new FloatReactiveProperty();
+        mScore.Subscribe((score) => mUIPlayGame.SetTxtScore((int)score + (mCoin.Value * (int)CoinPerScore)));
         mCoin = new IntReactiveProperty();
         mCoin.Subscribe((coin) => mUIPlayGame.SetTxtCoin(coin));
     }
@@ -86,7 +100,7 @@ public class CScenePlayGame : MonoBehaviour
         if(isPause)
         {
             Time.timeScale = 0;
-            mUIPlayGame.ShowUIPause(mScore.Value);
+            mUIPlayGame.ShowUIPause((int)mScore.Value);
         }
         else
         {
@@ -98,15 +112,15 @@ public class CScenePlayGame : MonoBehaviour
     private void OnGameOver()
     {
         mUIPlayGame.InstUIGameOver.SetActive(true);
-        if (mCoroutineTickHp != null)
-            StopCoroutine(mCoroutineTickHp);
+        InstItemTimer.Reset();
+        mIsPlaying = false;
     }
     private void OnRetire()
     {
-        
+
     }
 
-    
+
     //[Button]
     //public void CreateBasicPrefabs()
     //{
@@ -126,6 +140,7 @@ public class CScenePlayGame : MonoBehaviour
     [Button]
     public void OnStartRun()
     {
+        mIsPlaying = true;
         mStartPosition = InstPlayer.transform.position;
         mStartRotation = InstPlayer.transform.rotation;
         InstPlayer.SetMoveStart(true);
@@ -135,7 +150,7 @@ public class CScenePlayGame : MonoBehaviour
     }
     private IEnumerator TickHp()
     {
-        while(true)
+        while(mIsPlaying)
         {
             yield return new WaitForSeconds(HpTickTime);
             InstPlayer.DecrementHp((int)(HpTickPerHp * HpTickPerHpRatio));
@@ -143,22 +158,25 @@ public class CScenePlayGame : MonoBehaviour
     }
     private IEnumerator TickScore()
     {
-        while(true)
+        while(mIsPlaying)
         {
             yield return new WaitForSeconds(ScoreTickTime);
-            mScore.Value += 1;
+            mScore.Value += 1 * ScoreTickRatio;
         }
     }
 
     [Button]
     public void OnRestartRun()
     {
+        mIsPlaying = true;
         InstPlayer.transform.position = mStartPosition;
         InstPlayer.transform.rotation = mStartRotation;
 
         InstPlayer.OnReset();
         InstTargetCamera.ResetAngle();
         mUIPlayGame.InstUIGameOver.SetActive(false);
+        mCoroutineTickHp = StartCoroutine(TickHp());
+        mCoroutineTickScore = StartCoroutine(TickScore());
     }
 
     [Button]

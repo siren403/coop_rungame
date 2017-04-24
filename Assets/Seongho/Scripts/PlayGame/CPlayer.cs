@@ -61,12 +61,17 @@ public class CPlayer : MonoBehaviour
             return mData.SideSpeed;
         }
     }
-    public float DecrementSpeedRatio = 1.0f;
+    [ReadOnly]
+    [SerializeField]
+    private float SpeedRatio = 1.0f;
+    [ReadOnly]
+    [SerializeField]
+    private float BoostSpeedRatio = 1.0f;
     public float CurrentSpeed
     {
         get
         {
-            return Speed * DecrementSpeedRatio;
+            return Speed * (SpeedRatio * BoostSpeedRatio);
         }
     }
 
@@ -82,7 +87,6 @@ public class CPlayer : MonoBehaviour
     [ReadOnly]
     [SerializeField]
     private bool mIsDirectionInputChecking = false;
-    [ReadOnly]
     [SerializeField]
     private Vector3 mInputDirection;
     [ReadOnly]
@@ -297,16 +301,14 @@ public class CPlayer : MonoBehaviour
         }
     }
 
-    public void SetDecrementSpeedRatio(float ratio)
+    public void SetSpeedRatio(float ratio)
     {
-        //if (decSpeed > this.Speed)
-        //{
-        //    decSpeed = this.Speed;
-        //}
-        //this.DecrementSpeed = decSpeed;
-        this.DecrementSpeedRatio = ratio;
+        this.SpeedRatio = ratio;
     }
-
+    public void SetBoostSpeedRatio(float ratio)
+    {
+        this.BoostSpeedRatio = ratio;
+    }
     public void OnReset()
     {
         mIsGround = true;
