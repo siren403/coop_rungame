@@ -11,7 +11,16 @@ public class CPlayer : MonoBehaviour
     public ForceMode JumpForceMode;
 
     //State Values
-    public int Hp = 1000;
+    [SerializeField]
+    private CPlayerData mData = null;
+
+    public int Hp
+    {
+        get
+        {
+            return mData.Hp;
+        }
+    }
     private IntReactiveProperty mCurrentHp = null;
     public IntReactiveProperty CurrentHp
     {
@@ -37,16 +46,40 @@ public class CPlayer : MonoBehaviour
             return mCurrentBoost;
         }
     }
-    
 
-    public float Speed = 20.0f;
-    public float SideSpeed = 10.0f;
-    public float DecrementSpeed = 0.0f;
+    public float Speed
+    {
+        get
+        {
+            return mData.Speed;
+        }
+    }
+    public float SideSpeed
+    {
+        get
+        {
+            return mData.SideSpeed;
+        }
+    }
+    [ReadOnly]
+    [SerializeField]
+    private float SpeedRatio = 1.0f;
+    [ReadOnly]
+    [SerializeField]
+    private float BoostSpeedRatio = 1.0f;
+    public float TotalSpeedRatio
+    {
+        get
+        {
+            return SpeedRatio * BoostSpeedRatio;
+        }
+    }
+
     public float CurrentSpeed
     {
         get
         {
-            return Speed - DecrementSpeed;
+            return Speed * TotalSpeedRatio;
         }
     }
 
@@ -56,15 +89,12 @@ public class CPlayer : MonoBehaviour
     private bool mIsSlide = false;
     private float mHorizontal = 0;
 
-
     private CacheComponent<Rigidbody> Body = null;
     private CacheComponent<Animator> Anim = null;
-
 
     [ReadOnly]
     [SerializeField]
     private bool mIsDirectionInputChecking = false;
-    [ReadOnly]
     [SerializeField]
     private Vector3 mInputDirection;
     [ReadOnly]
@@ -81,6 +111,17 @@ public class CPlayer : MonoBehaviour
     public Collider StandCollider = null;
     public Collider SlideCollider = null;
 
+    private CScenePlayGame mScenePlayGame = null;
+    public CScenePlayGame ScenePlayGame
+    {
+        get
+        {
+            return mScenePlayGame;
+        }
+    }
+
+    private bool mIsRotateDelay = false;
+
     private void Awake()
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
@@ -91,6 +132,10 @@ public class CPlayer : MonoBehaviour
         SwitchPlayerCollider(true);
     }
 
+    public void SetScene(CScenePlayGame tScene)
+    {
+        mScenePlayGame = tScene;
+    }
     public void SetFuncHorizontal(System.Func<int> callFunc)
     {
         mFuncHorizontal = callFunc;
@@ -155,6 +200,9 @@ public class CPlayer : MonoBehaviour
     }
     public void DoDirectionInputCheck()
     {
+        if (mIsRotateDelay)
+            return;
+
         mIsDirectionInputChecking = true;
     }
 
@@ -172,9 +220,11 @@ public class CPlayer : MonoBehaviour
         }
     }
 
-    public void DoRotate(Vector3 direction)
+    public void DoRotate(Vector3 direction, bool tIsEnd)
     {
-        if (mInputDirection == direction)
+        if ((mInputDirection == direction 
+            || (tIsEnd && (mInputDirection == Vector3.left || mInputDirection == Vector3.right)))
+            && mIsGround && !mIsSlide)
         {
             if (mRotateDirection == -1)
             {
@@ -187,6 +237,8 @@ public class CPlayer : MonoBehaviour
             mCallOnRotate.SafeInvoke(mRotateDirection);
             mRotateDirection = 0;
             mInputDirection = Vector2.zero;
+            mIsRotateDelay = true;
+            Invoke("Rotateable", 0.3f);
         }
         else//게임오버 처리
         {
@@ -195,9 +247,14 @@ public class CPlayer : MonoBehaviour
 
         mIsDirectionInputChecking = false;
     }
+    private void Rotateable()
+    {
+        mIsRotateDelay = false;
+    }
 
     private void GameOver()
     {
+        //return;
         SetMoveStart(false);
         Anim.Get().SetTrigger("AnimTrigGameOver");
         mCallOnGameOver.SafeInvoke();
@@ -264,15 +321,14 @@ public class CPlayer : MonoBehaviour
         }
     }
 
-    public void SetDecrementSpeed(float decSpeed)
+    public void SetSpeedRatio(float ratio)
     {
-        if (decSpeed > this.Speed)
-        {
-            decSpeed = this.Speed;
-        }
-        this.DecrementSpeed = decSpeed;
+        this.SpeedRatio = ratio;
     }
-
+    public void SetBoostSpeedRatio(float ratio)
+    {
+        this.BoostSpeedRatio = ratio;
+    }
     public void OnReset()
     {
         mIsGround = true;
@@ -283,7 +339,6 @@ public class CPlayer : MonoBehaviour
     public void DecrementHp(int value)
     {
         mCurrentHp.Value -= value;
-        Debug.Log(mCurrentHp.Value);
         if (mCurrentHp.Value < 0)
         {
             mCurrentHp.Value = 0;

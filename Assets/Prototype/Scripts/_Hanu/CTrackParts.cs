@@ -9,7 +9,8 @@ public class CTrackParts : MonoBehaviour {
 
     private void OnCollisionEnter(Collision other)
     {
-        if(other.collider.CompareTag("tagPlayer"))
+        return;
+        if(other.collider.CompareTag("tagPlayer_"))
         {
             var player = other.collider.GetComponent<CPlayer>();
             player.DoDirectionInputCheck();
@@ -18,10 +19,11 @@ public class CTrackParts : MonoBehaviour {
 
     private void OnCollisionExit(Collision other)
     {
-        if (other.collider.CompareTag("tagPlayer"))
+        return;
+        if (other.collider.CompareTag("tagPlayer_"))
         {
             var player = other.collider.GetComponent<CPlayer>();
-            player.DoRotate(mDirection);
+            player.DoRotate(mDirection,false);
         }
     }
 

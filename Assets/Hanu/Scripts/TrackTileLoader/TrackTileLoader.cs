@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ResourceLoader
 {
-    public abstract class TrackTileLoader : ResourceLoader
+    public abstract class CTrackTileLoader : ResourceLoader
     {
         public struct TilePaths
         {
@@ -36,6 +36,10 @@ namespace ResourceLoader
 
         private Dictionary<CTrackCreater.TRACKKIND, CTrackTile> TrackKind = null;
 
+        public Dictionary<CTrackCreater.TRACKKIND, List<CTrackTile>> TrackStorage = null;
+
+        private CTrackCreater mTrackCreater = null;
+        private Transform mTrackParent;
 
         protected abstract TilePaths InitTilePaths();
 
@@ -70,6 +74,49 @@ namespace ResourceLoader
             TrackKind.Add(CTrackCreater.TRACKKIND.END, PFEndTrack);
         }
 
+        public void InitTrackStorage(Transform tParent, CTrackCreater tTrackCreater)
+        {
+            mTrackParent = tParent;
+            mTrackCreater = tTrackCreater;
+
+            TrackStorage = new Dictionary<CTrackCreater.TRACKKIND, List<CTrackTile>>();
+            var tTrackKinds = System.Enum.GetValues(typeof(CTrackCreater.TRACKKIND)).GetEnumerator();
+
+            while (tTrackKinds.MoveNext())
+            {
+                CTrackCreater.TRACKKIND tKind = (CTrackCreater.TRACKKIND)tTrackKinds.Current;
+                int tCreateCount = 0;
+
+                if (tKind == CTrackCreater.TRACKKIND.START || tKind == CTrackCreater.TRACKKIND.END)
+                {
+                    tCreateCount = 1;
+                }
+                else if (tKind != CTrackCreater.TRACKKIND.TURN)
+                {
+                    tCreateCount = 5;
+                }
+
+                for (int i = 0; i < tCreateCount; i++)
+                {
+                    if (TrackStorage.ContainsKey(tKind) == false)
+                    {
+                        TrackStorage.Add(tKind, new List<CTrackTile>());
+                    }
+                    if (GetPrefab(tKind) == null)
+                    {
+                        Debug.Log("Prefab is Null");
+                    }
+                    CTrackTile tile = GameObject.Instantiate(GetPrefab(tKind), Vector3.zero, Quaternion.identity);
+                    tile.gameObject.SetActive(false);
+                    tile.transform.SetParent(tParent);
+                    tile.SetTrackCreater(mTrackCreater);
+                    TrackStorage[tKind].Add(tile);
+                }
+            }
+        }
+
+
+
         public CTrackTile GetPrefab(CTrackCreater.TRACKKIND tTrackKind)
         {
             if (TrackKind.ContainsKey(tTrackKind))
@@ -80,6 +127,38 @@ namespace ResourceLoader
             return null;
         }
 
-      
+        /// <summary>
+        /// 트랙창고리스트에서 원하는 종류의 트랙타일을 받아오는 메소드 IF 창고안에 비활성화 된 트랙타일이 없을시 생성하여 가져옵니다.
+        /// </summary>
+        /// <param name="tTrackKind">원하는 트랙의 종류</param>
+        /// <returns>원하는 트랙타일을 반환</returns>
+        public CTrackTile GetTrackTile(CTrackCreater.TRACKKIND tTrackKind)
+        {
+            CTrackTile tTile = null;
+
+            if (TrackStorage.ContainsKey(tTrackKind))
+            {
+                for (int i = 0; i < TrackStorage[tTrackKind].Count; i++)
+                {
+                    if (TrackStorage[tTrackKind][i].gameObject.activeSelf == false)
+                    {
+                        tTile = TrackStorage[tTrackKind][i];
+                        return tTile;
+                    }
+                }
+
+                tTile = GameObject.Instantiate(GetPrefab(tTrackKind), Vector3.zero, Quaternion.identity);
+                tTile.gameObject.SetActive(false);
+                tTile.transform.SetParent(mTrackParent);
+                tTile.SetTrackCreater(mTrackCreater);
+                TrackStorage[tTrackKind].Add(tTile);
+                return tTile;
+            }
+
+            return null;
+        }
+
+
+
     }
 }

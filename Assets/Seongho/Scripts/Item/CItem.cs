@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDataObject : ScriptableObject
+public abstract class CItem 
 {
-    public string mName = "Player";
 
 }

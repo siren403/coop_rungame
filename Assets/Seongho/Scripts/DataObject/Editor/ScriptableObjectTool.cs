@@ -46,7 +46,6 @@ public class ScriptableObjectTool : EditorWindow
         {
             string path = string.Format("{0}/{1}.asset", CreateDirectory, mTargetScript.name);
 
-            Debug.Log(Environment.CurrentDirectory + "/" + path);
             if (File.Exists(Environment.CurrentDirectory + "/" + path))
             {
                 Debug.Log("Exist");
@@ -59,7 +58,8 @@ public class ScriptableObjectTool : EditorWindow
                 mTargetScript = null;
                 return;
             }
-            //AssetDatabase.CreateAsset(mTargetScript, path);
+            AssetDatabase.CreateAsset(instance, path);
+            AssetDatabase.Refresh();
         }
         GUI.enabled = true;
     }

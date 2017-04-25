@@ -721,9 +721,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4204735598330966}
-  - component: {fileID: 136342336416063942}
   - component: {fileID: 114915367033450418}
   - component: {fileID: 54113583569763058}
+  - component: {fileID: 136342336416063942}
+  - component: {fileID: 136135770910332398}
+  - component: {fileID: 65151379726701696}
+  - component: {fileID: 65268216870074000}
   m_Layer: 0
   m_Name: PFPlayer
   m_TagString: tagPlayer
@@ -3095,7 +3098,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576549366810812}
-  m_LocalRotation: {x: -0.093746535, y: 0.6978551, z: 0.707469, w: 0.06080671}
+  m_LocalRotation: {x: -0.09374654, y: 0.6978552, z: 0.70746905, w: 0.0608067}
   m_LocalPosition: {x: -0.05543403, y: 0.0017306843, z: 0.098653734}
   m_LocalScale: {x: 1.0000004, y: 1.0000006, z: 1.0000005}
   m_Children:
@@ -5055,6 +5058,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &65151379726701696
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288451374299136}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 3, z: 1.5}
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!65 &65268216870074000
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288451374299136}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1, z: 1.5}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!95 &95139303500748860
 Animator:
   serializedVersion: 3
@@ -5085,10 +5112,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   JumpPower: 14
   JumpForceMode: 1
-  Speed: 20
-  SideSpeed: 10
-  DecrementSpeed: 0
-  IsOnGUI: 1
+  mData: {fileID: 11400000, guid: 2aa5179f1ec8e44498d6ebfe180a4435, type: 2}
+  Boost: 100
+  SpeedRatio: 1
+  BoostSpeedRatio: 1
+  mIsDirectionInputChecking: 0
+  mInputDirection: {x: 0, y: 0, z: 0}
+  mRotateDirection: 0
+  StandCollider: {fileID: 65151379726701696}
+  SlideCollider: {fileID: 65268216870074000}
+  IsOnGUI: 0
+--- !u!136 &136135770910332398
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1288451374299136}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.46, z: 0}
 --- !u!136 &136342336416063942
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -5097,7 +5143,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1288451374299136}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 3.3
   m_Direction: 1
