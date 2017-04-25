@@ -37,8 +37,8 @@ public class CTrackCreater {
 
     public enum NEXTROTATION
     {
-        LEFT = 1,
-        RIGHT = -1,
+        LEFT = -1,
+        RIGHT = 1,
     }
 
     public enum TRACKKIND
@@ -70,11 +70,6 @@ public class CTrackCreater {
 
     //생성해야될 트랙들의 정보를 담고있는 리스트.
     public Dictionary<int,TRACKKIND> TrackList = null;
-    //미리 준비된 트랙타일 프리팹을 담고있는 리스트.
-    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage0 = null;
-    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage1 = null;
-    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage2 = null;
-    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage3 = null;
 
 
     //지정된 곳에 자식으로 넣을 위치
@@ -319,13 +314,12 @@ public class CTrackCreater {
         var tTile = TrackTileLoader.GetTrackTile(tTrackKind);
         
         tTile.SetIndex(tIndex);
-
-        if(tTrackKind == TRACKKIND.END)
+        
+         if (tTrackKind == TRACKKIND.END)
         {
-            SetNextStage(NEXTROTATION.LEFT);
-            
-            
+            SetNextStage(NEXTROTATION.RIGHT);
         }
+        
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         if (TrackList.Count - 3 != tIndex)
         {
@@ -396,7 +390,13 @@ public class CTrackCreater {
     //화면에 보이는 트랙타일을 갖고있는 자료구조
     private Queue<CTrackTile> ActiveTrackTile = new Queue<CTrackTile>();
 
-   
+   public void Set()
+    {
+       // if (tTrackKind == TRACKKIND.END)
+       // {
+            SetNextStage(NEXTROTATION.LEFT);
+       // }
+    }
 
     /// <summary>
     /// 플레이어 위치값에 따른 트랙타일을 화면에서 꺼주는 메소드
@@ -438,13 +438,13 @@ public class CTrackCreater {
                 break;
             }
         }
-        if(tPlayerPositionIndex == TrackList.Count-2)
+        if(tPlayerPositionIndex == TrackList.Count-1)
         {
             Debug.Log("여긴옴?");
             AddStageNumber();
             ReSetData();
             ReSetTrackList(tPlayerPositionIndex);
-            for (int ti = 0; ti < 3; ti++)
+            for (int ti = 0; ti < 5; ti++)
             {
                 if (ActiveTrackTileIndex.Contains(ti) == false)
                 {

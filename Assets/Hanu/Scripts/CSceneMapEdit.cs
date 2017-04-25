@@ -8,12 +8,10 @@ public class CSceneMapEdit : MonoBehaviour {
 
 
     public CTrackCreater TrackCreater = null;
-    public GameObject hi = null;
+
     public int PlayerPosition = 0;
 
-    public CCoinObject PFCoin = null;
-    public CItemObject PFItem = null;
-    public CPlacementObject PFPlacement = null;
+ 
 
     void Start () {
 
@@ -46,6 +44,7 @@ public class CSceneMapEdit : MonoBehaviour {
     {
         StartCoroutine(SeqTrack());
     }
+  
     #endregion
 
 }

@@ -110,6 +110,15 @@ namespace ResourceLoader
                     tile.gameObject.SetActive(false);
                     tile.transform.SetParent(tParent);
                     tile.SetTrackCreater(mTrackCreater);
+
+                    if(tKind == CTrackCreater.TRACKKIND.END)
+                    {
+                        var tRightCollider = tile.GetComponentInChildren<CEndTrackRightCollider>();
+                        tRightCollider.SetTrackCreater(mTrackCreater);
+                        var tLeftCollider = tile.GetComponentInChildren<CEndTrackLeftCollider>();
+                        tLeftCollider.SetTrackCreater(mTrackCreater);
+                    }
+                    
                     TrackStorage[tKind].Add(tile);
                 }
             }
@@ -151,6 +160,7 @@ namespace ResourceLoader
                 tTile.gameObject.SetActive(false);
                 tTile.transform.SetParent(mTrackParent);
                 tTile.SetTrackCreater(mTrackCreater);
+
                 TrackStorage[tTrackKind].Add(tTile);
                 return tTile;
             }
