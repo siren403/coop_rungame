@@ -38,10 +38,10 @@ public class CSceneMainLobby : MonoBehaviour {
 
     void Update () {
 
-        Timer();
+        //Timer();
     }
     
-    void OnStart()
+    public void OnStart()
     {
         
 
@@ -51,9 +51,12 @@ public class CSceneMainLobby : MonoBehaviour {
         if (Count < HeartArray.Length)
         {
             HeartArray[Count].SetActive(false);
-
             Count++;
         }
+
+        
+        
+        
 
 
 
@@ -93,15 +96,14 @@ public class CSceneMainLobby : MonoBehaviour {
     {
         SceneManager.LoadScene("MainTitleScene");
     }
-
-    void Timer()
+    /*
+    public double Timer()
     {
-        Debug.Log((TimeSpan.FromTicks(DateTime.Now.Ticks) - start).TotalSeconds);
+        //Debug.Log((TimeSpan.FromTicks(DateTime.Now.Ticks) - start).TotalSeconds);
         NowTime = (TimeSpan.FromTicks(DateTime.Now.Ticks) - start).TotalSeconds;
-        
-
+        return NowTime;
     }
-
+    */
 
 
 
