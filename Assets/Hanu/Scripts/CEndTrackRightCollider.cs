@@ -7,6 +7,11 @@ public class CEndTrackRightCollider : MonoBehaviour {
 
     public CTrackCreater TrackCreater = null;
 
+    private void Start()
+    {
+        TrackCreater = GetComponentInParent<CTrackTile>().TrackCreater;
+    }
+
     public void SetTrackCreater(CTrackCreater tTrackCreater)
     {
         TrackCreater = tTrackCreater;

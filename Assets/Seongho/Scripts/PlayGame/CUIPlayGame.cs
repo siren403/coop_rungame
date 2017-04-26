@@ -53,9 +53,12 @@ public class CUIPlayGame : MonoBehaviour
     #endregion
 
     #region Pause
-    public void ShowUIPause(int score)
+    public void ShowUIPause()
     {
         InstPanelPause.SetActive(true);
+    }
+    public void SetTxtPauseScore(int score)
+    {
         InstTxtPauseScore.text = score.ToString();
     }
     public void HideUIPause()
