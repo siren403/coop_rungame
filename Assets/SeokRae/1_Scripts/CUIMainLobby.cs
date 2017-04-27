@@ -11,6 +11,8 @@ public class CUIMainLobby : MonoBehaviour {
     CallBackBtn OnSliding = null;
     CallBackBtn OnItem_1 = null;
     CallBackBtn OnItem_2 = null;
+    CallBackBtn OnItem_3 = null;
+    CallBackBtn OnItem_4 = null;
     CallBackBtn OnCoinShop = null;
     CallBackBtn OnHeartShop = null;
     CallBackBtn OnBackToTitle = null;
@@ -88,6 +90,31 @@ public class CUIMainLobby : MonoBehaviour {
     {
         OnItem_2 = tA;
     }
+    public void OnClickItem_3()
+    {
+        if (null != OnItem_3)
+        {
+            OnItem_3();
+        }
+    }
+    public void SetItem_3(CallBackBtn tA)
+    {
+        OnItem_3 = tA;
+    }
+    public void OnClickItem_4()
+    {
+        if (null != OnItem_4)
+        {
+            OnItem_4();
+        }
+    }
+    public void SetItem_4(CallBackBtn tA)
+    {
+        OnItem_4 = tA;
+    }
+
+
+
 
     public void OnClickCoinShop()
     {
