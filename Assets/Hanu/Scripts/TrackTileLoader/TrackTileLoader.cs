@@ -10,29 +10,33 @@ namespace ResourceLoader
         public struct TilePaths
         {
             public string PathStartTrack;
-
             public string PathVerticalTrack;
-            public string PathHorizontalTrack;
-
-            public string PathUpLeftTrack;
-            public string PathLeftUpTrack;
-            public string PathUpRightTrack;
-            public string PathRightUpTrack;
-
             public string PathEndTrack;
+            public string PathTrackA;
+            public string PathTrackB;
+            public string PathTrackC;
+            public string PathTrackD;
+            public string PathTrackE;
+            public string PathTrackF;
+            public string PathTrackG;
+
         }
 
         private CTrackTile PFStartTrack = null;
-
         private CTrackTile PFVerticalTrack = null;
-        private CTrackTile PFHorizontalTrack = null;
-
-        private CTrackTile PFUpLeftTrack = null;
-        private CTrackTile PFLeftUpTrack = null;
-        private CTrackTile PFUpRightTrack = null;
-        private CTrackTile PFRightUpTrack = null;
-
         private CTrackTile PFEndTrack = null;
+
+        private CTrackTile PFTrackA = null;
+        private CTrackTile PFTrackB = null;
+        private CTrackTile PFTrackC = null;
+        private CTrackTile PFTrackD = null;
+        private CTrackTile PFTrackE = null;
+        private CTrackTile PFTrackF = null;
+        private CTrackTile PFTrackG = null;
+
+
+
+
 
         private Dictionary<CTrackCreater.TRACKKIND, CTrackTile> TrackKind = null;
 
@@ -48,30 +52,32 @@ namespace ResourceLoader
             TilePaths paths = InitTilePaths();
 
             PFStartTrack = Resources.Load<CTrackTile>(paths.PathStartTrack);
-
             PFVerticalTrack = Resources.Load<CTrackTile>(paths.PathVerticalTrack);
-            PFHorizontalTrack = Resources.Load<CTrackTile>(paths.PathHorizontalTrack);
-
-            PFUpLeftTrack = Resources.Load<CTrackTile>(paths.PathUpLeftTrack);
-            PFLeftUpTrack = Resources.Load<CTrackTile>(paths.PathLeftUpTrack);
-            PFUpRightTrack = Resources.Load<CTrackTile>(paths.PathUpRightTrack);
-            PFRightUpTrack = Resources.Load<CTrackTile>(paths.PathRightUpTrack);
-    
             PFEndTrack = Resources.Load<CTrackTile>(paths.PathEndTrack);
+
+            PFTrackA = Resources.Load<CTrackTile>(paths.PathTrackA);
+            PFTrackB = Resources.Load<CTrackTile>(paths.PathTrackB);
+            PFTrackC = Resources.Load<CTrackTile>(paths.PathTrackC);
+            PFTrackD = Resources.Load<CTrackTile>(paths.PathTrackD);
+            PFTrackE = Resources.Load<CTrackTile>(paths.PathTrackE);
+            PFTrackF = Resources.Load<CTrackTile>(paths.PathTrackF);
+            PFTrackG = Resources.Load<CTrackTile>(paths.PathTrackG);
+
 
 
             TrackKind = new Dictionary<CTrackCreater.TRACKKIND, CTrackTile>();
 
             TrackKind.Add(CTrackCreater.TRACKKIND.START, PFStartTrack);
-
             TrackKind.Add(CTrackCreater.TRACKKIND.VERTICAL, PFVerticalTrack);
-            TrackKind.Add(CTrackCreater.TRACKKIND.HORIZONTAL, PFHorizontalTrack);
-
-            TrackKind.Add(CTrackCreater.TRACKKIND.UPLEFT, PFUpLeftTrack);
-            TrackKind.Add(CTrackCreater.TRACKKIND.LEFTUP, PFLeftUpTrack);
-            TrackKind.Add(CTrackCreater.TRACKKIND.UPRIGHT, PFUpRightTrack);
-            TrackKind.Add(CTrackCreater.TRACKKIND.RIGHTUP, PFRightUpTrack);
+            TrackKind.Add(CTrackCreater.TRACKKIND.A, PFTrackA);
+            TrackKind.Add(CTrackCreater.TRACKKIND.B, PFTrackB);
+            TrackKind.Add(CTrackCreater.TRACKKIND.C, PFTrackC);
+            TrackKind.Add(CTrackCreater.TRACKKIND.D, PFTrackD);
+            TrackKind.Add(CTrackCreater.TRACKKIND.E, PFTrackE);
+            TrackKind.Add(CTrackCreater.TRACKKIND.F, PFTrackF);
+            TrackKind.Add(CTrackCreater.TRACKKIND.G, PFTrackG);
             TrackKind.Add(CTrackCreater.TRACKKIND.END, PFEndTrack);
+
         }
 
         public void InitTrackStorage(Transform tParent, CTrackCreater tTrackCreater)
@@ -91,7 +97,7 @@ namespace ResourceLoader
                 {
                     tCreateCount = 1;
                 }
-                else if (tKind != CTrackCreater.TRACKKIND.TURN)
+                else
                 {
                     tCreateCount = 5;
                 }
@@ -106,11 +112,14 @@ namespace ResourceLoader
                     {
                         Debug.Log("Prefab is Null");
                     }
-                    CTrackTile tile = GameObject.Instantiate(GetPrefab(tKind), Vector3.zero, Quaternion.identity);
-                    tile.gameObject.SetActive(false);
-                    tile.transform.SetParent(tParent);
-                    tile.SetTrackCreater(mTrackCreater);
-                    TrackStorage[tKind].Add(tile);
+                    CTrackTile tTile = GameObject.Instantiate(GetPrefab(tKind), Vector3.zero, Quaternion.identity);
+                    tTile.gameObject.SetActive(false);
+                    tTile.transform.SetParent(tParent);
+                    tTile.SetTrackCreater(mTrackCreater);
+
+             
+                    
+                    TrackStorage[tKind].Add(tTile);
                 }
             }
         }
@@ -151,6 +160,7 @@ namespace ResourceLoader
                 tTile.gameObject.SetActive(false);
                 tTile.transform.SetParent(mTrackParent);
                 tTile.SetTrackCreater(mTrackCreater);
+
                 TrackStorage[tTrackKind].Add(tTile);
                 return tTile;
             }

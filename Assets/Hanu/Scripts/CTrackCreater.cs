@@ -8,21 +8,8 @@ public class CTrackCreater {
 
     public const int TOTAL_TRACK = 70;
     public const int END_TRACK_COUNT = 6;
-    public const int NOT_CURVE_COUNT = 10;
 
     public const int TRACK_SIZE = 18;
-    public const int STRAIGHT_COUNT = 5;
-    public const int STARTING_TRACK = 5;
-
-
-    public const int VERTICAL_COUNT = 5;
-    public const int HORIZONTAL_COUNT = 5;
-    public const int UPLEFT_COUNT = 5;
-    public const int LEFTUP_COUNT = 5;
-    public const int UPRIGHT_COUNT = 5;
-    public const int RIGHTUP_COUNT = 5;
-
-   
 
 
     public CTrackTileLoader TrackTileLoader
@@ -37,21 +24,22 @@ public class CTrackCreater {
 
     public enum NEXTROTATION
     {
-        LEFT = 1,
-        RIGHT = -1,
+        LEFT = -1,
+        RIGHT = 1,
     }
 
     public enum TRACKKIND
     {
         START = 0,
-        VERTICAL = 1,
-        HORIZONTAL = 2,
-        UPLEFT = 3,
-        LEFTUP = 4,
-        UPRIGHT = 5,
-        RIGHTUP = 6,
-        TURN = 7,
-        END = 8,
+        A = 1,
+        B = 2,
+        C = 3,
+        D = 4,
+        VERTICAL = 5,
+        E = 6,
+        F = 7,
+        G = 8,
+        END = 9,
     }
 
     public NEXTROTATION NextRotantion;
@@ -65,16 +53,11 @@ public class CTrackCreater {
     public int RandomNum;
     public int TrackCount = 0;
     public TRACKKIND CurrentTrack;
-    public Dictionary<TRACKKIND, List<TRACKKIND>> NextTrackKind = null;
+   // public Dictionary<TRACKKIND, List<TRACKKIND>> NextTrackKind = null;
 
 
     //생성해야될 트랙들의 정보를 담고있는 리스트.
     public Dictionary<int,TRACKKIND> TrackList = null;
-    //미리 준비된 트랙타일 프리팹을 담고있는 리스트.
-    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage0 = null;
-    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage1 = null;
-    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage2 = null;
-    //public Dictionary<TRACKKIND, List<CTrackTile>> TrackStorage3 = null;
 
 
     //지정된 곳에 자식으로 넣을 위치
@@ -83,6 +66,9 @@ public class CTrackCreater {
     public int PlayerIndex = 0;
 
     public int StageNumber = 0;
+
+    public CTrackTile PFTrackA = null;
+
    /// <summary>
    /// 트랙이 생성 될 수 있도록 데이터를 생성하는 메소드
    /// </summary>
@@ -91,20 +77,20 @@ public class CTrackCreater {
     {
         mTrackParent = tParent;
 
-        this.CreateNextTrackKind();
-        SetTrackList(0);
+        SetTrackList();
 
         //설치될 트랙타일들의 정보들을 로그를 찍어봄
-        for(int ti = 0; ti < TrackList.Count;ti++)
+        for(int ti = 0; ti < TOTAL_TRACK+1;ti++)
         {
-            if (ti == 64)
-                Debug.Log("=======================================");
-
-            Debug.Log(TrackList[ti]);
-            
+            if (TrackList.ContainsKey(ti) == true)
+            {
+                Debug.Log(TrackList[ti]);
+                Debug.Log(ti);
+            }
         }
         Debug.Log(GetTrackCount().ToString());
 
+        
         TrackTileLoaderList = new List<CTrackTileLoader>();
         TrackTileLoaderList.Add(new CTheme0TileLoader());
         TrackTileLoaderList.Add(new CTheme1TileLoader());
@@ -118,7 +104,7 @@ public class CTrackCreater {
         }
 
         CurrentTrackTileLoaderIndex = 2;
-
+        
         //타일프리팹들을 불러옴.
         //TrackTileLoader = new CTheme0TileLoader();
         //TrackTileLoader.Load();
@@ -128,7 +114,7 @@ public class CTrackCreater {
 
     }
 
-
+    /*
     /// <summary>
     /// 현재트랙에서 다음 트랙타일이 나올 수 있는지를 담는 리스트 정보 메소드
     /// </summary>
@@ -145,165 +131,65 @@ public class CTrackCreater {
         NextTrackKind.Add(TRACKKIND.UPRIGHT, new List<TRACKKIND>() { TRACKKIND.HORIZONTAL, TRACKKIND.RIGHTUP });
         NextTrackKind.Add(TRACKKIND.RIGHTUP, new List<TRACKKIND>() { TRACKKIND.VERTICAL, TRACKKIND.UPLEFT, TRACKKIND.UPRIGHT });
     }
-
+    */
 
     
     /// <summary>
     /// 랜덤배치할 트랙타일들의 정보를 셋팅하는 메소드
     /// </summary>
-    public void SetTrackList(int tStageNumber)
+    public void SetTrackList()
     {
         TrackList = new Dictionary<int, TRACKKIND>();
-        Vector3 tDirection = Vector3.zero;
-        CTrackCreater.TRACKKIND tCurrentTrarck = TRACKKIND.END;
-        if (0 == GetStageNumber())
+
+        SetCurrentTrack(TRACKKIND.START);
+        TrackList.Add(GetTrackCount(), GetCurrentTrack());
+        AddTrackCount();
+        for (int ti = 0; ti < 4; ti++)
         {
-            SetCurrentTrack(TRACKKIND.START);
-            TrackList.Add(GetTrackCount(), GetCurrentTrack());
-            AddTrackCount();
-        }
-        else
-        {
-            SetCurrentTrack(TRACKKIND.HORIZONTAL);
+            SetCurrentTrack(TRACKKIND.VERTICAL);
             TrackList.Add(GetTrackCount(), GetCurrentTrack());
             AddTrackCount();
         }
 
-        for (TrackCount = 1; TrackCount < TOTAL_TRACK - END_TRACK_COUNT;)
+
+        for (TrackCount = GetTrackCount(); GetTrackCount() < TOTAL_TRACK-4; AddTrackCount())
         {
-            var tNextTrackList = NextTrackKind[CurrentTrack];
-            var tNextTrackKind = tNextTrackList[Random.Range(0, tNextTrackList.Count)];
 
-            if (TOTAL_TRACK - NOT_CURVE_COUNT < GetTrackCount())
+            int tNextTrackKind = 0;
+           
+            if (GetTrackCount() < 60)
             {
-                tNextTrackKind = tNextTrackList[0];
-            }
-
-
-            if (tNextTrackKind != TRACKKIND.TURN)
-            {
-                SetCurrentTrack(tNextTrackKind);
-                TrackList.Add(GetTrackCount(), GetCurrentTrack());
-
-
-                if (tNextTrackKind == TRACKKIND.UPRIGHT)
-                {
-                    tDirection = Vector3.right;
-
-                }
-                else if (tNextTrackKind == TRACKKIND.UPLEFT)
-                {
-                    tDirection = Vector3.left;
-                }
-
+                tNextTrackKind = Random.Range(1, 5);
             }
             else
             {
-                if (Vector3.right == tDirection)
-                {
-                    SetCurrentTrack(TRACKKIND.RIGHTUP);
-                    TrackList.Add(GetTrackCount(), GetCurrentTrack());
-                }
-                else
-                {
-                    SetCurrentTrack(TRACKKIND.LEFTUP);
-                    TrackList.Add(GetTrackCount(), GetCurrentTrack());
-                }
+                tNextTrackKind = Random.Range(5, 8);
             }
+
+            var tNextTrack = (TRACKKIND)tNextTrackKind;
+            SetCurrentTrack(tNextTrack);
+            TrackList.Add(GetTrackCount(), GetCurrentTrack());
+            if (1 <= tNextTrackKind && 4 >= tNextTrackKind)
+            {
+                for (int ti = 0; ti < 3; ti++)
+                {
+                    AddTrackCount();
+                }
+               
+            }
+          
+        }
+        for (int ti = 0; ti < 4; ti++)
+        {
+            SetCurrentTrack(TRACKKIND.VERTICAL);
+            TrackList.Add(GetTrackCount(), GetCurrentTrack());
             AddTrackCount();
-
-
-            for (int ti = 0; ti < STRAIGHT_COUNT; ti++)
-            {
-                if (TOTAL_TRACK - END_TRACK_COUNT > GetTrackCount())
-                {
-                    tCurrentTrarck = TRACKKIND.END;
-                    if (TRACKKIND.LEFTUP == GetCurrentTrack() || TRACKKIND.RIGHTUP == GetCurrentTrack())
-                    {
-                        TrackList.Add(GetTrackCount(), TRACKKIND.VERTICAL);
-                        AddTrackCount();
-                        tCurrentTrarck = TRACKKIND.VERTICAL;
-                    }
-                    else if (TRACKKIND.UPLEFT == GetCurrentTrack() || TRACKKIND.UPRIGHT == GetCurrentTrack())
-                    {
-                        TrackList.Add(GetTrackCount(), TRACKKIND.HORIZONTAL);
-                        AddTrackCount();
-                        tCurrentTrarck = TRACKKIND.HORIZONTAL;
-                    }
-                }
-                else
-                {
-                    if (tCurrentTrarck != TRACKKIND.END)
-                    {
-                        Debug.Log("a11asd" + tCurrentTrarck.ToString());
-                        SetCurrentTrack(tCurrentTrarck);
-                    }
-                    break;
-                }
-            }
-            if (tCurrentTrarck != TRACKKIND.END)
-            {
-                Debug.Log("a11" + tCurrentTrarck.ToString());
-                SetCurrentTrack(tCurrentTrarck);
-            }
-        }
-
-          /*
-          if(TRACKKIND.VERTICAL == GetCurrentTrack() || TRACKKIND.HORIZONTAL == GetCurrentTrack())
-          {
-              SetCurrentTrack(tCurrentTrarck);
-          }
-          */
-        Debug.Log("지금?!" + GetCurrentTrack().ToString());
-        
-        switch (GetCurrentTrack())
-        {
-            case TRACKKIND.UPLEFT:
-                for (int ti = 0; ti < STRAIGHT_COUNT; ti++)
-                {
-                    TrackList.Add(GetTrackCount(), TRACKKIND.HORIZONTAL);
-                    AddTrackCount();
-                }
-                TrackList.Add(GetTrackCount(), TRACKKIND.LEFTUP);
-                AddTrackCount();
-                break;
-            case TRACKKIND.UPRIGHT:
-                for (int ti = 0; ti < STRAIGHT_COUNT; ti++)
-                {
-                    TrackList.Add(GetTrackCount(), TRACKKIND.HORIZONTAL);
-                    AddTrackCount();
-                }
-                TrackList.Add(GetTrackCount(), TRACKKIND.RIGHTUP);
-                AddTrackCount();
-                break;
-            case TRACKKIND.HORIZONTAL:
-                if (Vector3.right == tDirection)
-                {
-                    SetCurrentTrack(TRACKKIND.RIGHTUP);
-                    TrackList.Add(GetTrackCount(), GetCurrentTrack());
-                }
-                else
-                {
-                    SetCurrentTrack(TRACKKIND.LEFTUP);
-                    TrackList.Add(GetTrackCount(), GetCurrentTrack());
-                }
-                AddTrackCount();
-                break;
-        }
-        
-        
-
-        for (int ti = 0; ti < STRAIGHT_COUNT; ti++)
-        {
-             TrackList.Add(GetTrackCount(), TRACKKIND.VERTICAL);
-             AddTrackCount();
         }
 
         SetCurrentTrack(TRACKKIND.END);
         TrackList.Add(GetTrackCount(), GetCurrentTrack());
         AddTrackCount();
 
-        TrackListAddToEndReadyTrack();
     }
 
 
@@ -316,39 +202,29 @@ public class CTrackCreater {
     {
         var tTile = TrackTileLoader.GetTrackTile(tTrackKind);
         
-        tTile.SetIndex(tIndex);
-
-        if(tTrackKind == TRACKKIND.END)
+        switch (tTrackKind)
         {
-            SetNextStage(NEXTROTATION.LEFT);
-            
-            
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if (TrackList.Count - 3 != tIndex)
-        {
-            tTile.transform.position = NextPos + (CurrentDirection * TRACK_SIZE);
-            NextPos = tTile.transform.position;
-        }
-        else
-        {
-            
-            Debug.Log("너나옴?");
-            
-            tTile.transform.position = NextPos + (Vector3.right * 54 ) * (int)NextRotantion + Vector3.forward * 54 ;
-            NextPos = tTile.transform.position;
-            CurrentDirection = Vector3.right*(int)NextRotantion;
-        }
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if (tTrackKind != TRACKKIND.HORIZONTAL)
-        {
-            if(tTrackKind != TRACKKIND.END)
-                CurrentDirection = tTile.Direction;
+            case TRACKKIND.A:
+            case TRACKKIND.B:
+            case TRACKKIND.C:
+            case TRACKKIND.D:
+                var tTilecomponets = tTile.GetComponentsInChildren<CTrackTile>();
+                for (int ti = 0; ti < 4; ti++)
+                {
+                    tTilecomponets[ti].SetIndex(tIndex + ti);
+                }
+                tTile.transform.position = NextPos + Vector3.forward * 72;
+                NextPos = tTile.transform.position;
+                break;
+            default:
+                tTile.SetIndex(tIndex);
+                tTile.transform.position = NextPos + Vector3.forward * TRACK_SIZE;
+                NextPos = tTile.transform.position;
+                break;
         }
 
 
-
-        tTile.Show();//gameObject.SetActive(true);
+        tTile.Show();
         return tTile;
     }
 
@@ -388,11 +264,12 @@ public class CTrackCreater {
 
 
     //플레이어 위치에 따른 보여지는 값 = mSight
-    private int mSight = 50;
+    private int mSight = 9;
     //한번 활성화 된 트랙타일의 인덱스값을 갖는 자료구조
     private Queue<int> ActiveTrackTileIndex = new Queue<int>();
     //화면에 보이는 트랙타일을 갖고있는 자료구조
     private Queue<CTrackTile> ActiveTrackTile = new Queue<CTrackTile>();
+
 
     /// <summary>
     /// 플레이어 위치값에 따른 트랙타일을 화면에서 꺼주는 메소드
@@ -421,18 +298,21 @@ public class CTrackCreater {
                     }
                     else
                     {
-                        ActiveTrackTile.Dequeue().Hide();// gameObject.SetActive(false);
+                        ActiveTrackTile.Dequeue().Hide();
                         ActiveTrackTile.Enqueue(tTile);
                     }
                 }
             }
             else
             {
-                AddStageNumber();
-                ReSetData();
-                ReSetTrackList(tPlayerPositionIndex);
                 break;
             }
+        }
+        if(tPlayerPositionIndex == TrackList.Count-1)
+        {
+            Debug.Log("여긴옴?");
+            AddStageNumber();
+            ReSetData();
         }
        
     }
@@ -446,35 +326,22 @@ public class CTrackCreater {
 
     public void ReSetTrackList(int tPlayerPositionIndex)
     {
-        if(TrackList.Count == tPlayerPositionIndex)
-        {
-            TrackList.Clear();
-            SetTrackList(GetStageNumber());
-
-        }
+            Debug.Log("리셋??");
     }
 
     public void ReSetData()
     {
-        /*
-        while(ActiveTrackTile.Count > 0)
+        
+        while(ActiveTrackTile.Count > 3)
         {
             ActiveTrackTile.Dequeue().Hide();
         }
         ActiveTrackTileIndex.Clear();
-        */
+        
         ReSetTrackCount();
     }
 
-    
-    public void TrackListAddToEndReadyTrack()
-    {
-        for (int ti = 0; ti < 3; ti++)
-        {
-            TrackList.Add(GetTrackCount(), TRACKKIND.HORIZONTAL);
-            AddTrackCount();
-        }
-    }
+
 
    
 

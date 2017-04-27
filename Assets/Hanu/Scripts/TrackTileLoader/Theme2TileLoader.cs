@@ -12,15 +12,14 @@ namespace ResourceLoader
             TilePaths paths = new TilePaths();
 
             paths.PathStartTrack = "Prefabs/Thema2/PFStartTrack";
-
+            paths.PathTrackA = "Prefabs/Thema2/PFTrackA";
+            paths.PathTrackB = "Prefabs/Thema2/PFTrackB";
+            paths.PathTrackC = "Prefabs/Thema2/PFTrackC";
+            paths.PathTrackD = "Prefabs/Thema2/PFTrackD";
+            paths.PathTrackE = "Prefabs/Thema2/PFTrackE";
+            paths.PathTrackF = "Prefabs/Thema2/PFTrackF";
+            paths.PathTrackG = "Prefabs/Thema2/PFTrackG";
             paths.PathVerticalTrack = "Prefabs/Thema2/PFVerticalTrack";
-            paths.PathHorizontalTrack = "Prefabs/Thema2/PFHorizontalTrack";
-
-            paths.PathUpLeftTrack = "Prefabs/Thema2/PFUpLeftTrack";
-            paths.PathLeftUpTrack = "Prefabs/Thema2/PFLeftUpTrack";
-            paths.PathUpRightTrack = "Prefabs/Thema2/PFUpRightTrack";
-            paths.PathRightUpTrack = "Prefabs/Thema2/PFRightUpTrack";
-
             paths.PathEndTrack = "Prefabs/Thema2/PFEndTrack";
 
             return paths;

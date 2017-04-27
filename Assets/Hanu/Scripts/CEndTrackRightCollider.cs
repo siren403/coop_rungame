@@ -7,6 +7,11 @@ public class CEndTrackRightCollider : MonoBehaviour {
 
     public CTrackCreater TrackCreater = null;
 
+    private void Start()
+    {
+        TrackCreater = GetComponentInParent<CTrackTile>().TrackCreater;
+    }
+
     public void SetTrackCreater(CTrackCreater tTrackCreater)
     {
         TrackCreater = tTrackCreater;
@@ -16,6 +21,7 @@ public class CEndTrackRightCollider : MonoBehaviour {
     {
         if (other.collider.CompareTag(CTag.TAG_PLAYER))
         {
+            Debug.Log("qweqwe");
             TrackCreater.SetNextStage(CTrackCreater.NEXTROTATION.RIGHT);
         }
     }

@@ -37,13 +37,7 @@ public class CTrackTile : MonoBehaviour {
             mPlacementObject.transform.rotation = Quaternion.Euler(Vector3.up * 90);
             mPlacementObject.transform.localPosition = Vector3.zero;
         }
-        else if (Kind == CTrackCreater.TRACKKIND.HORIZONTAL)
-        {
-            mPlacementObject = GetRandomPlacementObject();
-            mPlacementObject.transform.SetParent(this.transform);
-
-            mPlacementObject.transform.localPosition = Vector3.zero;
-        }
+       
     }
     private CPlacementObject GetRandomPlacementObject()
     {
@@ -77,7 +71,6 @@ public class CTrackTile : MonoBehaviour {
     {
         if (other.collider.CompareTag(CTag.TAG_PLAYER))
         {
-            Debug.Log(GetIndex().ToString());
             TrackCreater.SetPlayerIndex(GetIndex());
             TrackCreater.UpdateTrack(GetIndex());
         }

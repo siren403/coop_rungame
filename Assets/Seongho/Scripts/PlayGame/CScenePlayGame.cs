@@ -11,6 +11,8 @@ public class CScenePlayGame : MonoBehaviour
 
     private PlayGamePrefabs mPlayGamePrefabs = new PlayGamePrefabs();
 
+    private UserData mUserData = null;
+
     //GameState
     [ReadOnly]
     [SerializeField]
@@ -31,7 +33,7 @@ public class CScenePlayGame : MonoBehaviour
     public float ScoreTickTime = 0.01f;
     public float CoinPerScore = 20.0f;
     public float CoinPerBoost = 1.0f;
-
+    public int TotalScore = 0;
     //Ref
     public CPlayer InstPlayer = null;
     public CTargetCamera InstTargetCamera = null;
@@ -44,6 +46,7 @@ public class CScenePlayGame : MonoBehaviour
     private Coroutine mCoroutineTickScore = null;
 
     private CTrackCreater mTrackCreater = null;
+
 
     //Editor Test
     private Vector3 mStartPosition = Vector3.zero;
@@ -59,7 +62,11 @@ public class CScenePlayGame : MonoBehaviour
         mTrackCreater.CreateTrack(this.transform);
         mTrackCreater.UpdateTrack(0);
 
+        mUserData = new UserData();
+
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
+
+
 
         CPlayerController tController = null;
 #if UNITY_EDITOR
@@ -91,7 +98,12 @@ public class CScenePlayGame : MonoBehaviour
         InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);
 
         mScore = new FloatReactiveProperty();
-        mScore.Subscribe((score) => mUIPlayGame.SetTxtScore((int)score + (mCoin.Value * (int)CoinPerScore)));
+        mScore.Subscribe((score) =>
+        {
+            TotalScore = (int)score + (mCoin.Value * (int)CoinPerScore);
+            mUIPlayGame.SetTxtScore(TotalScore);
+            mUIPlayGame.SetTxtPauseScore(TotalScore);
+        });
         mCoin = new IntReactiveProperty();
         mCoin.Subscribe((coin) => mUIPlayGame.SetTxtCoin(coin));
        
@@ -107,7 +119,7 @@ public class CScenePlayGame : MonoBehaviour
         if(isPause)
         {
             Time.timeScale = 0;
-            mUIPlayGame.ShowUIPause((int)mScore.Value);
+            mUIPlayGame.ShowUIPause();
         }
         else
         {
@@ -118,31 +130,17 @@ public class CScenePlayGame : MonoBehaviour
 
     private void OnGameOver()
     {
-        mUIPlayGame.ShowUIGameOver(0, (int)mScore.Value, mCoin.Value);
+        mUIPlayGame.ShowUIGameOver(0, TotalScore, mCoin.Value);
         InstItemTimer.Reset();
+        mUserData.Coin += mCoin.Value;
         mIsPlaying = false;
     }
     private void OnRetire()
     {
-
+        Time.timeScale = 1;
+        SceneManager.LoadScene("SceneMainLobby");
     }
 
-
-    //[Button]
-    //public void CreateBasicPrefabs()
-    //{
-    //    mPlayGamePrefabs.Load();
-    //    if(InstPlayer == null)
-    //    {
-    //        InstPlayer = Instantiate(mPlayGamePrefabs.PFPlayer, Vector3.zero, Quaternion.identity);
-    //    }
-    //    if(InstTargetCamera == null)
-    //    {
-    //        InstTargetCamera = Instantiate(mPlayGamePrefabs.PFTargetCamera, Vector3.zero, Quaternion.identity);
-    //        InstTargetCamera.SetTarget(InstPlayer.gameObject);
-    //        InstTargetCamera.UpdatePosition();
-    //    }
-    //}
 
     [Button]
     public void OnStartRun()
@@ -159,16 +157,16 @@ public class CScenePlayGame : MonoBehaviour
     {
         while(mIsPlaying)
         {
-            yield return new WaitForSeconds(HpTickTime);
             InstPlayer.DecrementHp((int)(HpTickPerHp * HpTickPerHpRatio));
+            yield return new WaitForSeconds(HpTickTime);
         }
     }
     private IEnumerator TickScore()
     {
         while(mIsPlaying)
         {
-            yield return new WaitForSeconds(ScoreTickTime);
             mScore.Value += 1 * InstPlayer.TotalSpeedRatio;
+            yield return new WaitForSeconds(ScoreTickTime);
         }
     }
 

@@ -84,6 +84,7 @@ public class CPlayer : MonoBehaviour
     }
 
     private bool mIsRun = false;
+    [SerializeField]
     private bool mIsGround = true;
     private bool mIsRotateFail = false;
     private bool mIsSlide = false;
@@ -121,6 +122,8 @@ public class CPlayer : MonoBehaviour
     }
 
     private bool mIsRotateDelay = false;
+
+    public bool IsImmotal = false;
 
     private void Awake()
     {
@@ -254,7 +257,10 @@ public class CPlayer : MonoBehaviour
 
     private void GameOver()
     {
-        //return;
+        if(IsImmotal)
+        {
+            return;
+        }
         SetMoveStart(false);
         Anim.Get().SetTrigger("AnimTrigGameOver");
         mCallOnGameOver.SafeInvoke();

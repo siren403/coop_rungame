@@ -45,12 +45,7 @@ public class CLoadAboutMap
         TrackKind.Add(CTrackCreater.TRACKKIND.START, PFStartTrack);
 
         TrackKind.Add(CTrackCreater.TRACKKIND.VERTICAL, PFVerticalTrack);
-        TrackKind.Add(CTrackCreater.TRACKKIND.HORIZONTAL, PFHorizontalTrack);
 
-        TrackKind.Add(CTrackCreater.TRACKKIND.UPLEFT, PFUpLeftTrack);
-        TrackKind.Add(CTrackCreater.TRACKKIND.LEFTUP, PFLeftUpTrack);
-        TrackKind.Add(CTrackCreater.TRACKKIND.UPRIGHT, PFUpRightTrack);
-        TrackKind.Add(CTrackCreater.TRACKKIND.RIGHTUP, PFRightUpTrack);
         TrackKind.Add(CTrackCreater.TRACKKIND.END, PFEndTrack);
 
         
