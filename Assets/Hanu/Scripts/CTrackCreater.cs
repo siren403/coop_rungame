@@ -103,7 +103,7 @@ public class CTrackCreater {
             loader.InitTrackStorage(tParent, this);
         }
 
-        CurrentTrackTileLoaderIndex = 2;
+        CurrentTrackTileLoaderIndex =2;
         
         //타일프리팹들을 불러옴.
         //TrackTileLoader = new CTheme0TileLoader();

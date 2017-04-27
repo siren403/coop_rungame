@@ -209,8 +209,10 @@ public class CScenePlayGame : MonoBehaviour
     {
         mScore.Value += Random.Range(50, 150);
     }
+    [Button]
     public void OnIncrementCoin()
     {
+        Debug.Log("get coin");
         mCoin.Value += 1;
         InstPlayer.IncrementBoost(CoinPerBoost);
     }
