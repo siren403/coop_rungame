@@ -21,6 +21,7 @@ public class CEndTrackRightCollider : MonoBehaviour {
     {
         if (other.collider.CompareTag(CTag.TAG_PLAYER))
         {
+            Debug.Log("qweqwe");
             TrackCreater.SetNextStage(CTrackCreater.NEXTROTATION.RIGHT);
         }
     }
