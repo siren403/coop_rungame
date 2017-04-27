@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class COutTrack : MonoBehaviour {
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.collider.CompareTag(CTag.TAG_PLAYER))
+        if (other.CompareTag(CTag.TAG_PLAYER))
         {
-            other.collider.GetComponent<CPlayer>().SetSpeedRatio(0.5f);
+            other.GetComponent<CPlayer>().SetSpeedRatio(0.5f);
         }
     }
 

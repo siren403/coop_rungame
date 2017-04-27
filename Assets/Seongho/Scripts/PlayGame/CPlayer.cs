@@ -88,6 +88,13 @@ public class CPlayer : MonoBehaviour
     private bool mIsGround = true;
     private bool mIsRotateFail = false;
     private bool mIsSlide = false;
+    public bool IsSlide
+    {
+        get
+        {
+            return mIsSlide;
+        }
+    }
     private float mHorizontal = 0;
 
     private CacheComponent<Rigidbody> Body = null;
@@ -109,8 +116,7 @@ public class CPlayer : MonoBehaviour
     private System.Action<int> mCallOnRotate = null;
     private System.Action mCallOnGameOver = null;
 
-    public Collider StandCollider = null;
-    public Collider SlideCollider = null;
+    public BoxCollider StandCollider = null;
 
     private CScenePlayGame mScenePlayGame = null;
     public CScenePlayGame ScenePlayGame
@@ -153,34 +159,17 @@ public class CPlayer : MonoBehaviour
     }
     private void SwitchPlayerCollider(bool isStand)
     {
-        StandCollider.enabled = isStand;
-        SlideCollider.enabled = !isStand;
+        if(isStand)
+        {
+            StandCollider.center = new Vector3(0, 1.5f, 0);
+            StandCollider.size = new Vector3(1.5f, 3, 1.5f);
+        }
+        else
+        {
+            StandCollider.center = new Vector3(0, 0.5f, 0);
+            StandCollider.size = new Vector3(1.5f, 1, 1.5f);
+        }
     }
-    //IEnumerator Loop()
-    //{
-    //    while (true)
-    //    {
-
-    //        bool isRight = Random.Range(0.0f, 1.0f) >= 0.5f ? true : false;
-    //        yield return new WaitForSeconds(4.0f);
-
-    //        if (isRight)
-    //            mIsToLeftWind = true;
-    //        else
-    //            mIsToRightWind = true;
-
-    //        yield return new WaitForSeconds(0.5f);
-
-    //        if (isRight)
-    //            mIsToLeftWind = false;
-    //        else
-    //            mIsToRightWind = false;
-
-    //        Body.Get().AddForce((isRight ? this.transform.right : -this.transform.right) * 10,
-    //            ForceMode.VelocityChange);
-
-    //    }
-    //}
 
 
     private void Update()
