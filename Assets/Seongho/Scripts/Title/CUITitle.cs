@@ -9,6 +9,6 @@ public class CUITitle : MonoBehaviour
     public void OnClickBtnMoveLobby()
     {
         SceneManager.LoadScene("SceneMainLobby");
-        SceneManager.LoadScene("MainTitleScene",LoadSceneMode.Additive);
+       // SceneManager.LoadScene("MainTitleScene",LoadSceneMode.Additive);
     }
 }

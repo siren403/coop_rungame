@@ -13,7 +13,7 @@ public class CUILobby : MonoBehaviour {
     public GameObject[] HeartArray = null;
 
     public const int TOTAL_HEARTCOUNT = 5;
-    public const int WAITINGTIME = 5;
+    public const int WAITINGTIME = 30;
 
 
     public int CurrentHeartCount = 0;
@@ -61,7 +61,14 @@ public class CUILobby : MonoBehaviour {
             mHeart = 0;
         }
         mUserData.Heart = mHeart;
-        //SceneManager.LoadScene("ScenePlayGame");
+        if(mHeart != 0)
+        {
+            SceneManager.LoadScene("ScenePlayGame");
+        }
+        else
+        {
+            Debug.Log("Heart is null");
+        }
     }
 
 
@@ -74,6 +81,15 @@ public class CUILobby : MonoBehaviour {
     [Button]
     public void CheckHeartTime()
     {
+        if(mHeart == TOTAL_HEARTCOUNT)
+        {
+            SceneMainLobby.m_Timecontrol.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            SceneMainLobby.m_Timecontrol.gameObject.SetActive(true);
+        }
 
         var now = DateTime.Now.ToLocalTime();
 
@@ -116,6 +132,8 @@ public class CUILobby : MonoBehaviour {
             mHeart += roundCount;
 
         }
+
+
 
         mUserData.SpareTime = WAITINGTIME - remainder;
         mUserData.Heart = mHeart;
