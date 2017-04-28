@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Inspector;
 
 [ExecuteInEditMode]
 public class CGrid : MonoBehaviour
@@ -13,7 +16,7 @@ public class CGrid : MonoBehaviour
     public Vector3 Offset = Vector3.zero;
 
 
-    [ContextMenu("Reposition")]
+    [Button]
     public void Reposition()
     {
         Vector3 pos = Vector3.zero;
@@ -36,3 +39,5 @@ public class CGrid : MonoBehaviour
         }
     }
 }
+
+#endif

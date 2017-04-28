@@ -45,7 +45,7 @@ public class CScenePlayGame : MonoBehaviour
     private Coroutine mCoroutineTickHp = null;
     private Coroutine mCoroutineTickScore = null;
 
-    private CTrackCreater mTrackCreater = null;
+    private Map.CTrackCreator mTrackCreator = null;
 
 
     //Editor Test
@@ -58,9 +58,10 @@ public class CScenePlayGame : MonoBehaviour
         InstPlayer.SetScene(this);
         InstItemTimer.SetScene(this);
 
-        mTrackCreater = new CTrackCreater();
-        mTrackCreater.CreateTrack(this.transform);
-        mTrackCreater.UpdateTrack(0);
+        mTrackCreator = new Map.CTrackCreator(this.transform);
+        mTrackCreator.CreateTrackData();
+        mTrackCreator.PositionTracks();
+        mTrackCreator.UpdateTrackTile(0);
 
         mUserData = new UserData();
 

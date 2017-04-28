@@ -12,6 +12,7 @@ public abstract class CPlayerController : MonoBehaviour
     protected Vector3 ScreenSlideBeganPosition;
 
     protected float ScreenSlideDistance = 5;
+    protected int mHorizontal = 0;
 
     public void SetCallOnJump(Action callBack)
     {
@@ -33,7 +34,18 @@ public abstract class CPlayerController : MonoBehaviour
     {
         CallOnScreenSlide = callBack;
     }
-
+    public void OnClickBtnLeft()
+    {
+        mHorizontal = -1;
+    }
+    public void OnClickBtnRight()
+    {
+        mHorizontal = 1;
+    }
+    public void OnClickBtnArrowUp()
+    {
+        mHorizontal = 0;
+    }
     public abstract int GetHorizontal();
 
     protected abstract  void UpdateScreenSlide();

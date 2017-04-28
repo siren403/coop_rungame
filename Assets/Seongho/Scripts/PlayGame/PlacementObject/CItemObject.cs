@@ -5,11 +5,22 @@ using UnityEngine;
 
 public class CItemObject : CPlacementObject
 {
+    public enum ItemType
+    {
+        None = 0,
+        Boost,
+    }
+    public ItemType _ItemType;
     protected override void OnPlayerEnter(CPlayer tPlayer)
     {
-        Debug.Log("Item");
-        CTrackBoostItem item = new CTrackBoostItem(tPlayer, 1.5f);
-        tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(item);
+        switch (_ItemType)
+        {
+            case ItemType.Boost:
+                Debug.Log("Item");
+                CTrackBoostItem item = new CTrackBoostItem(tPlayer, 1.5f);
+                tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(item);
+                break;
+        }
         Destroy(this.gameObject);
     }
 }

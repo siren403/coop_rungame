@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using Inspector;
+using UnityEngine.EventSystems;
 
 public class CUIPlayerController : CPlayerController
 {
@@ -13,6 +14,9 @@ public class CUIPlayerController : CPlayerController
     public Slider InstSliderBoostBar = null;//부스터게이지
     [ReadOnly]
     public Slider InstSliderJoyStick = null;//조이스틱
+
+    public Button InstBtnLeft = null;
+    public Button InstBtnRight = null;
 
     private void Awake()
     {
@@ -30,20 +34,21 @@ public class CUIPlayerController : CPlayerController
 
     public override int GetHorizontal()
     {
-        float value = InstSliderJoyStick.value;
+        //float value = InstSliderJoyStick.value;
 
-        if (value < 2)
-        {
-            return -1;
-        }
-        else if (value > 2)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        //if (value < 2)
+        //{
+        //    mHorizontal = - 1;
+        //}
+        //else if (value > 2)
+        //{
+        //    mHorizontal = 1;
+        //}
+        //else
+        //{
+        //    mHorizontal = 0;
+        //}
+        return mHorizontal;
     }
 
     public void ResetJoyStick()
@@ -55,7 +60,7 @@ public class CUIPlayerController : CPlayerController
         }
     }
 
-    #region UI Call Back
+    #region UI Listener
     public void OnClickBtnJump()
     {
         CallOnJump.SafeInvoke();
@@ -72,7 +77,7 @@ public class CUIPlayerController : CPlayerController
     {
         CallOnItem_2.SafeInvoke();
     }
-
+    
     protected override void UpdateScreenSlide()
     {
         if (Input.touchCount > 0)

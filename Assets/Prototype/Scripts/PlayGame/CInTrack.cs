@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CInTrack : MonoBehaviour {
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.collider.CompareTag(CTag.TAG_PLAYER))
+        if (other.CompareTag(CTag.TAG_PLAYER))
         {
-            other.collider.GetComponent<CPlayer>().SetSpeedRatio(1.0f);
+            other.GetComponent<CPlayer>().SetSpeedRatio(1.0f);
         }
     }
 }
