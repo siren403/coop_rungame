@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CKeyboardPlayerController : CPlayerController
 {
-    private int mHorizontal = 0;
 
     public KeyCode mKeyJump = KeyCode.W;
     public KeyCode mKeySlide = KeyCode.S;
@@ -23,7 +22,8 @@ public class CKeyboardPlayerController : CPlayerController
             return;
 
         mHorizontal = (int)Input.GetAxisRaw("Horizontal");
-        if(Input.GetKeyDown(mKeyJump))
+
+        if (Input.GetKeyDown(mKeyJump))
         {
             CallOnJump.SafeInvoke();
         }
@@ -39,7 +39,7 @@ public class CKeyboardPlayerController : CPlayerController
         {
             CallOnItem_2.SafeInvoke();
         }
-        UpdateScreenSlide();
+        //UpdateScreenSlide();
     }
 
     public override int GetHorizontal()

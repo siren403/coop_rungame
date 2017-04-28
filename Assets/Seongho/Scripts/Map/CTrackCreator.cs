@@ -85,7 +85,7 @@ namespace Map
 
             for (int i = 0; i < mTileCount - 1;)
             {
-                TrackType addTrack = tTypes[UnityEngine.Random.Range(0, tTypes.Count - 1)];
+                TrackType addTrack = tTypes[UnityEngine.Random.Range(0, tTypes.Count)];
                 mTrackData.Add(addTrack);
 
                 if (CurrentPFTracks.ContainsKey(addTrack))
@@ -152,6 +152,7 @@ namespace Map
             {
                 return;
             }
+            mCurrentPivot = pivot;
 
             int start = Mathf.Clamp(pivot - 1, 0, mInstTileList.Count - 1);
             int end = Mathf.Clamp(start + mSight, 0, mInstTileList.Count);

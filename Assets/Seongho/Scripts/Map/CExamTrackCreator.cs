@@ -50,5 +50,12 @@ public class CExamTrackCreator : MonoBehaviour
             UnityEditor.Handles.Label(mCurrentTile.transform.position, "P", LabelStylePlayer);
         }
     }
+
+    public int PlayerIndex = 0;
+    [Button]
+    public void ShowTrack()
+    {
+        mTrackCreator.UpdateTrackTile(PlayerIndex);
+    }
 #endif
 }

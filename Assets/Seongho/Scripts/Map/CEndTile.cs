@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CEndTile : MonoBehaviour
 {
-    [Range(-1,1)]
+    [Range(-1, 1)]
     public int LeftOrRight = 0;
 
 }

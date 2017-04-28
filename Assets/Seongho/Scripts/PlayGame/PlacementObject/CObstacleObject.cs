@@ -22,4 +22,18 @@ public class CObstacleObject : CPlacementObject
             tPlayer.DecrementHp(mDamageValue);
         }
     }
+
+#if UNITY_EDITOR
+    private GUIStyle LabelStyleItemType = null;
+    private void OnDrawGizmos()
+    {
+        if (LabelStyleItemType == null)
+        {
+            LabelStyleItemType = new GUIStyle();
+            LabelStyleItemType.fontSize = 40;
+            LabelStyleItemType.normal.textColor = Color.white;
+        }
+        UnityEditor.Handles.Label(this.transform.position, "Obstacle");
+    }
+#endif
 }

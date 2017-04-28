@@ -52,8 +52,8 @@ namespace Map
                 tile.gameObject.SetActive(false);
             }
         }
+       
 
-#if UNITY_EDITOR
         [Button]
         public void SearchTiles()
         {
@@ -61,6 +61,8 @@ namespace Map
             mInstTiles.Clear();
             mInstTiles.AddRange(children);
         }
+#if UNITY_EDITOR
+
         public static GUIStyle LabelStyleTrackType = null;
         private void OnDrawGizmos()
         {
@@ -72,5 +74,6 @@ namespace Map
             UnityEditor.Handles.Label(this.transform.position, Type.ToString(),LabelStyleTrackType);
         }
 #endif
+
     }
 }
