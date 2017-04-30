@@ -47,6 +47,18 @@ namespace Map
         private Transform mParent = null;
         private int mCurrentPivot = -1;
 
+        public float TrackProgress
+        {
+            get
+            {
+                if (mCurrentPivot >= 0)
+                {
+                    return mCurrentPivot / mTrackData.Count;
+                }
+                return 0.0f;
+            }
+        }
+
         public CTrackCreator(Transform tParent)
         {
             mParent = tParent;
