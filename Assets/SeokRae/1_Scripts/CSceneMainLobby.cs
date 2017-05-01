@@ -20,7 +20,9 @@ public class CSceneMainLobby : MonoBehaviour {
     public GameObject[] HeartArray;
     public Text[] ItemArrayTxt;
     public GameObject CoinShopEnter;
+    public GameObject CoinShopBackPanel;
     public GameObject HeartShopEnter;
+    public GameObject HeartShopBackPanel;
 
     public Image mFade;
 
@@ -52,13 +54,9 @@ public class CSceneMainLobby : MonoBehaviour {
     public void OnStart()
     {
         mFade.gameObject.SetActive(true);
-        DOTween.To(() => { return mFade.color; }, (color) => mFade.color = color, new Color(0, 0, 0, 1), 0.2f)
-            .OnComplete(()=> 
-            {
-                SceneManager.LoadScene("TestScene");
-            });
+        DOTween.To(() => mFade.color, (color) => mFade.color = color, new Color(0, 0, 0, 1), 1.0f)
+        .OnComplete(() => { SceneManager.LoadScene("TestScene");});  
     }
-    
 
     void OnJump()
     {
@@ -98,17 +96,21 @@ public class CSceneMainLobby : MonoBehaviour {
     void OnCoinShopEnter()
     {
         CoinShopEnter.SetActive(true);
+        CoinShopBackPanel.SetActive(true);
     }
 
     void OnHeartShopEnter()
     {
         HeartShopEnter.SetActive(true);
+        HeartShopBackPanel.SetActive(true);
     }
 
     void OnBackToTitle()
     {
         CoinShopEnter.SetActive(false);
         HeartShopEnter.SetActive(false);
+        HeartShopBackPanel.SetActive(false);
+        CoinShopBackPanel.SetActive(false);
     }
     /*
     public double Timer()
