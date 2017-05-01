@@ -11,28 +11,30 @@ namespace Map
         private CTrackCreator mCreator = null;
         private int mIndex = 0;
         private CPlacementObject[] mPlacementObjects = null;
-        
+        private TrackType mTrackType;
 
-        public void Init(CTrackCreator tCreator,int tIndex)
+        public void Init(CTrackCreator tCreator,int tIndex,TrackType tTrackType)
         {
             mCreator = tCreator;
             mIndex = tIndex;
             Transform tObjectsParents = transform.FindChild("InstObjects");
             mPlacementObjects = tObjectsParents.GetComponentsInChildren<CPlacementObject>();
+            mTrackType = tTrackType;
         }
         public void Show()
         {
             gameObject.SetActive(true);
-            ShowRenderer(GetComponentInChildren<Renderer>());
+            //ShowRenderer(GetComponentInChildren<Renderer>());
 
-            foreach (var obj in mPlacementObjects)
-            {
-                ShowRenderer(obj.GetComponentInChildren<Renderer>());
-            }
+            //foreach (var obj in mPlacementObjects)
+            //{
+            //    ShowRenderer(obj.GetComponentInChildren<Renderer>());
+            //}
         }
         public void Hide()
         {
-            HideRenderer(GetComponentInChildren<Renderer>());
+            this.gameObject.SetActive(false);
+            //HideRenderer(GetComponentInChildren<Renderer>());
         }
         private void ShowRenderer(Renderer target)
         {
@@ -69,6 +71,10 @@ namespace Map
             {
                 mCreator.UpdateTrackTile(mIndex);
             }
+        }
+        public TrackType GetTrackType()
+        {
+            return mTrackType;
         }
     }
 }

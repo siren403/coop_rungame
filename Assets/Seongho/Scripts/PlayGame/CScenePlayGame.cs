@@ -67,8 +67,6 @@ public class CScenePlayGame : MonoBehaviour
 
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
 
-
-
         CPlayerController tController = null;
 #if UNITY_EDITOR
         tController = GetComponentInChildren<CKeyboardPlayerController>();
@@ -114,6 +112,13 @@ public class CScenePlayGame : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         OnStartRun();
     }
+    private void Update()
+    {
+        if(mIsPlaying)
+        {
+            mUIPlayGame.InstSliderTrackProgress.value = mTrackCreator.TrackProgress;
+        }
+    }
 
     private void OnPause(bool isPause)
     {
@@ -136,6 +141,7 @@ public class CScenePlayGame : MonoBehaviour
         mUserData.Coin += mCoin.Value;
         mIsPlaying = false;
     }
+
     private void OnRetire()
     {
         Time.timeScale = 1;
@@ -213,7 +219,6 @@ public class CScenePlayGame : MonoBehaviour
     [Button]
     public void OnIncrementCoin()
     {
-        Debug.Log("get coin");
         mCoin.Value += 1;
         InstPlayer.IncrementBoost(CoinPerBoost);
     }
