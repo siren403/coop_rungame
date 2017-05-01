@@ -38,10 +38,10 @@ namespace Map
         {
             get
             {
-                return PFTrackList[CurrentPFTrackIndex];
+                return PFTrackList[mCurrentPFTrackIndex];
             }
         }
-        private int CurrentPFTrackIndex = 0;
+        private int mCurrentPFTrackIndex = 0;
         private List<Dictionary<TrackType, CTrack>> PFTrackList = new List<Dictionary<TrackType, CTrack>>();
 
         private List<CTile> mInstTileList = new List<CTile>();
@@ -56,13 +56,15 @@ namespace Map
             {
                 if (mCurrentPivot >= 0)
                 {
-                    return (float)mCurrentPivot / mInstTileList.Count;
+                    return (float)(mCurrentPivot - (73 * mCurrentPFTrackIndex)) /( mInstTileList.Count - (73 * mCurrentPFTrackIndex));
                 }
                 return 0.0f;
             }
         }
 
         private System.Action mOnShowEndTrack = null;
+        private Vector3 mTrackInstancePosition = Vector3.zero;
+
 
         public CTrackCreator(Transform tParent)
         {
@@ -94,7 +96,7 @@ namespace Map
             List<TrackType> tTypes = new List<TrackType>();
             tTypes.Add(TrackType.E);
 
-            mTrackData.Capacity = mTileCount;
+            //mTrackData.Capacity = mTileCount;
             mTrackData.Clear();
 
             bool tIsStartRoad = false;
@@ -131,7 +133,6 @@ namespace Map
                 else if (tIsEndRoad == false && i >= 65)
                 {
                     tIsEndRoad = true;
-                    //tTypes.RemoveRange(1, 4);
                     tTypes.Clear();
                     tTypes.Add(TrackType.EMPTY);
                 }
@@ -146,15 +147,14 @@ namespace Map
 
         public void PositionTracks()
         {
-            Vector3 tPos = Vector3.zero;
-            int tIndex = 0;
+            int tIndex = mInstTileList.Count;
             foreach(var tTrackType in mTrackData)
             {
                 if (CurrentPFTracks.ContainsKey(tTrackType))
                 {
-                    CTrack tTrack = GameObject.Instantiate<CTrack>(CurrentPFTracks[tTrackType], tPos, Quaternion.identity);
+                    CTrack tTrack = GameObject.Instantiate<CTrack>(CurrentPFTracks[tTrackType], mTrackInstancePosition, Quaternion.identity);
                     tTrack.transform.SetParent(mParent);
-                    tPos += Vector3.forward * CurrentPFTracks[tTrackType].TrackLength;
+                    mTrackInstancePosition += Vector3.forward * CurrentPFTracks[tTrackType].TrackLength;
 
 
                     tTrack.DisableTiles();
@@ -169,7 +169,6 @@ namespace Map
                 }
             }
             Debug.Log(mInstTileList.Count);
-
         }
 
         public void UpdateTrackTile(int pivot)
@@ -218,6 +217,17 @@ namespace Map
             return tTile;
         }
 
+        public void OnSelectNextTheme(int select)
+        {
+            Debug.Log(select);
+            mCurrentPFTrackIndex++;
+            if (mCurrentPFTrackIndex >= PFTrackList.Count)
+            {
+                mCurrentPFTrackIndex = PFTrackList.Count - 1;
+            }
+            CreateTrackData();
+            PositionTracks();
+        }
         
     }
 }
