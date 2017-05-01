@@ -38,25 +38,27 @@ namespace Map
         {
             get
             {
-                return PFTrackList[mCurrentPFTrackIndex];
+                return mPFTrackList[Mathf.Clamp(mCurrentPFTrackIndex, 0, mPFTrackList.Count - 1)];
             }
         }
         private int mCurrentPFTrackIndex = 0;
-        private List<Dictionary<TrackType, CTrack>> PFTrackList = new List<Dictionary<TrackType, CTrack>>();
+        private List<Dictionary<TrackType, CTrack>> mPFTrackList = new List<Dictionary<TrackType, CTrack>>();
 
-        private List<CTile> mInstTileList = new List<CTile>();
+        private Dictionary<int,CTile> mInstTileList = new Dictionary<int, CTile>();
         private Queue<CTile> mShowTileQueue = new Queue<CTile>();
 
         private Transform mParent = null;
         private int mCurrentPivot = -1;
+        private int mInstTrackIndex = 0;
 
+        public const int END_NEXT_TILE_COUNT = 3;
         public float TrackProgress
         {
             get
             {
                 if (mCurrentPivot >= 0)
                 {
-                    return (float)(mCurrentPivot - (73 * mCurrentPFTrackIndex)) /( mInstTileList.Count - (73 * mCurrentPFTrackIndex));
+                    return (float)(mCurrentPivot - (73 * mCurrentPFTrackIndex)) /(mInstTrackIndex - (73 * mCurrentPFTrackIndex));
                 }
                 return 0.0f;
             }
@@ -64,15 +66,16 @@ namespace Map
 
         private System.Action mOnShowEndTrack = null;
         private Vector3 mTrackInstancePosition = Vector3.zero;
+        private bool mIsNextTheme = false;
 
 
         public CTrackCreator(Transform tParent)
         {
             mParent = tParent;
-            PFTrackList.Add(LoadThemePFTrack("Tracks/Theme1"));
-            PFTrackList.Add(LoadThemePFTrack("Tracks/Theme2"));
-            PFTrackList.Add(LoadThemePFTrack("Tracks/Theme3"));
-            PFTrackList.Add(LoadThemePFTrack("Tracks/Theme4"));
+            mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme1"));
+            mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme2"));
+            mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme3"));
+            mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme4"));
         }
         private Dictionary<TrackType, CTrack> LoadThemePFTrack(string path)
         {
@@ -122,15 +125,15 @@ namespace Map
 
                     for (int tTrackValue = (int)TrackType.A; tTrackValue < (int)TrackType.Z; tTrackValue++)
                     {
-                        if(CurrentPFTracks.ContainsKey((TrackType)tTrackValue))
+                        if (CurrentPFTracks.ContainsKey((TrackType)tTrackValue))
                         {
                             tTypes.Add((TrackType)tTrackValue);
-                            Debug.Log((TrackType)tTrackValue);
+                            //Debug.Log((TrackType)tTrackValue);
                         }
                     }
 
                 }
-                else if (tIsEndRoad == false && i >= 65)
+                else if (tIsEndRoad == false && i >= mTileCount - 5)
                 {
                     tIsEndRoad = true;
                     tTypes.Clear();
@@ -147,7 +150,7 @@ namespace Map
 
         public void PositionTracks()
         {
-            int tIndex = mInstTileList.Count;
+         
             foreach(var tTrackType in mTrackData)
             {
                 if (CurrentPFTracks.ContainsKey(tTrackType))
@@ -158,17 +161,18 @@ namespace Map
 
 
                     tTrack.DisableTiles();
-                    mInstTileList.AddRange(tTrack.InstTileList);
 
                     foreach (var tile in tTrack.InstTileList)
                     {
-                        tile.Init(this, tIndex, tTrackType);
-                        tIndex++;
+                        mInstTileList.Add(mInstTrackIndex, tile);
+                        tile.Init(this, mInstTrackIndex, tTrackType);
+                        mInstTrackIndex++;
                     }
+                    tTrack.gameObject.name = string.Format("[{0}] {1}", mInstTrackIndex, tTrack.gameObject.name);
 
                 }
             }
-            Debug.Log(mInstTileList.Count);
+            Debug.Log(mInstTrackIndex);
         }
 
         public void UpdateTrackTile(int pivot)
@@ -179,8 +183,8 @@ namespace Map
             }
             mCurrentPivot = pivot;
 
-            int start = Mathf.Clamp(pivot - 1, 0, mInstTileList.Count - 1);
-            int end = Mathf.Clamp(start + mSight, 0, mInstTileList.Count);
+            int start = Mathf.Clamp(pivot - 1, 0, mInstTrackIndex);
+            int end = Mathf.Clamp(start + mSight, 0, mInstTrackIndex + 1);
 
             for (int i = start; i < end; i++)
             {
@@ -191,6 +195,7 @@ namespace Map
                     if(mInstTileList[i].GetTrackType() == TrackType.END)
                     {
                         mOnShowEndTrack.SafeInvoke();
+                        mIsNextTheme = true;
                         Debug.Log("Show End Track");
                     }
 
@@ -219,14 +224,32 @@ namespace Map
 
         public void OnSelectNextTheme(int select)
         {
-            Debug.Log(select);
-            mCurrentPFTrackIndex++;
-            if (mCurrentPFTrackIndex >= PFTrackList.Count)
+            if (mIsNextTheme)
             {
-                mCurrentPFTrackIndex = PFTrackList.Count - 1;
+                mIsNextTheme = false;
+                int start = (70 - 2) * mCurrentPFTrackIndex;
+                int end = (70 - 2) * (mCurrentPFTrackIndex + 1);
+                if (mCurrentPFTrackIndex > 0)
+                {
+                    end += 4 + (mCurrentPFTrackIndex);
+                }
+                //Debug.Log(start + "/" + end);
+                //Debug.Log(mCurrentPivot);
+                for (int i = start; i < end; i++)
+                {
+                    if (mInstTileList.ContainsKey(i))
+                    {
+                        mInstTileList[i].TileDestroy();
+                        mInstTileList.Remove(i);
+                    }
+                }
+                Debug.Log("Destroy Tile Count : " + (end - start));
+                Debug.Log(select);
+                mCurrentPFTrackIndex++;
+                CreateTrackData();
+                PositionTracks();
             }
-            CreateTrackData();
-            PositionTracks();
+          
         }
         
     }

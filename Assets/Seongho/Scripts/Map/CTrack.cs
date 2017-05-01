@@ -44,7 +44,6 @@ namespace Map
                 return mInstTiles.Count;
             }
         }
-
         public void DisableTiles()
         {
             foreach(var tile in InstTileList)
@@ -52,7 +51,7 @@ namespace Map
                 tile.gameObject.SetActive(false);
             }
         }
-       
+        private int mCurrentTileCount = 0;
 
         [Button]
         public void SearchTiles()
@@ -60,7 +59,18 @@ namespace Map
             var children = this.transform.GetComponentsInChildren<Map.CTile>();
             mInstTiles.Clear();
             mInstTiles.AddRange(children);
+            mCurrentTileCount = mInstTiles.Count;
         }
+
+        public void CheckTileDestroy()
+        {
+            mCurrentTileCount--;
+            if(mCurrentTileCount == 0)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
 #if UNITY_EDITOR
 
         public static GUIStyle LabelStyleTrackType = null;

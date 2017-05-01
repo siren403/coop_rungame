@@ -19,6 +19,18 @@ namespace Map
         private int mIndex = 0;
         private CPlacementObject[] mPlacementObjects = null;
         private TrackType mTrackType;
+        private CTrack mCachedParentTrack = null;
+        private CTrack mParentTrack
+        {
+            get
+            {
+                if(mCachedParentTrack == null)
+                {
+                    mCachedParentTrack = GetComponentInParent<CTrack>();
+                }
+                return mCachedParentTrack;
+            }
+        }
 
         public virtual void Init(CTrackCreator tCreator,int tIndex,TrackType tTrackType)
         {
@@ -87,6 +99,11 @@ namespace Map
         public TrackType GetTrackType()
         {
             return mTrackType;
+        }
+        public void TileDestroy()
+        {
+            mParentTrack.CheckTileDestroy();
+            Destroy(this.gameObject);
         }
     }
 }
