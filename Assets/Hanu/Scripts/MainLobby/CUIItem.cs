@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Inspector;
+using UnityEngine.UI;
+
 
 public class CUIItem : MonoBehaviour {
 
@@ -23,10 +25,12 @@ public class CUIItem : MonoBehaviour {
     public Dictionary<ITEM, int> ItemPrice = null;
     public int[] ItemList = null;
 
+    public Text[] ItemNumber = null;
+
     public CSceneMainLobby SceneMainLobby = null;
 
 
-
+    private ShowUserData mCoinText = null;
     private UserData mUserData = null;
 
     private int mCoin = 0;
@@ -34,9 +38,10 @@ public class CUIItem : MonoBehaviour {
     private void Awake()
     {
         SceneMainLobby = new CSceneMainLobby();
-        SceneMainLobby.mUIMainLobby = new CUIMainLobby();
+
+ 
         mUserData = new UserData();
-       
+        mCoinText = this.GetComponent<ShowUserData>();
         mCoin = mUserData.Coin;
 
         ItemPrice = new Dictionary<ITEM, int>();
@@ -47,9 +52,13 @@ public class CUIItem : MonoBehaviour {
         ItemPrice.Add(ITEM.ITEM4, Item4Price);
 
         ItemList = new int[4];
+        ItemNumber = new Text[4];
+
+
+
+
         LoadItem();
 
-        SceneMainLobby.mUIMainLobby.SetItem_1(OnItem_1);
 
     }
 
@@ -80,12 +89,14 @@ public class CUIItem : MonoBehaviour {
         mUserData.Item4 = ItemList[3];
     }
 
-    [Button]
     public void BuyItem(ITEM tItem)
     {
         if(mCoin >= ItemPrice[tItem])
         {
             ItemList[(int)tItem] += 1;
+            mCoin -= ItemPrice[tItem];
+            mUserData.Coin = mCoin;
+            mCoinText.UpdateUserData();
         }
         else
         {
@@ -93,11 +104,28 @@ public class CUIItem : MonoBehaviour {
         }
     }
 
-    public void OnItem_1()
+    public void OnClickItem_1()
     {
-        Debug.Log("내꺼인데 됨?");
+        BuyItem(ITEM.ITEM1);
+    }
+    public void OnClickItem_2()
+    {
+        BuyItem(ITEM.ITEM2);
+    }
+    public void OnClickItem_3()
+    {
+        BuyItem(ITEM.ITEM3);
+    }
+    public void OnClickItem_4()
+    {
+        BuyItem(ITEM.ITEM4);
     }
 
-
-
+    [Button]
+    public void AddCoin()
+    {
+        mCoin = mUserData.Coin;
+        mCoin += 1000;
+        mUserData.Coin = mCoin;
+    }
 }
