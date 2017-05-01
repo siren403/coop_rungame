@@ -115,6 +115,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114107276649313636, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: ItemArrayTxt.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 224314331353262186, guid: 2cb426a830c0ece4f9c208154e67492c,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -209,9 +214,98 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114897704099416250, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: m_Text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114281090402855590, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: m_Text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114740957063896204, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: m_Text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114602711255544786, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: m_Text
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114107276649313636, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: ItemArrayTxt.Array.data[0]
+      value: 
+      objectReference: {fileID: 516541682}
+    - target: {fileID: 114107276649313636, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: ItemArrayTxt.Array.data[1]
+      value: 
+      objectReference: {fileID: 516541681}
+    - target: {fileID: 114107276649313636, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: ItemArrayTxt.Array.data[2]
+      value: 
+      objectReference: {fileID: 516541680}
+    - target: {fileID: 114107276649313636, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: ItemArrayTxt.Array.data[3]
+      value: 
+      objectReference: {fileID: 516541679}
+    - target: {fileID: 224827033047605262, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224827033047605262, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224827033047605262, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224827033047605262, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114897704099416250, guid: 2cb426a830c0ece4f9c208154e67492c,
+        type: 2}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2cb426a830c0ece4f9c208154e67492c, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &516541679 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114602711255544786, guid: 2cb426a830c0ece4f9c208154e67492c,
+    type: 2}
+  m_PrefabInternal: {fileID: 516541678}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &516541680 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114740957063896204, guid: 2cb426a830c0ece4f9c208154e67492c,
+    type: 2}
+  m_PrefabInternal: {fileID: 516541678}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &516541681 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114281090402855590, guid: 2cb426a830c0ece4f9c208154e67492c,
+    type: 2}
+  m_PrefabInternal: {fileID: 516541678}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &516541682 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114897704099416250, guid: 2cb426a830c0ece4f9c208154e67492c,
+    type: 2}
+  m_PrefabInternal: {fileID: 516541678}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &655426576
 GameObject:
   m_ObjectHideFlags: 0
