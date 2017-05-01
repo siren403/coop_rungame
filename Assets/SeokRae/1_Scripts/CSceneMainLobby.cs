@@ -18,6 +18,7 @@ public class CSceneMainLobby : MonoBehaviour {
     public Text ItemBuyCoin;
     
     public GameObject[] HeartArray;
+    public Text[] ItemArrayTxt;
     //public Stack heartStack = new Stack();
 
     
