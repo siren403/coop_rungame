@@ -7,7 +7,6 @@ public class CCoinObject : CPlacementObject
 {
     protected override void OnPlayerEnter(CPlayer tPlayer)
     {
-        Debug.Log("Coin");
         tPlayer.ScenePlayGame.OnIncrementCoin();
         Destroy(this.gameObject);
     }
