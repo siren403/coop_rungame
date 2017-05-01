@@ -110,7 +110,7 @@ public class CSceneMainLobby : MonoBehaviour {
 
     void OnBackToTitle()
     {
-        SceneManager.LoadScene("MainTitleScene");
+        SceneManager.LoadScene("SceneMainLobby");
     }
     /*
     public double Timer()

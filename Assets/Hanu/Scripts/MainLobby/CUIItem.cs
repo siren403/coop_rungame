@@ -26,6 +26,7 @@ public class CUIItem : MonoBehaviour {
     public int[] ItemList = null;
 
     public Text[] ItemNumber = null;
+    public bool[] IsApplyItem = null;
 
     public CSceneMainLobby SceneMainLobby = null;
 
@@ -37,9 +38,9 @@ public class CUIItem : MonoBehaviour {
 
     private void Awake()
     {
-        SceneMainLobby = new CSceneMainLobby();
+     
+       
 
- 
         mUserData = new UserData();
         mCoinText = this.GetComponent<ShowUserData>();
         mCoin = mUserData.Coin;
@@ -54,7 +55,15 @@ public class CUIItem : MonoBehaviour {
         ItemList = new int[4];
         ItemNumber = new Text[4];
 
-
+        for(int ti = 0; ti <4; ti++)
+        {
+            ItemNumber[ti] = SceneMainLobby.ItemArrayTxt[ti];
+        }
+        IsApplyItem = new bool[4];
+        for(int ti = 0; ti< 4; ti++)
+        {
+            IsApplyItem[ti] = false;
+        }
 
 
         LoadItem();
@@ -76,11 +85,20 @@ public class CUIItem : MonoBehaviour {
     public void LoadItem()
     {
         ItemList[0] = mUserData.Item1;
-        ItemList[1] = mUserData.Item2;
-        ItemList[2] = mUserData.Item3;
-        ItemList[3] = mUserData.Item4;
-    }
+        ItemNumber[0].text = ItemList[0].ToString();
 
+        ItemList[1] = mUserData.Item2;
+        ItemNumber[1].text = ItemList[1].ToString();
+
+        ItemList[2] = mUserData.Item3;
+        ItemNumber[2].text = ItemList[2].ToString();
+
+        ItemList[3] = mUserData.Item4;
+        ItemNumber[3].text = ItemList[3].ToString();
+
+
+    }
+    [Button]
     public void SaveItem()
     {
         mUserData.Item1 = ItemList[0];
@@ -97,6 +115,7 @@ public class CUIItem : MonoBehaviour {
             mCoin -= ItemPrice[tItem];
             mUserData.Coin = mCoin;
             mCoinText.UpdateUserData();
+            ItemNumber[(int)tItem].text = ItemList[(int)tItem].ToString();
         }
         else
         {
@@ -128,4 +147,28 @@ public class CUIItem : MonoBehaviour {
         mCoin += 1000;
         mUserData.Coin = mCoin;
     }
+
+    [Button]
+    public void ApplyItem()
+    {
+        for(int ti = 0; ti< ItemList.Length;ti++)
+        {
+            if(0<ItemList[ti])
+            {
+                IsApplyItem[ti] = true;
+                ItemList[ti] -= 1;
+                ItemNumber[ti].text = ItemList[ti].ToString();
+            }
+            else
+            {
+                IsApplyItem[ti] = false;
+            }
+        }
+        for(int ti = 0; ti<IsApplyItem.Length;ti++)
+        {
+            Debug.Log(IsApplyItem[ti].ToString());
+        }
+    }
+
+
 }
