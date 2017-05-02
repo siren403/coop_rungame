@@ -4,6 +4,7 @@ using UnityEngine;
 using Inspector;
 using ResourceLoader;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class CScenePlayGame : MonoBehaviour
 {
@@ -58,10 +59,7 @@ public class CScenePlayGame : MonoBehaviour
         InstPlayer.SetScene(this);
         InstItemTimer.SetScene(this);
 
-        mTrackCreator = new Map.CTrackCreator(this.transform);
-        mTrackCreator.CreateTrackData();
-        mTrackCreator.PositionTracks();
-        mTrackCreator.UpdateTrackTile(0);
+       
 
         mUserData = new UserData();
 
@@ -87,9 +85,11 @@ public class CScenePlayGame : MonoBehaviour
 
         //게임오버 - 로비 이동
         mUIPlayGame.InstBtnMoveLobby.onClick.AddListener(OnMoveLobby);
+        
         //일시정지 UI On,Off
         mUIPlayGame.InstBtnPause.onClick.AddListener(() => OnPause(true));
         mUIPlayGame.InstBtnPauseClose.onClick.AddListener(() => OnPause(false));
+
         //포기 확인
         mUIPlayGame.InstBtnSubmitRetire.onClick.AddListener(OnRetire);
 
@@ -105,7 +105,15 @@ public class CScenePlayGame : MonoBehaviour
         });
         mCoin = new IntReactiveProperty();
         mCoin.Subscribe((coin) => mUIPlayGame.SetTxtCoin(coin));
-       
+
+
+        mTrackCreator = new Map.CTrackCreator(this.transform);
+        mTrackCreator.OnShowEndTrack = () => { Debug.Log("Show End"); };
+        mTrackCreator.OnChangeStage = (number) => { mUIPlayGame.SetTxtStageNumber(number); };
+
+        mTrackCreator.CreateTrackData();
+        mTrackCreator.PositionTracks();
+        mTrackCreator.UpdateTrackTile(0);
     }
     private IEnumerator Start()
     {
@@ -223,4 +231,5 @@ public class CScenePlayGame : MonoBehaviour
         InstPlayer.IncrementBoost(CoinPerBoost);
     }
 
+    
 }

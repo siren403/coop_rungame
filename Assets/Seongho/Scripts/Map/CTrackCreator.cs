@@ -65,6 +65,21 @@ namespace Map
         }
 
         private System.Action mOnShowEndTrack = null;
+        public System.Action OnShowEndTrack
+        {
+            set
+            {
+                mOnShowEndTrack = value;
+            }
+        }
+        private System.Action<int> mOnChangeStage = null;
+        public System.Action<int> OnChangeStage
+        {
+            set
+            {
+                mOnChangeStage = value;
+            }
+        }
         private Vector3 mTrackInstancePosition = Vector3.zero;
         private bool mIsNextTheme = false;
 
@@ -76,6 +91,8 @@ namespace Map
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme2"));
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme3"));
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme4"));
+
+
         }
         private Dictionary<TrackType, CTrack> LoadThemePFTrack(string path)
         {
@@ -173,6 +190,8 @@ namespace Map
                 }
             }
             Debug.Log(mInstTrackIndex);
+            mOnChangeStage.SafeInvoke(mCurrentPFTrackIndex + 1);
+
         }
 
         public void UpdateTrackTile(int pivot)
@@ -196,7 +215,6 @@ namespace Map
                     {
                         mOnShowEndTrack.SafeInvoke();
                         mIsNextTheme = true;
-                        Debug.Log("Show End Track");
                     }
 
                     mShowTileQueue.Enqueue(mInstTileList[i]);
@@ -233,8 +251,6 @@ namespace Map
                 {
                     end += 4 + (mCurrentPFTrackIndex);
                 }
-                //Debug.Log(start + "/" + end);
-                //Debug.Log(mCurrentPivot);
                 for (int i = start; i < end; i++)
                 {
                     if (mInstTileList.ContainsKey(i))
@@ -243,14 +259,12 @@ namespace Map
                         mInstTileList.Remove(i);
                     }
                 }
-                Debug.Log("Destroy Tile Count : " + (end - start));
-                Debug.Log(select);
                 mCurrentPFTrackIndex++;
                 CreateTrackData();
                 PositionTracks();
             }
-          
         }
+
         
     }
 }

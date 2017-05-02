@@ -17,6 +17,8 @@ public class CUIPlayGame : MonoBehaviour
     public Button InstBtnPause = null;
     public Button InstBtnPauseClose = null;
     public Slider InstSliderTrackProgress = null;
+    [SerializeField]
+    private Text InstTxtStageNumber = null;
 
     //PauseUI
     [Space]
@@ -50,6 +52,10 @@ public class CUIPlayGame : MonoBehaviour
     public void SetTxtCoin(int value)
     {
         InstTxtCoin.text = string.Format("COIN : {0}", value.ToString());
+    }
+    public void SetTxtStageNumber(int tNumber)
+    {
+        InstTxtStageNumber.text = string.Format("STAGE : {0}", tNumber);
     }
     #endregion
 

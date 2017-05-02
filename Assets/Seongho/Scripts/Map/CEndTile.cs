@@ -6,8 +6,6 @@ namespace Map
 {
     public class CEndTile : CTile
     {
-      
-
         public override void Init(CTrackCreator tCreator, int tIndex, TrackType tTrackType)
         {
             base.Init(tCreator, tIndex, tTrackType);

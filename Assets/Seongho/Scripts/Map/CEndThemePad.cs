@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Map
 {
     public class CEndThemePad : MonoBehaviour
@@ -14,7 +13,11 @@ namespace Map
         {
             if(other.CompareTag(CTag.TAG_PLAYER))
             {
-                GetComponentInParent<CTile>().Creator.OnSelectNextTheme(LeftOrRight);
+                var tPlayer = other.GetComponent<CPlayer>();
+                if (tPlayer.PositionAbsMove(this.transform.position))
+                {
+                    GetComponentInParent<CTile>().Creator.OnSelectNextTheme(LeftOrRight);
+                }
             }
         }
     }
