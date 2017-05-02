@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.UI;
 using Inspector;
-
+using DG.Tweening;
 
 public class CUILobby : MonoBehaviour {
 
@@ -26,10 +26,19 @@ public class CUILobby : MonoBehaviour {
     private int mSpareTime = 0;
     private IntReactiveProperty mTime = null;
 
+
+    public CUIPopUpHeart UIPopUpHeart = null;
+    public CUIItem UIItem = null;
+
     private UserData mUserData = null;
+
+    public Image mFade;
 
     private void Awake()
     {
+        UIPopUpHeart.SetUILobby(this);
+
+
         HeartArray = new GameObject[TOTAL_HEARTCOUNT];
         HeartArray = SceneMainLobby.HeartArray;
         mUserData = new UserData();
@@ -46,6 +55,11 @@ public class CUILobby : MonoBehaviour {
        
     }
 
+    public void SetUIItem(CUIItem tUITem)
+    {
+        UIItem = tUITem;
+    }
+
     private void Update()
     {
         UpdateHeartArray();
@@ -55,22 +69,34 @@ public class CUILobby : MonoBehaviour {
 
     public void OnClickBtnGoPlayGameScene()
     {
-        mHeart -= 1;
-        if(mHeart <0)
-        {
-            mHeart = 0;
-        }
-        mUserData.Heart = mHeart;
         if(mHeart != 0)
         {
-            SceneManager.LoadScene("ScenePlayGame");
+            mHeart -= 1;
+            if (mHeart < 0)
+            {
+                mHeart = 0;
+            }
+            mUserData.Heart = mHeart;
+
+            UIItem.ApplyItem();
+
+            mFade.gameObject.SetActive(true);
+            DOTween.To(() => { return mFade.color; }, (color) => mFade.color = color, new Color(0, 0, 0, 1), 0.2f)
+                .OnComplete(() =>
+                {
+                    SceneManager.LoadScene("ScenePlayGame");
+                });
         }
         else
         {
             Debug.Log("Heart is null");
         }
     }
-
+    [Button]
+    public void HeartCount()
+    {
+        Debug.Log(mHeart.ToString());
+    }
 
     [Button]
     public void SetUserData()
@@ -156,6 +182,29 @@ public class CUILobby : MonoBehaviour {
             }
         }
     }
+
+    public UserData GetUserData()
+    {
+        return mUserData;
+    }
+
+    public void SetUserData(UserData tUserData)
+    {
+        mUserData = tUserData;
+    }
+
+
+    public int GetHeart()
+    {
+        return mHeart;
+    }
+
+    public void SetHeart(int tHeart)
+    {
+        mHeart = tHeart;
+    }
+
+
 }
 
 

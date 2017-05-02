@@ -30,18 +30,22 @@ public class CUIItem : MonoBehaviour {
 
     public CSceneMainLobby SceneMainLobby = null;
 
+    private ITEM mSelectItem = ITEM.ITEM1;
 
     private ShowUserData mCoinText = null;
     private UserData mUserData = null;
 
     private int mCoin = 0;
 
+    public CUILobby UILobby = null;
+
+
     private void Awake()
     {
-     
-       
 
-        mUserData = new UserData();
+        UILobby.SetUIItem(this);
+
+         mUserData = new UserData();
         mCoinText = this.GetComponent<ShowUserData>();
         mCoin = mUserData.Coin;
 
@@ -125,19 +129,25 @@ public class CUIItem : MonoBehaviour {
 
     public void OnClickItem_1()
     {
-        BuyItem(ITEM.ITEM1);
+        SetSelectItem(ITEM.ITEM1);
     }
     public void OnClickItem_2()
     {
-        BuyItem(ITEM.ITEM2);
+        SetSelectItem(ITEM.ITEM2);
     }
     public void OnClickItem_3()
     {
-        BuyItem(ITEM.ITEM3);
+        SetSelectItem(ITEM.ITEM3);
     }
     public void OnClickItem_4()
     {
-        BuyItem(ITEM.ITEM4);
+        SetSelectItem(ITEM.ITEM4);
+    }
+
+    public void OnClickBuyItem()
+    {
+        BuyItem(GetSelectItem());
+        SaveItem();
     }
 
     [Button]
@@ -151,9 +161,9 @@ public class CUIItem : MonoBehaviour {
     [Button]
     public void ApplyItem()
     {
-        for(int ti = 0; ti< ItemList.Length;ti++)
+        for (int ti = 0; ti < ItemList.Length; ti++)
         {
-            if(0<ItemList[ti])
+            if (0 < ItemList[ti])
             {
                 IsApplyItem[ti] = true;
                 ItemList[ti] -= 1;
@@ -164,10 +174,27 @@ public class CUIItem : MonoBehaviour {
                 IsApplyItem[ti] = false;
             }
         }
-        for(int ti = 0; ti<IsApplyItem.Length;ti++)
+        for (int ti = 0; ti < IsApplyItem.Length; ti++)
         {
             Debug.Log(IsApplyItem[ti].ToString());
         }
+        SaveItem();
+    }
+
+
+    public void SetSelectItem(ITEM tItem)
+    {
+        mSelectItem = tItem;
+    }
+
+    public ITEM GetSelectItem()
+    {
+        return mSelectItem;
+    }
+
+    public ShowUserData GetCoinText()
+    {
+        return mCoinText;
     }
 
 
