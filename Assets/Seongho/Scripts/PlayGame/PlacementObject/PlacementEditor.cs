@@ -19,8 +19,9 @@ public class PlacementEditor : MonoBehaviour
     {
         GameObject tPF = Resources.Load<GameObject>("PlacementObject/PFItem");
 
-        GameObject tInstance = Instantiate<GameObject>(tPF);
+        GameObject tInstance = Instantiate<GameObject>(tPF, Vector3.zero, Quaternion.identity);
         tInstance.transform.SetParent(this.transform);
+        tInstance.transform.localPosition = Vector3.zero;
 
     }
     [Button]
@@ -28,16 +29,20 @@ public class PlacementEditor : MonoBehaviour
     {
         GameObject tPF = Resources.Load<GameObject>("PlacementObject/PFObstacle");
 
-        GameObject tInstance = Instantiate<GameObject>(tPF);
+        GameObject tInstance = Instantiate<GameObject>(tPF, Vector3.zero, Quaternion.identity);
         tInstance.transform.SetParent(this.transform);
+        tInstance.transform.localPosition = Vector3.zero;
+
     }
     [Button]
     public void Coin()
     {
         GameObject tPF = Resources.Load<GameObject>("PlacementObject/PFCoin");
 
-        GameObject tInstance = Instantiate<GameObject>(tPF);
+        GameObject tInstance = Instantiate<GameObject>(tPF, Vector3.zero, Quaternion.identity);
         tInstance.transform.SetParent(this.transform);
+        tInstance.transform.localPosition = Vector3.zero;
+
     }
 
 

@@ -2,9 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CEndTile : MonoBehaviour
+namespace Map
 {
-    [Range(-1, 1)]
-    public int LeftOrRight = 0;
+    public class CEndTile : CTile
+    {
+        public override void Init(CTrackCreator tCreator, int tIndex, TrackType tTrackType)
+        {
+            base.Init(tCreator, tIndex, tTrackType);
+        }
 
+        protected override void OnCollisionPlayer(Collision other)
+        {
+            base.OnCollisionPlayer(other);
+
+        }
+
+    }
 }
