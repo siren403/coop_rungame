@@ -7,8 +7,12 @@ namespace Map
     public enum TrackType
     {
         NONE = 0,
-        A, B, C, D, E, F, G,
         END,
+        EMPTY,
+        A, B, C, D, E, F, G,
+        H, I, J, K, L, M, N,
+        O, P, Q, R, S, T, U,
+        V, W, X, Y, Z,
     }
 
     public class CTrackCreator
@@ -27,7 +31,6 @@ namespace Map
             }
         }
         private int mSight = 6;
-
 
 
         private List<TrackType> mTrackData = new List<TrackType>();
@@ -53,11 +56,13 @@ namespace Map
             {
                 if (mCurrentPivot >= 0)
                 {
-                    return mCurrentPivot / mTrackData.Count;
+                    return (float)mCurrentPivot / mInstTileList.Count;
                 }
                 return 0.0f;
             }
         }
+
+        private System.Action mOnShowEndTrack = null;
 
         public CTrackCreator(Transform tParent)
         {
@@ -112,21 +117,31 @@ namespace Map
                 if (tIsStartRoad == false && i >= 5)
                 {
                     tIsStartRoad = true;
-                    tTypes.AddRange(new TrackType[]
+
+                    for (int tTrackValue = (int)TrackType.A; tTrackValue < (int)TrackType.Z; tTrackValue++)
                     {
-                        TrackType.A, TrackType.B, TrackType.C, TrackType.D,
-                        TrackType.F, TrackType.G
-                    });
+                        if(CurrentPFTracks.ContainsKey((TrackType)tTrackValue))
+                        {
+                            tTypes.Add((TrackType)tTrackValue);
+                            Debug.Log((TrackType)tTrackValue);
+                        }
+                    }
+
                 }
                 else if (tIsEndRoad == false && i >= 65)
                 {
                     tIsEndRoad = true;
-                    tTypes.RemoveRange(1, 4);
+                    //tTypes.RemoveRange(1, 4);
+                    tTypes.Clear();
+                    tTypes.Add(TrackType.EMPTY);
                 }
-
+            }
+            mTrackData.Add(TrackType.END);
+            for (int i = 0; i < 3; i++)
+            {
+                mTrackData.Add(TrackType.EMPTY);
             }
 
-            mTrackData.Add(TrackType.END);
         }
 
         public void PositionTracks()
@@ -145,10 +160,9 @@ namespace Map
                     tTrack.DisableTiles();
                     mInstTileList.AddRange(tTrack.InstTileList);
 
-
                     foreach (var tile in tTrack.InstTileList)
                     {
-                        tile.Init(this, tIndex);
+                        tile.Init(this, tIndex, tTrackType);
                         tIndex++;
                     }
 
@@ -174,6 +188,13 @@ namespace Map
                 if(mShowTileQueue.Contains(mInstTileList[i]) == false)
                 {
                     mInstTileList[i].Show();
+
+                    if(mInstTileList[i].GetTrackType() == TrackType.END)
+                    {
+                        mOnShowEndTrack.SafeInvoke();
+                        Debug.Log("Show End Track");
+                    }
+
                     mShowTileQueue.Enqueue(mInstTileList[i]);
                     if(mShowTileQueue.Count > mSight)
                     {
@@ -197,5 +218,6 @@ namespace Map
             return tTile;
         }
 
+        
     }
 }

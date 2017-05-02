@@ -16,6 +16,7 @@ public class CUIPlayGame : MonoBehaviour
     private Text InstTxtCoin = null;
     public Button InstBtnPause = null;
     public Button InstBtnPauseClose = null;
+    public Slider InstSliderTrackProgress = null;
 
     //PauseUI
     [Space]

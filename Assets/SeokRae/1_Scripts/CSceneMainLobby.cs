@@ -4,24 +4,29 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.UI;
+using DG.Tweening;
 public class CSceneMainLobby : MonoBehaviour {
 
 
     public CUIMainLobby mUIMainLobby;
-
-    
     int mHeartCount = 0;
-    //public float m_TotalSecTime = 0;
-    public Text m_Timecontrol;
 
+
+
+    public Text m_Timecontrol;
     public Text ItemUseTxt;
     public Text ItemBuyCoin;
     
     public GameObject[] HeartArray;
     public Text[] ItemArrayTxt;
+    public GameObject CoinShopEnter;
+    public GameObject HeartShopEnter;
+
+    public Image mFade;
+
     //public Stack heartStack = new Stack();
 
-    
+
     void Start () {
 
         mUIMainLobby.SetStart(OnStart);
@@ -46,20 +51,12 @@ public class CSceneMainLobby : MonoBehaviour {
     
     public void OnStart()
     {
-        
-        /*
-        SaveTime = (TimeSpan.FromTicks(DateTime.Now.Ticks) - start).TotalSeconds;
-
-        Debug.Log("하트지워지게!!!"+SaveTime);
-
-        PlayerPrefs.SetFloat("SaveTime", (float)SaveTime);
-        
-        if (Count < HeartArray.Length)
-        {
-            HeartArray[Count].SetActive(false);
-            Count++;
-        }*/
-        
+        mFade.gameObject.SetActive(true);
+        DOTween.To(() => { return mFade.color; }, (color) => mFade.color = color, new Color(0, 0, 0, 1), 0.2f)
+            .OnComplete(()=> 
+            {
+                SceneManager.LoadScene("TestScene");
+            });
     }
     
 
@@ -76,41 +73,42 @@ public class CSceneMainLobby : MonoBehaviour {
     void OnItem_1()
     {
         Debug.Log("Item1!!");
-        ItemUseTxt.text = "Item1\n\n\n아이템1임\n\n(설명하시오)";
-        ItemBuyCoin.text = "Coin : 250";
+        ItemUseTxt.text = "추가 체력\n\n\n15%추가 체력\n\n(설명하시오)";
+        ItemBuyCoin.text = "Coin : 1000";
     }
     void OnItem_2()
     {
         Debug.Log("Item2!!");
-        ItemUseTxt.text = "Item1\n\n\n아이템2임\n\n(설명하시오)";
-        ItemBuyCoin.text = "Coin : 300";
+        ItemUseTxt.text = "아이템시간연장\n\n\n아이템 효과 유지시간이 2초증가\n\n(설명하시오)";
+        ItemBuyCoin.text = "Coin : 1000";
     }
     void OnItem_3()
     {
         Debug.Log("Item3!!");
-        ItemUseTxt.text = "Item1\n\n\n아이템3임\n\n(설명하시오)";
-        ItemBuyCoin.text = "Coin : 350";
+        ItemUseTxt.text = "코인2배\n\n\n코인이두배가되 두두두두배두\n\n(설명하시오)";
+        ItemBuyCoin.text = "Coin : 1000";
     }
     void OnItem_4()
     {
         Debug.Log("Item4!!");
-        ItemUseTxt.text = "Item1\n\n\n아이템4임\n\n(설명하시오)";
-        ItemBuyCoin.text = "Coin : 400";
+        ItemUseTxt.text = "1스테이지 부스터\n\n\n1스테이지Skip\n\n(설명하시오)";
+        ItemBuyCoin.text = "Coin : 1000";
     }
 
     void OnCoinShopEnter()
     {
-        SceneManager.LoadScene("CoinShop");
+        CoinShopEnter.SetActive(true);
     }
 
     void OnHeartShopEnter()
     {
-        SceneManager.LoadScene("HeartShop");
+        HeartShopEnter.SetActive(true);
     }
 
     void OnBackToTitle()
     {
-        SceneManager.LoadScene("SceneMainLobby");
+        CoinShopEnter.SetActive(false);
+        HeartShopEnter.SetActive(false);
     }
     /*
     public double Timer()
