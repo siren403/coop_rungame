@@ -9,6 +9,8 @@ public class CInTrack : MonoBehaviour {
         if (other.CompareTag(CTag.TAG_PLAYER))
         {
             other.GetComponent<CPlayer>().SetSpeedRatio(1.0f);
+            FindObjectOfType<CScenePlayGame>().HpTickPerHpRatio = 1.0f;
+
         }
     }
 }

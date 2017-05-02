@@ -12,7 +12,6 @@ public class CObstacleObject : CPlacementObject
 
     protected override void OnPlayerEnter(CPlayer tPlayer)
     {
-        Debug.Log("Obstacle");
         if (mIsGameOver)
         {
             tPlayer.DecrementHp(tPlayer.CurrentHp.Value);

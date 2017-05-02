@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Inspector;
+using DG.Tweening;
 
 public class CPlayer : MonoBehaviour
 {
@@ -131,6 +132,8 @@ public class CPlayer : MonoBehaviour
 
     public bool IsImmotal = false;
 
+    public bool IsControl = true;
+
     private void Awake()
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
@@ -257,7 +260,10 @@ public class CPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        DoMove();
+        if (IsControl)
+        {
+            DoMove();
+        }
     }
 
     public void SetMoveStart(bool isRun)
@@ -348,6 +354,19 @@ public class CPlayer : MonoBehaviour
             mCurrentBoost.Value = 0;
             Debug.Log("Boost On");
         }
+    }
+
+    public bool PositionAbsMove(Vector3 pos)
+    {
+        if(DOTween.IsTweening("isAbsMove") == false)
+        {
+            IsControl = false;
+            this.transform.DOMove(pos, 0.3f)
+                .OnComplete(()=> { IsControl = true; })
+                .SetId("isAbsMove");
+            return true;
+        }
+        return false;
     }
 #if UNITY_EDITOR
     public bool IsOnGUI = true;

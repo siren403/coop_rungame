@@ -16,7 +16,6 @@ public class CItemObject : CPlacementObject
         switch (_ItemType)
         {
             case ItemType.Boost:
-                Debug.Log("Item");
                 CTrackBoostItem item = new CTrackBoostItem(tPlayer, 1.5f);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(item);
                 break;

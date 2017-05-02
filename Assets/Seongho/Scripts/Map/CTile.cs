@@ -9,11 +9,30 @@ namespace Map
     {
 
         private CTrackCreator mCreator = null;
+        public CTrackCreator Creator
+        {
+            get
+            {
+                return mCreator;
+            }
+        }
         private int mIndex = 0;
         private CPlacementObject[] mPlacementObjects = null;
         private TrackType mTrackType;
+        private CTrack mCachedParentTrack = null;
+        private CTrack mParentTrack
+        {
+            get
+            {
+                if(mCachedParentTrack == null)
+                {
+                    mCachedParentTrack = GetComponentInParent<CTrack>();
+                }
+                return mCachedParentTrack;
+            }
+        }
 
-        public void Init(CTrackCreator tCreator,int tIndex,TrackType tTrackType)
+        public virtual void Init(CTrackCreator tCreator,int tIndex,TrackType tTrackType)
         {
             mCreator = tCreator;
             mIndex = tIndex;
@@ -69,12 +88,22 @@ namespace Map
         {
             if (other.collider.CompareTag(CTag.TAG_PLAYER))
             {
-                mCreator.UpdateTrackTile(mIndex);
+                OnCollisionPlayer(other);
             }
         }
+        protected virtual void OnCollisionPlayer(Collision other)
+        {
+            mCreator.UpdateTrackTile(mIndex);
+        }
+
         public TrackType GetTrackType()
         {
             return mTrackType;
+        }
+        public void TileDestroy()
+        {
+            mParentTrack.CheckTileDestroy();
+            Destroy(this.gameObject);
         }
     }
 }
