@@ -108,8 +108,15 @@ public class CScenePlayGame : MonoBehaviour
 
 
         mTrackCreator = new Map.CTrackCreator(this.transform);
-        mTrackCreator.OnShowEndTrack = () => { Debug.Log("Show End"); };
-        mTrackCreator.OnChangeStage = (number) => { mUIPlayGame.SetTxtStageNumber(number); };
+        mTrackCreator.OnShowEndTrack = (left,right) => 
+        {
+            mUIPlayGame.ShowTxtSelectTheme(left, right);
+        };
+        mTrackCreator.OnChangeStage = (number) => 
+        {
+            mUIPlayGame.SetTxtStageNumber(number);
+            mUIPlayGame.HideTxtSelectTheme();
+        };
 
         mTrackCreator.CreateTrackData();
         mTrackCreator.PositionTracks();

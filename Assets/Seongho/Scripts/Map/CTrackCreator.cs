@@ -42,6 +42,7 @@ namespace Map
             }
         }
         private int mCurrentPFTrackIndex = 0;
+        private int mStageCount = 0;
         private List<Dictionary<TrackType, CTrack>> mPFTrackList = new List<Dictionary<TrackType, CTrack>>();
 
         private Dictionary<int,CTile> mInstTileList = new Dictionary<int, CTile>();
@@ -58,14 +59,14 @@ namespace Map
             {
                 if (mCurrentPivot >= 0)
                 {
-                    return (float)(mCurrentPivot - (73 * mCurrentPFTrackIndex)) /(mInstTrackIndex - (73 * mCurrentPFTrackIndex));
+                    return (float)(mCurrentPivot - (73 * mStageCount)) /(mInstTrackIndex - (73 * mStageCount));
                 }
                 return 0.0f;
             }
         }
 
-        private System.Action mOnShowEndTrack = null;
-        public System.Action OnShowEndTrack
+        private System.Action<int,int> mOnShowEndTrack = null;
+        public System.Action<int, int> OnShowEndTrack
         {
             set
             {
@@ -83,6 +84,10 @@ namespace Map
         private Vector3 mTrackInstancePosition = Vector3.zero;
         private bool mIsNextTheme = false;
 
+        private Stack<int> mThemeStack = new Stack<int>();
+
+        private int LeftThemeIndex = 0;
+        private int RightThemeIndex = 0;
 
         public CTrackCreator(Transform tParent)
         {
@@ -92,8 +97,16 @@ namespace Map
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme3"));
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme4"));
 
-
+            List<int> tStageNumbers = new List<int>() { 1, 2, 3 };
+            for (int i = 0; i < tStageNumbers.Count; i++)
+            {
+                int index = UnityEngine.Random.Range(0, tStageNumbers.Count);
+                mThemeStack.Push(tStageNumbers[index]);
+                tStageNumbers.RemoveAt(index);
+            }
+            mCurrentPFTrackIndex = 0;
         }
+
         private Dictionary<TrackType, CTrack> LoadThemePFTrack(string path)
         {
             Dictionary<TrackType, CTrack> storage = new Dictionary<TrackType, CTrack>();
@@ -103,7 +116,6 @@ namespace Map
                 if (storage.ContainsKey(track.Type) == false)
                 {
                     storage.Add(track.Type, track);
-                    //Debug.Log(string.Format("Load Prefab {0}", track.Type));
                 }
             }
             return storage;
@@ -111,12 +123,10 @@ namespace Map
 
         public void CreateTrackData()
         {
-            //TrackType[] types = (TrackType[])Enum.GetValues(typeof(TrackType));
 
             List<TrackType> tTypes = new List<TrackType>();
             tTypes.Add(TrackType.E);
 
-            //mTrackData.Capacity = mTileCount;
             mTrackData.Clear();
 
             bool tIsStartRoad = false;
@@ -189,8 +199,7 @@ namespace Map
 
                 }
             }
-            Debug.Log(mInstTrackIndex);
-            mOnChangeStage.SafeInvoke(mCurrentPFTrackIndex + 1);
+            mOnChangeStage.SafeInvoke(mStageCount + 1);
 
         }
 
@@ -213,7 +222,18 @@ namespace Map
 
                     if(mInstTileList[i].GetTrackType() == TrackType.END)
                     {
-                        mOnShowEndTrack.SafeInvoke();
+                        if (mThemeStack.Count > 0)
+                            LeftThemeIndex = mThemeStack.Pop();
+                        else
+                            LeftThemeIndex = mCurrentPFTrackIndex;
+
+                        if (mThemeStack.Count > 0)
+                            RightThemeIndex = mThemeStack.Pop();
+                        else
+                            RightThemeIndex = mCurrentPFTrackIndex;
+
+
+                        mOnShowEndTrack.SafeInvoke(LeftThemeIndex,RightThemeIndex);
                         mIsNextTheme = true;
                     }
 
@@ -244,12 +264,29 @@ namespace Map
         {
             if (mIsNextTheme)
             {
-                mIsNextTheme = false;
-                int start = (70 - 2) * mCurrentPFTrackIndex;
-                int end = (70 - 2) * (mCurrentPFTrackIndex + 1);
-                if (mCurrentPFTrackIndex > 0)
+                if(select == -1)
                 {
-                    end += 4 + (mCurrentPFTrackIndex);
+                    mCurrentPFTrackIndex = LeftThemeIndex;
+                    if (mThemeStack.Count != 0)
+                    {
+                        mThemeStack.Push(RightThemeIndex);
+                    }
+                }
+                else if(select == 1)
+                {
+                    mCurrentPFTrackIndex = RightThemeIndex;
+                    if (mThemeStack.Count != 0)
+                    {
+                        mThemeStack.Push(LeftThemeIndex);
+                    }
+                }
+
+                mIsNextTheme = false;
+                int start = (70 - 2) * mStageCount;
+                int end = (70 - 2) * (mStageCount + 1);
+                if (mStageCount > 0)
+                {
+                    end += 4 + (mStageCount);
                 }
                 for (int i = start; i < end; i++)
                 {
@@ -259,7 +296,7 @@ namespace Map
                         mInstTileList.Remove(i);
                     }
                 }
-                mCurrentPFTrackIndex++;
+                mStageCount++;
                 CreateTrackData();
                 PositionTracks();
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CUIPlayGame : MonoBehaviour
 {
@@ -42,7 +43,8 @@ public class CUIPlayGame : MonoBehaviour
     [Space]
     public GameObject InstPanelCheckCoin = null;
     public Button InstBtnSubmitRetire = null;
-
+    [SerializeField]
+    private Text InstTxtSelectTheme= null;
 
     #region Play UI
     public void SetTxtScore(int value)
@@ -56,6 +58,15 @@ public class CUIPlayGame : MonoBehaviour
     public void SetTxtStageNumber(int tNumber)
     {
         InstTxtStageNumber.text = string.Format("STAGE : {0}", tNumber);
+    }
+    public void ShowTxtSelectTheme(int left,int right)
+    {
+        InstTxtSelectTheme.text = string.Format("{0} : LEFT / RIGHT : {1}", left, right);
+        InstTxtSelectTheme.gameObject.SetActive(true);
+    }
+    public void HideTxtSelectTheme()
+    {
+        InstTxtSelectTheme.gameObject.SetActive(false);
     }
     #endregion
 
