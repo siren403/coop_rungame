@@ -71,26 +71,26 @@ public class CSceneMainLobby : MonoBehaviour {
     void OnItem_1()
     {
         Debug.Log("Item1!!");
-        ItemUseTxt.text = "추가 체력\n\n\n15%추가 체력\n\n(설명하시오)";
-        ItemBuyCoin.text = "Coin : 1000";
+        ItemUseTxt.text = "추가 체력\n\n\n게임 시작 시 일정량의 추가 체력을 얻습니다.";
+        ItemBuyCoin.text = "Coin : 10";
     }
     void OnItem_2()
     {
         Debug.Log("Item2!!");
-        ItemUseTxt.text = "아이템시간연장\n\n\n아이템 효과 유지시간이 2초증가\n\n(설명하시오)";
-        ItemBuyCoin.text = "Coin : 1000";
+        ItemUseTxt.text = "획득 코인 2배\n\n\n게임 내에서 획득하는 코인의 가치가 2배로 증가합니다.";
+        ItemBuyCoin.text = "Coin : 10";
     }
     void OnItem_3()
     {
         Debug.Log("Item3!!");
-        ItemUseTxt.text = "코인2배\n\n\n코인이두배가되 두두두두배두\n\n(설명하시오)";
-        ItemBuyCoin.text = "Coin : 1000";
+        ItemUseTxt.text = "스타트 부스터\n\n\n게임시작 부분부터 5초동안 아주 빠른 속도로 이동하게 됩니다.";
+        ItemBuyCoin.text = "Coin : 10";
     }
     void OnItem_4()
     {
         Debug.Log("Item4!!");
-        ItemUseTxt.text = "1스테이지 부스터\n\n\n1스테이지Skip\n\n(설명하시오)";
-        ItemBuyCoin.text = "Coin : 1000";
+        ItemUseTxt.text = "아이템 시간 연장\n\n\n게임 내에서 획득한 아이템의 지속시간을 2초 증가 시켜줍니다.";
+        ItemBuyCoin.text = "Coin : 10";
     }
 
     void OnCoinShopEnter()
