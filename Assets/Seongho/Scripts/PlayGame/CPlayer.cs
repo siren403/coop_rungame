@@ -132,7 +132,7 @@ public class CPlayer : MonoBehaviour
 
     public bool IsImmotal = false;
 
-    public bool IsControl = true;
+    private bool IsControl = true;
 
     private void Awake()
     {
@@ -361,12 +361,20 @@ public class CPlayer : MonoBehaviour
         if(DOTween.IsTweening("isAbsMove") == false)
         {
             IsControl = false;
-            this.transform.DOMove(pos, 0.3f)
+            this.transform.DOMove(pos, 0.75f)
+                .SetEase(Ease.Linear)
                 .OnComplete(()=> { IsControl = true; })
                 .SetId("isAbsMove");
             return true;
         }
         return false;
+    }
+    public void EnableControl()
+    {
+        if (DOTween.IsTweening("isAbsMove") == false)
+        {
+            IsControl = true;
+        }
     }
 #if UNITY_EDITOR
     public bool IsOnGUI = true;
