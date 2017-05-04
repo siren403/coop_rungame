@@ -42,6 +42,12 @@ public class CScenePlayGame : MonoBehaviour
     [ReadOnly]
     [SerializeField]
     private CUIPlayGame mUIPlayGame = null;
+    public CUIPlayGame UIPlayGame
+    {
+        get {
+            return mUIPlayGame;
+        }
+    }
 
     private Coroutine mCoroutineTickHp = null;
     private Coroutine mCoroutineTickScore = null;
@@ -124,6 +130,7 @@ public class CScenePlayGame : MonoBehaviour
     }
     private IEnumerator Start()
     {
+        mUIPlayGame.FadeInPanel();
         yield return new WaitForSeconds(1.0f);
         OnStartRun();
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CObstacleObject : CPlacementObject
 {
+
     [SerializeField]
     private bool mIsGameOver = false;
     [SerializeField]
@@ -19,6 +20,7 @@ public class CObstacleObject : CPlacementObject
         else
         {
             tPlayer.DecrementHp(mDamageValue);
+            tPlayer.ScenePlayGame.UIPlayGame.AlphaValue();
         }
     }
 

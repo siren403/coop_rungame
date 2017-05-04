@@ -9,6 +9,8 @@ public class CPlayer : MonoBehaviour
 {
     public float JumpPower = 10.0f;
 
+    
+
     public ForceMode JumpForceMode;
 
     //State Values
@@ -128,6 +130,7 @@ public class CPlayer : MonoBehaviour
         }
     }
 
+
     private bool mIsRotateDelay = false;
 
     public bool IsImmotal = false;
@@ -138,7 +141,6 @@ public class CPlayer : MonoBehaviour
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
         Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
-
         CurrentHp.Value = Hp;
 
         SwitchPlayerCollider(true);
@@ -368,6 +370,8 @@ public class CPlayer : MonoBehaviour
         }
         return false;
     }
+
+
 #if UNITY_EDITOR
     public bool IsOnGUI = true;
     private void OnGUI()
