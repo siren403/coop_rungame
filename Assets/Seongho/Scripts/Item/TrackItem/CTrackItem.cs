@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Inspector;
 
 public abstract class CTrackItem : CItem, IEnumerator<float>
 {
@@ -27,6 +28,19 @@ public abstract class CTrackItem : CItem, IEnumerator<float>
             return mCurrentTime;
         }
     }
+    public bool IsExecution
+    {
+        get
+        {
+            return mIsExecution;
+        }
+        set
+        {
+            mIsExecution = value;
+        }
+    }
+
+    private bool mIsExecution = false;
     private float mCurrentTime = 0.0f;
     protected CPlayer mPlayer = null;
     private bool mIsDispose = false; 
@@ -52,6 +66,7 @@ public abstract class CTrackItem : CItem, IEnumerator<float>
         mCurrentTime += Time.deltaTime;
         return mCurrentTime < mDuration;
     }
+
 
     public void Reset()
     {
