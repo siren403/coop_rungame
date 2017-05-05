@@ -22,6 +22,8 @@ public class CPlayer : MonoBehaviour
             return mData.Hp;
         }
     }
+
+
     private IntReactiveProperty mCurrentHp = null;
     public IntReactiveProperty CurrentHp
     {
@@ -34,6 +36,10 @@ public class CPlayer : MonoBehaviour
             return mCurrentHp;
         }
     }
+
+
+
+
     public float Boost = 100.0f;
     private FloatReactiveProperty mCurrentBoost = null;
     public FloatReactiveProperty CurrentBoost
@@ -97,6 +103,18 @@ public class CPlayer : MonoBehaviour
         }
     }
     private float mHorizontal = 0;
+    private bool mIsShield = false;
+    public bool IsShield
+    {
+        get
+        {
+            return mIsShield;
+        }
+        set
+        {
+            mIsShield = value;
+        }
+    }
 
     private CacheComponent<Rigidbody> Body = null;
     private CacheComponent<Animator> Anim = null;
@@ -132,7 +150,10 @@ public class CPlayer : MonoBehaviour
 
     public bool IsImmotal = false;
 
-    public bool IsControl = true;
+    private bool IsControl = true;
+
+   
+
 
     private void Awake()
     {
@@ -192,6 +213,8 @@ public class CPlayer : MonoBehaviour
             GameOver();
             this.gameObject.SetActive(false);
         }
+
+   
     }
     public void DoDirectionInputCheck()
     {
@@ -264,6 +287,7 @@ public class CPlayer : MonoBehaviour
         {
             DoMove();
         }
+        
     }
 
     public void SetMoveStart(bool isRun)
@@ -321,6 +345,22 @@ public class CPlayer : MonoBehaviour
             Anim.Get().SetTrigger("AnimTrigJumpToGround");
         }
     }
+  
+
+    public void SetAddHeal(int tHeal)
+    {
+        Debug.Log("HP 전 " + CurrentHp.Value.ToString());
+        CurrentHp.Value += tHeal;
+        Debug.Log("HP 후 " + CurrentHp.Value.ToString());
+
+    }
+
+
+    public void SetShield(bool tIsShield)
+    {
+        IsShield = tIsShield;
+    }
+
 
     public void SetSpeedRatio(float ratio)
     {
@@ -361,12 +401,20 @@ public class CPlayer : MonoBehaviour
         if(DOTween.IsTweening("isAbsMove") == false)
         {
             IsControl = false;
-            this.transform.DOMove(pos, 0.3f)
+            this.transform.DOMove(pos, 0.75f)
+                .SetEase(Ease.Linear)
                 .OnComplete(()=> { IsControl = true; })
                 .SetId("isAbsMove");
             return true;
         }
         return false;
+    }
+    public void EnableControl()
+    {
+        if (DOTween.IsTweening("isAbsMove") == false)
+        {
+            IsControl = true;
+        }
     }
 #if UNITY_EDITOR
     public bool IsOnGUI = true;
