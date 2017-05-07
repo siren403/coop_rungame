@@ -51,6 +51,20 @@ namespace Map
         private Transform mParent = null;
         private int mCurrentPivot = -1;
         private int mInstTrackIndex = 0;
+        public int CurrentPivot
+        {
+            get
+            {
+                return mCurrentPivot - (73 * mStageCount);
+            }
+        }
+        public int TrackCount
+        {
+            get
+            {
+                return mInstTrackIndex - (73 * mStageCount);
+            }
+        }
 
         public const int END_NEXT_TILE_COUNT = 3;
         public float TrackProgress
@@ -95,7 +109,6 @@ namespace Map
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme1"));
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme2"));
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme3"));
-            mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme4"));
 
             List<int> tStageNumbers = new List<int>() { 1, 2, 3 };
             for (int i = 0; i < tStageNumbers.Count; i++)

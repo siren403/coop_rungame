@@ -47,12 +47,13 @@ public class CScenePlayGame : MonoBehaviour
     private Coroutine mCoroutineTickScore = null;
 
     private Map.CTrackCreator mTrackCreator = null;
-
+    private Coroutine mCurrentStageTick = null;
 
     //Editor Test
     private Vector3 mStartPosition = Vector3.zero;
     private Quaternion mStartRotation = Quaternion.identity;
 
+    private bool mIsInputJumpAndSlide = false;
 
     private void Awake()
     {
@@ -75,7 +76,10 @@ public class CScenePlayGame : MonoBehaviour
 
         //플레이어 컨트롤러 세팅
         tController.SetCallOnJump(InstPlayer.DoJump);
+        tController.SetCallOnJump(() => mIsInputJumpAndSlide = true);
         tController.SetCallOnSlide(InstPlayer.DoSlide);
+        tController.SetCallOnSlide(() => mIsInputJumpAndSlide = true);
+
         tController.SetCallOnScreenSlide(InstPlayer.SetRotateInput);
         InstPlayer.SetFuncHorizontal(tController.GetHorizontal);
 
@@ -116,6 +120,20 @@ public class CScenePlayGame : MonoBehaviour
         {
             mUIPlayGame.SetTxtStageNumber(number);
             mUIPlayGame.HideTxtSelectTheme();
+            if(mCurrentStageTick != null)
+            {
+                StopCoroutine(mCurrentStageTick);
+            }
+
+            switch(number)
+            {
+                case 1:
+                    mCurrentStageTick = StartCoroutine(StageTick_1());
+                    break;
+                case 2:
+                    mCurrentStageTick = StartCoroutine(StageTick_2());
+                    break;
+            }
         };
 
         mTrackCreator.CreateTrackData();
@@ -191,6 +209,84 @@ public class CScenePlayGame : MonoBehaviour
             yield return new WaitForSeconds(ScoreTickTime);
         }
     }
+
+
+    #region Stage Tick
+    private bool mIsTrackEffect = false;
+    private IEnumerator StageTick_1()
+    {
+        while(true)
+        {
+            if (mIsTrackEffect == false)
+            {
+                if (mTrackCreator.CurrentPivot < 65 &&
+                    mTrackCreator.CurrentPivot !=0 && mTrackCreator.CurrentPivot % 5 == 0)
+                {
+                    mIsTrackEffect = true;
+                    Debug.Log("Effect");
+                    InstPlayer.transform.DOMoveX(Random.value > 0.5f ? -3.0f : 3.0f, 0.25f)
+                        .SetDelay(1.5f)
+                        .SetRelative()
+                        .OnStart(() =>
+                        {
+                            InstPlayer.IsControl = false;
+                            Debug.Log("Effect Start");
+                        })
+                        .OnComplete(() =>
+                        {
+                            Debug.Log("Effect Active");
+                            mIsTrackEffect = false;
+                            InstPlayer.IsControl = true;
+                        });
+                }
+            }
+            yield return null;
+        }
+    }
+    private float mNotInputTime = 0.0f;
+    private IEnumerator StageTick_2()
+    {
+        while (true)
+        {
+            yield return null;
+           
+            if (mTrackCreator.CurrentPivot < 65 && mTrackCreator.CurrentPivot > 5)
+            {
+                mNotInputTime += Time.deltaTime;
+
+                if (mNotInputTime >= 3.0f)
+                {
+                    Debug.Log("Down Speed");
+                    InstPlayer.SetSpeedRatio(0.5f);
+                }
+            }
+            else
+            {
+                mNotInputTime = 0.0f;
+            }
+
+            if (mIsInputJumpAndSlide)
+            {
+                mIsInputJumpAndSlide = false;
+                mNotInputTime = 0.0f;
+                InstPlayer.SetSpeedRatio(1.0f);
+            }
+        }
+    }
+    private IEnumerator StageTick_3()
+    {
+        while (true)
+        {
+            if (mTrackCreator.TrackProgress < 0.9f)
+            {
+
+            }
+            yield return null;
+        }
+    }
+
+    #endregion
+
 
     [Button]
     public void OnRestartRun()
