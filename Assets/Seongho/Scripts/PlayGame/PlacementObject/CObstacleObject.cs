@@ -18,7 +18,14 @@ public class CObstacleObject : CPlacementObject
         }
         else
         {
-            tPlayer.DecrementHp(mDamageValue);
+            if (tPlayer.IsShield == false)
+            {
+                 tPlayer.DecrementHp(mDamageValue);
+            }
+            else
+            {
+                Debug.Log("막음?");
+            }
         }
     }
 

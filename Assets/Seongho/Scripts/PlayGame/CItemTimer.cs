@@ -11,6 +11,16 @@ public class CItemTimer : MonoBehaviour
     private Dictionary<CItemObject.ItemType, CTrackItem> mTrackItem = new Dictionary<CItemObject.ItemType, CTrackItem>();
 
 
+    private void Awake()
+    {
+        CTrackItem tItem = null;
+        mTrackItem.Add(CItemObject.ItemType.Boost, tItem);
+        mTrackItem.Add(CItemObject.ItemType.Shield, tItem);
+        mTrackItem.Add(CItemObject.ItemType.Magnet, tItem);
+        mTrackItem.Add(CItemObject.ItemType.Heal, tItem);
+        mTrackItem.Add(CItemObject.ItemType.FootHoldBoost, tItem);
+    }
+
     public void SetScene(CScenePlayGame tScene)
     {
         mScene = tScene;
@@ -22,9 +32,11 @@ public class CItemTimer : MonoBehaviour
         if(mTrackItem.ContainsKey(tItemType) == false)
         {
             mTrackItem.Add(tItemType, tItem);
+            Debug.Log("님?");
         }
         else
         {
+            Debug.Log("갱신?");
             mTrackItem[tItemType] = tItem; 
         }
         mTrackItem[tItemType].Activate();
@@ -36,7 +48,8 @@ public class CItemTimer : MonoBehaviour
     {
         if (mScene != null && mScene.IsPlaying)
         {
-            for(int ti = 0; ti < mTrackItem.Count; ti++)
+
+            for (int ti = 0; ti < mTrackItem.Count; ti++)
             {
                 if (mTrackItem.ContainsKey((CItemObject.ItemType)ti) == true)
                 {
@@ -61,7 +74,7 @@ public class CItemTimer : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("null");
+                       // Debug.Log("null");
                     }
                 }
                 else
@@ -71,14 +84,21 @@ public class CItemTimer : MonoBehaviour
 
                 for (int tj = mTrackItem.Count - 1; tj >= 0; tj--)
                 {
-                    if (mTrackItem[(CItemObject.ItemType)tj].IsDispose)
+                    if (mTrackItem[(CItemObject.ItemType)tj] != null)
                     {
-                        mTrackItem.Remove((CItemObject.ItemType)tj);
+                        if (mTrackItem[(CItemObject.ItemType)tj].IsDispose)
+                        {
+                            //mTrackItem.Remove((CItemObject.ItemType)tj);
+                            mTrackItem[(CItemObject.ItemType)tj] = null;
+                        }
+
                     }
                 }
 
 
             }
+
+
 
             /*
            for(int ti = mTrackItem.Count - 1; ti >= 0; ti--)

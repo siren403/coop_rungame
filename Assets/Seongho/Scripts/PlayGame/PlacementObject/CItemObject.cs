@@ -19,6 +19,8 @@ public class CItemObject : CPlacementObject
 
     public float Duration = 0.0f;
 
+
+
     protected override void OnPlayerEnter(CPlayer tPlayer)
     {
         int RandomItem = 0;
@@ -36,28 +38,48 @@ public class CItemObject : CPlacementObject
                 }
                 else if (RandomItem <= 70)
                 {
-                    _ItemType = ItemType.Boost;
+                    _ItemType = ItemType.Shield;
                 }
                 else if( RandomItem <= 100)
                 {
-                    _ItemType = ItemType.Boost;
+                    _ItemType = ItemType.Magnet;
                 }
                 break;
         }
         Debug.Log(_ItemType.ToString());
 
-        Duration = 5.0f;
+        
 
         switch (_ItemType)
         {
             case ItemType.Boost:
+                Duration = 5.0f;
                 CTrackBoostItem item = new CTrackBoostItem(tPlayer, Duration);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType,item);
+                break;
+            case ItemType.Shield:
+                Duration = 10.0f;
+                CShieldItem Shielditem = new CShieldItem(tPlayer, Duration);
+                tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType, Shielditem);
+                break;
+            case ItemType.Magnet:
+                Duration = 5.0f;
+                CMagnetItem MagnetItem = new CMagnetItem(tPlayer, Duration);
+                tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType, MagnetItem);
                 break;
             case ItemType.Heal:
                 tPlayer.SetAddHeal(300);
                 break;
         }
         Destroy(this.gameObject);
+    }
+
+
+    protected override void OnPlayerTriggerEnter(CPlayer tPlayer)
+    {
+        if (tPlayer.IsMagnet == true)
+        {
+            this.transform.position = Vector3.MoveTowards(this.transform.position, tPlayer.transform.position, mMagnetDistanceDelta);
+        }
     }
 }

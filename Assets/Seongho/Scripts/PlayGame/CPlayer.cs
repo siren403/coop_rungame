@@ -116,6 +116,19 @@ public class CPlayer : MonoBehaviour
         }
     }
 
+    private bool mIsMagnet = false;
+    public bool IsMagnet
+    {
+        get
+        {
+            return mIsMagnet;
+        }
+        set
+        {
+            mIsMagnet = value;
+        }
+    }
+
     private CacheComponent<Rigidbody> Body = null;
     private CacheComponent<Animator> Anim = null;
 
@@ -359,6 +372,11 @@ public class CPlayer : MonoBehaviour
     public void SetShield(bool tIsShield)
     {
         IsShield = tIsShield;
+    }
+
+    public void SetMagnet(bool tIsMagnet)
+    {
+        IsMagnet = tIsMagnet;
     }
 
 
