@@ -217,27 +217,41 @@ public class CScenePlayGame : MonoBehaviour
     {
         while(true)
         {
-            if (mIsTrackEffect == false)
+            if (mIsPlaying)
             {
-                if (mTrackCreator.CurrentPivot < 65 &&
-                    mTrackCreator.CurrentPivot !=0 && mTrackCreator.CurrentPivot % 5 == 0)
+                if (mIsTrackEffect == false)
                 {
-                    mIsTrackEffect = true;
-                    Debug.Log("Effect");
-                    InstPlayer.transform.DOMoveX(Random.value > 0.5f ? -3.0f : 3.0f, 0.25f)
-                        .SetDelay(1.5f)
-                        .SetRelative()
-                        .OnStart(() =>
-                        {
-                            InstPlayer.IsControl = false;
-                            Debug.Log("Effect Start");
-                        })
-                        .OnComplete(() =>
-                        {
-                            Debug.Log("Effect Active");
-                            mIsTrackEffect = false;
-                            InstPlayer.IsControl = true;
-                        });
+                    if (mTrackCreator.CurrentPivot < 65 &&
+                        mTrackCreator.CurrentPivot != 0 && mTrackCreator.CurrentPivot % 5 == 0)
+                    {
+                        mIsTrackEffect = true;
+                        Debug.Log("Effect");
+
+                        int tIsDir = Random.value > 0.5f ? -1 : 1;
+                        mUIPlayGame.ShowTheme1UI(tIsDir,1.5f);
+                        InstPlayer.transform.DOMoveX(tIsDir == 1 ? -3.0f : 3.0f, 0.25f)
+                            .SetDelay(1.5f)
+                            .SetRelative()
+                            .OnStart(() =>
+                            {
+                                InstPlayer.IsControl = false;
+                                Debug.Log("Effect Start");
+                            })
+                            .OnComplete(() =>
+                            {
+                                Debug.Log("Effect Active");
+                                mIsTrackEffect = false;
+                                InstPlayer.IsControl = true;
+                            })
+                            .SetId("TweenWind");
+                    }
+                }
+            }
+            else
+            {
+                if(DOTween.IsTweening("TweenWind"))
+                {
+                    DOTween.Kill("TweenWind");
                 }
             }
             yield return null;
@@ -248,28 +262,35 @@ public class CScenePlayGame : MonoBehaviour
     {
         while (true)
         {
+
             yield return null;
-           
-            if (mTrackCreator.CurrentPivot < 65 && mTrackCreator.CurrentPivot > 5)
+            if (mIsPlaying)
             {
-                mNotInputTime += Time.deltaTime;
-
-                if (mNotInputTime >= 3.0f)
+                if (mTrackCreator.CurrentPivot < 65 && mTrackCreator.CurrentPivot > 5)
                 {
-                    Debug.Log("Down Speed");
-                    InstPlayer.SetSpeedRatio(0.5f);
-                }
-            }
-            else
-            {
-                mNotInputTime = 0.0f;
-            }
+                    mNotInputTime += Time.deltaTime;
 
-            if (mIsInputJumpAndSlide)
-            {
-                mIsInputJumpAndSlide = false;
-                mNotInputTime = 0.0f;
-                InstPlayer.SetSpeedRatio(1.0f);
+                    if (mNotInputTime >= 3.0f)
+                    {
+                        Debug.Log("Down Speed");
+                        mUIPlayGame.ShowTheme2UI(true);
+                        InstPlayer.SetSpeedRatio(0.5f);
+                    }
+                }
+                else
+                {
+                    mNotInputTime = 0.0f;
+                    InstPlayer.SetSpeedRatio(1.0f);
+                    mUIPlayGame.ShowTheme2UI(false);
+                }
+
+                if (mIsInputJumpAndSlide)
+                {
+                    mIsInputJumpAndSlide = false;
+                    mNotInputTime = 0.0f;
+                    InstPlayer.SetSpeedRatio(1.0f);
+                    mUIPlayGame.ShowTheme2UI(false);
+                }
             }
         }
     }
@@ -277,7 +298,7 @@ public class CScenePlayGame : MonoBehaviour
     {
         while (true)
         {
-            if (mTrackCreator.TrackProgress < 0.9f)
+            if(mIsPlaying)
             {
 
             }
