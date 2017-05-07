@@ -47,12 +47,13 @@ public class CScenePlayGame : MonoBehaviour
     private Coroutine mCoroutineTickScore = null;
 
     private Map.CTrackCreator mTrackCreator = null;
-
+    private Coroutine mCurrentStageTick = null;
 
     //Editor Test
     private Vector3 mStartPosition = Vector3.zero;
     private Quaternion mStartRotation = Quaternion.identity;
 
+    private bool mIsInputJumpAndSlide = false;
 
     private void Awake()
     {
@@ -75,7 +76,10 @@ public class CScenePlayGame : MonoBehaviour
 
         //플레이어 컨트롤러 세팅
         tController.SetCallOnJump(InstPlayer.DoJump);
+        tController.SetCallOnJump(() => mIsInputJumpAndSlide = true);
         tController.SetCallOnSlide(InstPlayer.DoSlide);
+        tController.SetCallOnSlide(() => mIsInputJumpAndSlide = true);
+
         tController.SetCallOnScreenSlide(InstPlayer.SetRotateInput);
         InstPlayer.SetFuncHorizontal(tController.GetHorizontal);
 
@@ -112,10 +116,26 @@ public class CScenePlayGame : MonoBehaviour
         {
             mUIPlayGame.ShowTxtSelectTheme(left, right);
         };
-        mTrackCreator.OnChangeStage = (number) => 
+        mTrackCreator.OnChangeStage = (stage,theme) => 
         {
-            mUIPlayGame.SetTxtStageNumber(number);
+            mUIPlayGame.SetTxtStageNumber(stage);
             mUIPlayGame.HideTxtSelectTheme();
+
+            if(mCurrentStageTick != null)
+            {
+                StopCoroutine(mCurrentStageTick);
+            }
+            switch(theme)
+            {
+                case 0:
+                    mCurrentStageTick = StartCoroutine(StageTick_1());
+                    break;
+                case 1:
+                    mCurrentStageTick = StartCoroutine(StageTick_2());
+                    break;
+                case 2:
+                    break;
+            }
         };
 
         mTrackCreator.CreateTrackData();
@@ -191,6 +211,105 @@ public class CScenePlayGame : MonoBehaviour
             yield return new WaitForSeconds(ScoreTickTime);
         }
     }
+
+
+    #region Stage Tick
+    private bool mIsTrackEffect = false;
+    private IEnumerator StageTick_1()
+    {
+        while(true)
+        {
+            if (mIsPlaying)
+            {
+                if (mIsTrackEffect == false)
+                {
+                    if (mTrackCreator.CurrentPivot < 65 &&
+                        mTrackCreator.CurrentPivot != 0 && mTrackCreator.CurrentPivot % 5 == 0)
+                    {
+                        mIsTrackEffect = true;
+                        Debug.Log("Effect");
+
+                        int tIsDir = Random.value > 0.5f ? -1 : 1;
+                        mUIPlayGame.ShowTheme1UI(tIsDir,1.5f);
+                        InstPlayer.transform.DOMoveX(tIsDir == 1 ? -3.0f : 3.0f, 0.25f)
+                            .SetDelay(1.5f)
+                            .SetRelative()
+                            .OnStart(() =>
+                            {
+                                InstPlayer.IsControl = false;
+                                Debug.Log("Effect Start");
+                            })
+                            .OnComplete(() =>
+                            {
+                                Debug.Log("Effect Active");
+                                mIsTrackEffect = false;
+                                InstPlayer.IsControl = true;
+                            })
+                            .SetId("TweenWind");
+                    }
+                }
+            }
+            else
+            {
+                if(DOTween.IsTweening("TweenWind"))
+                {
+                    DOTween.Kill("TweenWind");
+                }
+            }
+            yield return null;
+        }
+    }
+    private float mNotInputTime = 0.0f;
+    private IEnumerator StageTick_2()
+    {
+        while (true)
+        {
+
+            yield return null;
+            if (mIsPlaying)
+            {
+                if (mTrackCreator.CurrentPivot < 65 && mTrackCreator.CurrentPivot > 5)
+                {
+                    mNotInputTime += Time.deltaTime;
+
+                    if (mNotInputTime >= 3.0f)
+                    {
+                        Debug.Log("Down Speed");
+                        mUIPlayGame.ShowTheme2UI(true);
+                        InstPlayer.SetSpeedRatio(0.5f);
+                    }
+                }
+                else
+                {
+                    mNotInputTime = 0.0f;
+                    InstPlayer.SetSpeedRatio(1.0f);
+                    mUIPlayGame.ShowTheme2UI(false);
+                }
+
+                if (mIsInputJumpAndSlide)
+                {
+                    mIsInputJumpAndSlide = false;
+                    mNotInputTime = 0.0f;
+                    InstPlayer.SetSpeedRatio(1.0f);
+                    mUIPlayGame.ShowTheme2UI(false);
+                }
+            }
+        }
+    }
+    private IEnumerator StageTick_3()
+    {
+        while (true)
+        {
+            if(mIsPlaying)
+            {
+
+            }
+            yield return null;
+        }
+    }
+
+    #endregion
+
 
     [Button]
     public void OnRestartRun()

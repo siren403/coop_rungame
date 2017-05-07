@@ -150,7 +150,7 @@ public class CPlayer : MonoBehaviour
 
     public bool IsImmotal = false;
 
-    private bool IsControl = true;
+    public bool IsControl = true;
 
    
 
@@ -283,11 +283,7 @@ public class CPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (IsControl)
-        {
-            DoMove();
-        }
-        
+        DoMove();
     }
 
     public void SetMoveStart(bool isRun)
@@ -311,7 +307,7 @@ public class CPlayer : MonoBehaviour
             Vector3 pos = this.transform.position;
 
             pos += ((this.transform.forward * CurrentSpeed) +
-                (this.transform.right * SideSpeed * mHorizontal)) * Time.deltaTime;
+                (IsControl? (this.transform.right * SideSpeed * mHorizontal):Vector3.zero)) * Time.deltaTime;
 
             Body.Get().MovePosition(pos);
 
