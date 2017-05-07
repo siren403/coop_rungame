@@ -116,22 +116,24 @@ public class CScenePlayGame : MonoBehaviour
         {
             mUIPlayGame.ShowTxtSelectTheme(left, right);
         };
-        mTrackCreator.OnChangeStage = (number) => 
+        mTrackCreator.OnChangeStage = (stage,theme) => 
         {
-            mUIPlayGame.SetTxtStageNumber(number);
+            mUIPlayGame.SetTxtStageNumber(stage);
             mUIPlayGame.HideTxtSelectTheme();
+
             if(mCurrentStageTick != null)
             {
                 StopCoroutine(mCurrentStageTick);
             }
-
-            switch(number)
+            switch(theme)
             {
-                case 1:
+                case 0:
                     mCurrentStageTick = StartCoroutine(StageTick_1());
                     break;
-                case 2:
+                case 1:
                     mCurrentStageTick = StartCoroutine(StageTick_2());
+                    break;
+                case 2:
                     break;
             }
         };
