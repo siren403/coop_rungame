@@ -5,10 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class CUITitle : MonoBehaviour
 {
+    public AudioClip BtnSfx;
+    AudioSource MySource;
+    public static CUITitle instance;
+
+    private void Awake()
+    {
+        if(CUITitle.instance==null)
+        {
+            CUITitle.instance = this;
+        }
+    }
+    private void Start()
+    {
+        MySource = this.gameObject.GetComponent<AudioSource>();
+    }
 
     public void OnClickBtnMoveLobby()
     {
-        SceneManager.LoadScene("SceneMainLobby");
+        MySource.PlayOneShot(BtnSfx);
+        Invoke("invokeLoadScene", 0.5f);
+        
        // SceneManager.LoadScene("MainTitleScene",LoadSceneMode.Additive);
+    }
+
+    void invokeLoadScene()
+    {
+        SceneManager.LoadScene("SceneMainLobby");
     }
 }
