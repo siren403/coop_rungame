@@ -11,6 +11,8 @@ public class CPlayer : MonoBehaviour
 
     public ForceMode JumpForceMode;
 
+    public SkinnedMeshRenderer PlayerColor;
+    
     //State Values
     [SerializeField]
     private CPlayerData mData = null;
@@ -22,7 +24,6 @@ public class CPlayer : MonoBehaviour
             return mData.Hp;
         }
     }
-
 
     private IntReactiveProperty mCurrentHp = null;
     public IntReactiveProperty CurrentHp

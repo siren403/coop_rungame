@@ -9,9 +9,10 @@ public class CUIPlayGame : MonoBehaviour
     public Image InstEdgeFire = null;//테두리효과
     public Image InstStartPanel = null;//시작시 페이드인효과
 
-
+    public bool InstChangeHPBar = true;
     //PlayUI
     public Slider InstSliderHPBar = null;//체력바
+    public Image InstSliderHPBarFill;
     public Slider InstSliderBoostBar = null;//부스터게이지
     public Slider InstSliderJoyStick = null;//조이스틱
     [SerializeField]
@@ -58,6 +59,30 @@ public class CUIPlayGame : MonoBehaviour
     [SerializeField]
     private Text InstTxtSelectTheme= null;
 
+    private void Update()
+    {
+        HealthBarColorChange();
+    }
+    void HealthBarColorChange()
+    {
+        if(InstSliderHPBar.value<0.2f&&InstChangeHPBar==true)
+        {
+            //InstSliderHPBar.fillRect.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            Debug.Log("dkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkf");
+            DOTween.To(() => InstSliderHPBar.fillRect.GetComponent<Image>().color, (color) =>
+                InstSliderHPBar.fillRect.GetComponent<Image>().color = color, new Color(0, 0, 0, 0), 0.5f)
+                .OnComplete(() => { InstSliderHPBar.fillRect.GetComponent<Image>().color = new Color(1, 0, 0, 1); }).
+                SetLoops(-1,LoopType.Restart).SetId("ABCD");
+
+            InstChangeHPBar = false;
+        }
+        else if(InstSliderHPBar.value>0.2f&&InstChangeHPBar==false)
+        {
+            DOTween.Kill("ABCD");
+            InstChangeHPBar = true;
+        }
+    }
+    
     #region Play UI
     public void SetTxtScore(int value)
     {

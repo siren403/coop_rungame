@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CObstacleObject : CPlacementObject
 {
+    private CPlayer mPlayerColorChange;
     [SerializeField]
     private bool mIsGameOver = false;
     [SerializeField]
@@ -20,7 +22,12 @@ public class CObstacleObject : CPlacementObject
         {
             if (tPlayer.IsShield == false)
             {
-                 tPlayer.DecrementHp(mDamageValue);
+                tPlayer.DecrementHp(mDamageValue);
+                
+                DOTween.To(() => tPlayer.PlayerColor.material.color, (color) =>
+                tPlayer.PlayerColor.material.color = color, new Color(1, 0, 0, 1), 0.5f)
+                .OnComplete(() => { tPlayer.PlayerColor.material.color = new Color(1, 1, 1); });
+
             }
             else
             {
@@ -28,7 +35,6 @@ public class CObstacleObject : CPlacementObject
             }
         }
     }
-
 #if UNITY_EDITOR
     private GUIStyle LabelStyleItemType = null;
     private void OnDrawGizmos()

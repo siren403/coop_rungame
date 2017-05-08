@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CUITitle : MonoBehaviour
 {
     public AudioClip BtnSfx;
+    
     AudioSource MySource;
     public static CUITitle instance;
 
@@ -31,6 +32,6 @@ public class CUITitle : MonoBehaviour
 
     void invokeLoadScene()
     {
-        SceneManager.LoadScene("SceneMainLobby");
+        SceneManager.LoadScene("Tutorial");
     }
 }
