@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
 
 public class InApp : MonoBehaviour, IStoreListener
 {
@@ -19,8 +22,28 @@ public class InApp : MonoBehaviour, IStoreListener
         }
     }
 
+
     private void Start()
     {
+        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+               // enables saving game progress.
+               //.EnableSavedGames()
+               // registers a callback to handle game invitations received while the game is not running.
+               //.WithInvitationDelegate(<callback method>)
+               // registers a callback for turn based match notifications received while the
+               // game is not running.
+               //.WithMatchDelegate(<callback method>)
+               // require access to a player's Google+ social graph (usually not needed)
+               .RequireGooglePlus()
+               .Build();
+
+        PlayGamesPlatform.InitializeInstance(config);
+        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.Activate();
+
+        Social.localUser.Authenticate((bool success) => {
+        });
+
         InitializePurchasing();
 
     }
