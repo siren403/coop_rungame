@@ -8,21 +8,109 @@ public class CItemTimer : MonoBehaviour
 
     private List<CTrackItem> mTrackItemList = new List<CTrackItem>();
 
+    private Dictionary<CItemObject.ItemType, CTrackItem> mTrackItem = new Dictionary<CItemObject.ItemType, CTrackItem>();
+
+
+    private void Awake()
+    {
+        CTrackItem tItem = null;
+        mTrackItem.Add(CItemObject.ItemType.Boost, tItem);
+        mTrackItem.Add(CItemObject.ItemType.Shield, tItem);
+        mTrackItem.Add(CItemObject.ItemType.Magnet, tItem);
+        mTrackItem.Add(CItemObject.ItemType.Heal, tItem);
+        mTrackItem.Add(CItemObject.ItemType.FootHoldBoost, tItem);
+    }
+
     public void SetScene(CScenePlayGame tScene)
     {
         mScene = tScene;
     }
 
-    public void AddTrackItem(CTrackItem tItem)
+    public void AddTrackItem(CItemObject.ItemType tItemType, CTrackItem tItem)
     {
-        tItem.Activate();
-        mTrackItemList.Add(tItem);
+       // tItem.Activate();
+        if(mTrackItem.ContainsKey(tItemType) == false)
+        {
+            mTrackItem.Add(tItemType, tItem);
+            Debug.Log("님?");
+        }
+        else
+        {
+            Debug.Log("갱신?");
+            mTrackItem[tItemType] = tItem; 
+        }
+        mTrackItem[tItemType].Activate();
+        mTrackItem[tItemType].IsExecution = true;
+
     }
 
     public void Update()
     {
         if (mScene != null && mScene.IsPlaying)
         {
+
+            for (int ti = 0; ti < mTrackItem.Count; ti++)
+            {
+                if (mTrackItem.ContainsKey((CItemObject.ItemType)ti) == true)
+                {
+                    if (mTrackItem[(CItemObject.ItemType)ti] != null)
+                    {
+
+                        if (mTrackItem[(CItemObject.ItemType)ti].IsExecution == true)
+                        {
+                            mTrackItem[(CItemObject.ItemType)ti].IsExecution = false;
+                            Debug.Log(mTrackItem[(CItemObject.ItemType)ti].Current.ToString());
+                            Debug.Log("발동중에 또 발동한거");
+
+                            mTrackItem[(CItemObject.ItemType)ti].Reset();
+                        }
+                        if (mTrackItem[(CItemObject.ItemType)ti].MoveNext() == false)
+                        {
+                            Debug.Log("끝?" + mTrackItem[(CItemObject.ItemType)ti].Current.ToString());
+
+                            mTrackItem[(CItemObject.ItemType)ti].Deactivate();
+                            mTrackItem[(CItemObject.ItemType)ti].Dispose();
+                        }
+                    }
+                    else
+                    {
+                       // Debug.Log("null");
+                    }
+                }
+                else
+                {
+                    Debug.Log("키가없는데요");
+                }
+
+                for (int tj = mTrackItem.Count - 1; tj >= 0; tj--)
+                {
+                    if (mTrackItem[(CItemObject.ItemType)tj] != null)
+                    {
+                        if (mTrackItem[(CItemObject.ItemType)tj].IsDispose)
+                        {
+                            //mTrackItem.Remove((CItemObject.ItemType)tj);
+                            mTrackItem[(CItemObject.ItemType)tj] = null;
+                        }
+
+                    }
+                }
+
+
+            }
+
+
+
+            /*
+           for(int ti = mTrackItem.Count - 1; ti >= 0; ti--)
+            {
+                if(mTrackItem[(CItemObject.ItemType)ti].IsDispose)
+                {
+                    mTrackItem.Remove((CItemObject.ItemType)ti);
+                }
+            }
+           */
+
+            /*
             for (int i = 0; i < mTrackItemList.Count; i++)
             {
                 if (mTrackItemList[i].MoveNext() == false)
@@ -42,17 +130,21 @@ public class CItemTimer : MonoBehaviour
                     mTrackItemList.RemoveAt(i);
                 }
             }
+            */
+
+
         }
     }
-
+    
     public void Reset()
     {
-        foreach(var item in mTrackItemList)
+        for (int ti = 0; ti < mTrackItem.Count; ti++)
         {
-            item.Deactivate();
-            item.Reset();
-            item.Dispose();
+            mTrackItem[(CItemObject.ItemType)ti].Deactivate();
+            mTrackItem[(CItemObject.ItemType)ti].Reset();
+            mTrackItem[(CItemObject.ItemType)ti].Dispose();
         }
-        mTrackItemList.Clear();
+        mTrackItem.Clear();
     }
+    
 }

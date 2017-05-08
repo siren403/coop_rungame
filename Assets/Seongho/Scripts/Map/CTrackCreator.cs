@@ -51,6 +51,20 @@ namespace Map
         private Transform mParent = null;
         private int mCurrentPivot = -1;
         private int mInstTrackIndex = 0;
+        public int CurrentPivot
+        {
+            get
+            {
+                return mCurrentPivot - (73 * mStageCount);
+            }
+        }
+        public int TrackCount
+        {
+            get
+            {
+                return mInstTrackIndex - (73 * mStageCount);
+            }
+        }
 
         public const int END_NEXT_TILE_COUNT = 3;
         public float TrackProgress
@@ -73,8 +87,8 @@ namespace Map
                 mOnShowEndTrack = value;
             }
         }
-        private System.Action<int> mOnChangeStage = null;
-        public System.Action<int> OnChangeStage
+        private System.Action<int,int> mOnChangeStage = null;
+        public System.Action<int,int> OnChangeStage
         {
             set
             {
@@ -95,10 +109,9 @@ namespace Map
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme1"));
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme2"));
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme3"));
-            mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme4"));
 
-            List<int> tStageNumbers = new List<int>() { 1, 2, 3 };
-            for (int i = 0; i < tStageNumbers.Count; i++)
+            List<int> tStageNumbers = new List<int>() { 1, 2 };
+            for (int i = 0; i < 2; i++)
             {
                 int index = UnityEngine.Random.Range(0, tStageNumbers.Count);
                 mThemeStack.Push(tStageNumbers[index]);
@@ -199,7 +212,7 @@ namespace Map
 
                 }
             }
-            mOnChangeStage.SafeInvoke(mStageCount + 1);
+            mOnChangeStage.SafeInvoke(mStageCount + 1, mCurrentPFTrackIndex);
 
         }
 

@@ -9,8 +9,6 @@ public class CPlayer : MonoBehaviour
 {
     public float JumpPower = 10.0f;
 
-    
-
     public ForceMode JumpForceMode;
 
     //State Values
@@ -24,6 +22,8 @@ public class CPlayer : MonoBehaviour
             return mData.Hp;
         }
     }
+
+
     private IntReactiveProperty mCurrentHp = null;
     public IntReactiveProperty CurrentHp
     {
@@ -36,6 +36,10 @@ public class CPlayer : MonoBehaviour
             return mCurrentHp;
         }
     }
+
+
+
+
     public float Boost = 100.0f;
     private FloatReactiveProperty mCurrentBoost = null;
     public FloatReactiveProperty CurrentBoost
@@ -99,6 +103,31 @@ public class CPlayer : MonoBehaviour
         }
     }
     private float mHorizontal = 0;
+    private bool mIsShield = false;
+    public bool IsShield
+    {
+        get
+        {
+            return mIsShield;
+        }
+        set
+        {
+            mIsShield = value;
+        }
+    }
+
+    private bool mIsMagnet = false;
+    public bool IsMagnet
+    {
+        get
+        {
+            return mIsMagnet;
+        }
+        set
+        {
+            mIsMagnet = value;
+        }
+    }
 
     private CacheComponent<Rigidbody> Body = null;
     private CacheComponent<Animator> Anim = null;
@@ -130,17 +159,20 @@ public class CPlayer : MonoBehaviour
         }
     }
 
-
     private bool mIsRotateDelay = false;
 
     public bool IsImmotal = false;
 
     public bool IsControl = true;
 
+   
+
+
     private void Awake()
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
         Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
+
         CurrentHp.Value = Hp;
 
         SwitchPlayerCollider(true);
@@ -194,6 +226,8 @@ public class CPlayer : MonoBehaviour
             GameOver();
             this.gameObject.SetActive(false);
         }
+
+   
     }
     public void DoDirectionInputCheck()
     {
@@ -262,10 +296,7 @@ public class CPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (IsControl)
-        {
-            DoMove();
-        }
+        DoMove();
     }
 
     public void SetMoveStart(bool isRun)
@@ -289,7 +320,7 @@ public class CPlayer : MonoBehaviour
             Vector3 pos = this.transform.position;
 
             pos += ((this.transform.forward * CurrentSpeed) +
-                (this.transform.right * SideSpeed * mHorizontal)) * Time.deltaTime;
+                (IsControl? (this.transform.right * SideSpeed * mHorizontal):Vector3.zero)) * Time.deltaTime;
 
             Body.Get().MovePosition(pos);
 
@@ -323,6 +354,27 @@ public class CPlayer : MonoBehaviour
             Anim.Get().SetTrigger("AnimTrigJumpToGround");
         }
     }
+  
+
+    public void SetAddHeal(int tHeal)
+    {
+        Debug.Log("HP 전 " + CurrentHp.Value.ToString());
+        CurrentHp.Value += tHeal;
+        Debug.Log("HP 후 " + CurrentHp.Value.ToString());
+
+    }
+
+
+    public void SetShield(bool tIsShield)
+    {
+        IsShield = tIsShield;
+    }
+
+    public void SetMagnet(bool tIsMagnet)
+    {
+        IsMagnet = tIsMagnet;
+    }
+
 
     public void SetSpeedRatio(float ratio)
     {
@@ -363,15 +415,21 @@ public class CPlayer : MonoBehaviour
         if(DOTween.IsTweening("isAbsMove") == false)
         {
             IsControl = false;
-            this.transform.DOMove(pos, 0.3f)
+            this.transform.DOMove(pos, 0.75f)
+                .SetEase(Ease.Linear)
                 .OnComplete(()=> { IsControl = true; })
                 .SetId("isAbsMove");
             return true;
         }
         return false;
     }
-
-
+    public void EnableControl()
+    {
+        if (DOTween.IsTweening("isAbsMove") == false)
+        {
+            IsControl = true;
+        }
+    }
 #if UNITY_EDITOR
     public bool IsOnGUI = true;
     private void OnGUI()

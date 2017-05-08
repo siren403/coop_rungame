@@ -24,6 +24,15 @@ public class CUIPlayGame : MonoBehaviour
     [SerializeField]
     private Text InstTxtStageNumber = null;
 
+    //Theme1 UI
+    [SerializeField]
+    private Image InstTheme1Left = null;
+    [SerializeField]
+    private Image InstTheme1Right = null;
+    //Theme2 UI
+    [SerializeField]
+    private Image InstTheme2Slow = null;
+
     //PauseUI
     [Space]
     [SerializeField]
@@ -136,6 +145,31 @@ public class CUIPlayGame : MonoBehaviour
     private void SetTxtGameOverCoin(int tCoin)
     {
         InstTxtGameOverCoin.text = string.Format("COIN : {0}", tCoin);
+    }
+    #endregion
+
+
+    #region Theme1 UI
+    public void ShowTheme1UI(int dir,float duration)
+    {
+        GameObject tTarget = dir == -1 ? InstTheme1Left.gameObject : InstTheme1Right.gameObject;
+
+        tTarget.transform.DOMoveX(0, duration)
+            .SetRelative()
+            .OnStart(() =>
+            {
+                tTarget.SetActive(true);
+            })
+            .OnComplete(() => 
+            {
+                tTarget.SetActive(false);
+            });
+    }
+    #endregion
+    #region Theme2 UI
+    public void ShowTheme2UI(bool isSlow)
+    {
+        InstTheme2Slow.gameObject.SetActive(isSlow);
     }
     #endregion
 }

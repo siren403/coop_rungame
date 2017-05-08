@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CObstacleObject : CPlacementObject
 {
-
     [SerializeField]
     private bool mIsGameOver = false;
     [SerializeField]
@@ -19,8 +18,14 @@ public class CObstacleObject : CPlacementObject
         }
         else
         {
-            tPlayer.DecrementHp(mDamageValue);
-            tPlayer.ScenePlayGame.UIPlayGame.AlphaValue();
+            if (tPlayer.IsShield == false)
+            {
+                 tPlayer.DecrementHp(mDamageValue);
+            }
+            else
+            {
+                Debug.Log("막음?");
+            }
         }
     }
 
