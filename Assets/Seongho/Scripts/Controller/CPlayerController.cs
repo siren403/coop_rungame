@@ -16,11 +16,11 @@ public abstract class CPlayerController : MonoBehaviour
 
     public void SetCallOnJump(Action callBack)
     {
-        CallOnJump = callBack;
+        CallOnJump += callBack;
     }
     public void SetCallOnSlide(Action callBack)
     {
-        CallOnSlide = callBack;
+        CallOnSlide += callBack;
     }
     public void SetCallOnItem_1(Action callBack)
     {

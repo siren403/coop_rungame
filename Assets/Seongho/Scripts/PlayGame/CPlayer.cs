@@ -296,11 +296,7 @@ public class CPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (IsControl)
-        {
-            DoMove();
-        }
-        
+        DoMove();
     }
 
     public void SetMoveStart(bool isRun)
@@ -324,7 +320,7 @@ public class CPlayer : MonoBehaviour
             Vector3 pos = this.transform.position;
 
             pos += ((this.transform.forward * CurrentSpeed) +
-                (this.transform.right * SideSpeed * mHorizontal)) * Time.deltaTime;
+                (IsControl? (this.transform.right * SideSpeed * mHorizontal):Vector3.zero)) * Time.deltaTime;
 
             Body.Get().MovePosition(pos);
 
@@ -419,12 +415,20 @@ public class CPlayer : MonoBehaviour
         if(DOTween.IsTweening("isAbsMove") == false)
         {
             IsControl = false;
-            this.transform.DOMove(pos, 0.3f)
+            this.transform.DOMove(pos, 0.75f)
+                .SetEase(Ease.Linear)
                 .OnComplete(()=> { IsControl = true; })
                 .SetId("isAbsMove");
             return true;
         }
         return false;
+    }
+    public void EnableControl()
+    {
+        if (DOTween.IsTweening("isAbsMove") == false)
+        {
+            IsControl = true;
+        }
     }
 #if UNITY_EDITOR
     public bool IsOnGUI = true;

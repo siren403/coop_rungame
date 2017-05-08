@@ -8,17 +8,20 @@ namespace Map
     {
         [Range(-1, 1)]
         public int LeftOrRight = 0;
+        [SerializeField]
+        private Transform mPivot = null;
 
         private void OnTriggerEnter(Collider other)
         {
             if(other.CompareTag(CTag.TAG_PLAYER))
             {
                 var tPlayer = other.GetComponent<CPlayer>();
-                if (tPlayer.PositionAbsMove(this.transform.position))
+                if (tPlayer.PositionAbsMove(mPivot.position))
                 {
                     GetComponentInParent<CTile>().Creator.OnSelectNextTheme(LeftOrRight);
                 }
             }
         }
+
     }
 }
