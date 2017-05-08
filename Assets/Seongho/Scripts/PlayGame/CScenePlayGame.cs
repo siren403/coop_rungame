@@ -360,7 +360,7 @@ public class CScenePlayGame : MonoBehaviour
     [Button]
     public void OnIncrementBoost()
     {
-        InstPlayer.IncrementBoost(5.7f);
+        InstPlayer.IncrementBoost(2.0f);//5.7f);
     }
     [Button]
     public void OnIncrementScore()

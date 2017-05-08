@@ -64,6 +64,7 @@ public class CItemTimer : MonoBehaviour
 
                             mTrackItem[(CItemObject.ItemType)ti].Reset();
                         }
+                        
                         if (mTrackItem[(CItemObject.ItemType)ti].MoveNext() == false)
                         {
                             Debug.Log("끝?" + mTrackItem[(CItemObject.ItemType)ti].Current.ToString());

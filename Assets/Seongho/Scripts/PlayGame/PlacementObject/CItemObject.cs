@@ -71,11 +71,11 @@ public class CItemObject : CPlacementObject
                 Destroy(this.gameObject);
                 break;
             case ItemType.Heal:
-                tPlayer.SetAddHeal(300);
+                tPlayer.SetAddHeal(1000);
                 Destroy(this.gameObject);
                 break;
             case ItemType.Dash:
-                Debug.Log("대쉬!!");
+                
                 break;
         }
         
