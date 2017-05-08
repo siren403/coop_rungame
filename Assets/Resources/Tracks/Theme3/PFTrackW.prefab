@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4470752163969994}
   - component: {fileID: 33455967299450990}
   - component: {fileID: 23310072623014306}
-  - component: {fileID: 64660060162456858}
   m_Layer: 0
   m_Name: Cliff_28
   m_TagString: Untagged
@@ -74,7 +73,6 @@ GameObject:
   - component: {fileID: 4158672786333910}
   - component: {fileID: 33703629519976734}
   - component: {fileID: 23503106689129670}
-  - component: {fileID: 64242394627800176}
   m_Layer: 0
   m_Name: Cliff_05 (1)
   m_TagString: Untagged
@@ -339,7 +337,6 @@ GameObject:
   - component: {fileID: 4953231525526586}
   - component: {fileID: 33750619286258402}
   - component: {fileID: 23313731560652764}
-  - component: {fileID: 64195127876397050}
   m_Layer: 0
   m_Name: Cliff_05
   m_TagString: Untagged
@@ -925,48 +922,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372763736207728}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64195127876397050
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1899071640418452}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64242394627800176
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1226180556974682}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64660060162456858
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1156559090510396}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300076, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
 --- !u!65 &65114253185473000
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1279,6 +1234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ItemType: 1
+  Duration: 0
 --- !u!114 &114324559681538160
 MonoBehaviour:
   m_ObjectHideFlags: 1
