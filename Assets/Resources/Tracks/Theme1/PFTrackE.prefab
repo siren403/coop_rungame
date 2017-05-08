@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4715095604333590}
   - component: {fileID: 33022519333705438}
   - component: {fileID: 23586237432088388}
+  - component: {fileID: 64297385132533176}
   m_Layer: 0
   m_Name: Mod_Plane_Summer (13)
   m_TagString: Untagged
@@ -629,6 +630,7 @@ GameObject:
   - component: {fileID: 4215125350310868}
   - component: {fileID: 33384936799642046}
   - component: {fileID: 23092325007343190}
+  - component: {fileID: 64104719558358378}
   m_Layer: 0
   m_Name: Mod_Plane_x4_Summer
   m_TagString: Untagged
@@ -711,6 +713,7 @@ GameObject:
   - component: {fileID: 4453037571625456}
   - component: {fileID: 33770237966999892}
   - component: {fileID: 23516628080756416}
+  - component: {fileID: 64325869840202622}
   m_Layer: 0
   m_Name: Mod_Plane_x4_Summer (1)
   m_TagString: Untagged
@@ -2451,6 +2454,48 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1183868371398982}
   m_Mesh: {fileID: 4300010, guid: 368189e02fd237c4f9512f5ea85169c2, type: 3}
+--- !u!64 &64104719558358378
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864511742853444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300036, guid: 7b9566f7c32c2c944b3b5d0e4a90b6dc, type: 3}
+--- !u!64 &64297385132533176
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1075629115149686}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300032, guid: 7b9566f7c32c2c944b3b5d0e4a90b6dc, type: 3}
+--- !u!64 &64325869840202622
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1901100999164870}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300036, guid: 7b9566f7c32c2c944b3b5d0e4a90b6dc, type: 3}
 --- !u!65 &65093094738279528
 BoxCollider:
   m_ObjectHideFlags: 1

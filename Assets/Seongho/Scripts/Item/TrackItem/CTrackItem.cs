@@ -12,7 +12,7 @@ public abstract class CTrackItem : CItem, IEnumerator<float>
         get
         {
             return mDuration;
-        }
+        } 
     }
     public float Current
     {
@@ -79,4 +79,6 @@ public abstract class CTrackItem : CItem, IEnumerator<float>
         mPlayer = null;
         mIsDispose = true;
     }
+
+
 }

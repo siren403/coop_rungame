@@ -18,7 +18,7 @@ public class CItemTimer : MonoBehaviour
         mTrackItem.Add(CItemObject.ItemType.Shield, tItem);
         mTrackItem.Add(CItemObject.ItemType.Magnet, tItem);
         mTrackItem.Add(CItemObject.ItemType.Heal, tItem);
-        mTrackItem.Add(CItemObject.ItemType.FootHoldBoost, tItem);
+        mTrackItem.Add(CItemObject.ItemType.Dash, tItem);
     }
 
     public void SetScene(CScenePlayGame tScene)
@@ -64,6 +64,7 @@ public class CItemTimer : MonoBehaviour
 
                             mTrackItem[(CItemObject.ItemType)ti].Reset();
                         }
+                        
                         if (mTrackItem[(CItemObject.ItemType)ti].MoveNext() == false)
                         {
                             Debug.Log("끝?" + mTrackItem[(CItemObject.ItemType)ti].Current.ToString());

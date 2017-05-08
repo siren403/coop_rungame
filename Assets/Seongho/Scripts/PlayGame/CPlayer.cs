@@ -166,7 +166,10 @@ public class CPlayer : MonoBehaviour
 
     public bool IsControl = true;
 
-   
+
+    public GameObject instMagnet = null;
+    public GameObject instShield = null;
+    public GameObject instBoost = null;
 
 
     private void Awake()
@@ -369,11 +372,28 @@ public class CPlayer : MonoBehaviour
     public void SetShield(bool tIsShield)
     {
         IsShield = tIsShield;
+        if(IsShield == true)
+        {
+            instShield.SetActive(true);
+        }
+        else
+        {
+            instShield.SetActive(false);
+        }
     }
 
     public void SetMagnet(bool tIsMagnet)
     {
         IsMagnet = tIsMagnet;
+        if(IsMagnet == true)
+        {
+            instMagnet.SetActive(true);
+        }
+        else
+        {
+            instMagnet.SetActive(false);
+        }
+            
     }
 
 

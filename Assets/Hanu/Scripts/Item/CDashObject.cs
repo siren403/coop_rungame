@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CDashObject : MonoBehaviour {
+public class CDashObject : CTrackItem
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public CDashObject(CPlayer tPlayer, float tDuration) : base(tPlayer,tDuration)
+    {
+
+    }
+    public override void Activate()
+    {
+        mPlayer.SetMagnet(true);
+    }
+
+    public override void Deactivate()
+    {
+        mPlayer.SetMagnet(false);
+    }
 }
