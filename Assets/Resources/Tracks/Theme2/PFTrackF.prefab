@@ -258,7 +258,6 @@ GameObject:
   - component: {fileID: 4274674879731052}
   - component: {fileID: 33630205094319312}
   - component: {fileID: 23496378958012748}
-  - component: {fileID: 64181876532262032}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Left
   m_TagString: Untagged
@@ -512,7 +511,6 @@ GameObject:
   - component: {fileID: 4246889768067740}
   - component: {fileID: 33450585269796702}
   - component: {fileID: 23304359256364998}
-  - component: {fileID: 64001200853597564}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Right
   m_TagString: Untagged
@@ -2721,20 +2719,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1824477059631252}
   m_Mesh: {fileID: 4300034, guid: 07d0988ad86be6849aea7a68a977ce7f, type: 3}
---- !u!64 &64001200853597564
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1681499012303218}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
 --- !u!64 &64123118797294144
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -2749,20 +2733,6 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300034, guid: 07d0988ad86be6849aea7a68a977ce7f, type: 3}
---- !u!64 &64181876532262032
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1327088497011674}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
 --- !u!64 &64470051152448252
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -3011,6 +2981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ItemType: 1
+  Duration: 0
 --- !u!114 &114514989292984772
 MonoBehaviour:
   m_ObjectHideFlags: 1

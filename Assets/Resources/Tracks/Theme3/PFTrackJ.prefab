@@ -321,7 +321,6 @@ GameObject:
   - component: {fileID: 4490021289474986}
   - component: {fileID: 33473362877358714}
   - component: {fileID: 23364139535641188}
-  - component: {fileID: 64839880332559322}
   m_Layer: 0
   m_Name: Cliff_06
   m_TagString: Untagged
@@ -1043,7 +1042,6 @@ GameObject:
   - component: {fileID: 4726554812643222}
   - component: {fileID: 33894304393064454}
   - component: {fileID: 23839977535845810}
-  - component: {fileID: 64506438499407094}
   m_Layer: 0
   m_Name: Cliff_08
   m_TagString: Untagged
@@ -1738,7 +1736,6 @@ GameObject:
   - component: {fileID: 4164531951520428}
   - component: {fileID: 33907413290236444}
   - component: {fileID: 23657813409594330}
-  - component: {fileID: 64481620480550060}
   m_Layer: 0
   m_Name: Cliff_06 (1)
   m_TagString: Untagged
@@ -4663,48 +4660,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1079308800818802}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64481620480550060
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1986607302843070}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300010, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64506438499407094
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1602243685797568}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300012, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64839880332559322
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1145083746543170}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300010, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
 --- !u!65 &65017989752473138
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -5264,7 +5219,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1372375448166226}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}

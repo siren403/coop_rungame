@@ -55,7 +55,6 @@ GameObject:
   - component: {fileID: 4729157157693584}
   - component: {fileID: 33371102471292462}
   - component: {fileID: 23118349205026748}
-  - component: {fileID: 64853234985642546}
   m_Layer: 0
   m_Name: Mod_Plane_Summer
   m_TagString: Untagged
@@ -559,7 +558,6 @@ GameObject:
   - component: {fileID: 4438241270922446}
   - component: {fileID: 33060427686657108}
   - component: {fileID: 23702232907950972}
-  - component: {fileID: 64802282424720384}
   m_Layer: 0
   m_Name: Mod_Plane_Summer (1)
   m_TagString: Untagged
@@ -663,7 +661,6 @@ GameObject:
   - component: {fileID: 4990496823347492}
   - component: {fileID: 33142859605522078}
   - component: {fileID: 23956988763257692}
-  - component: {fileID: 64632588036688600}
   m_Layer: 0
   m_Name: Mod_Plane_Summer (2)
   m_TagString: Untagged
@@ -811,7 +808,6 @@ GameObject:
   - component: {fileID: 4088752875832092}
   - component: {fileID: 33193764909751056}
   - component: {fileID: 23356333592520582}
-  - component: {fileID: 64539825870621564}
   m_Layer: 0
   m_Name: Mod_Plane_Summer (3)
   m_TagString: Untagged
@@ -3298,62 +3294,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1899090343153580}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64539825870621564
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1666027013837630}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300032, guid: 7b9566f7c32c2c944b3b5d0e4a90b6dc, type: 3}
---- !u!64 &64632588036688600
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1493523649978678}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300032, guid: 7b9566f7c32c2c944b3b5d0e4a90b6dc, type: 3}
---- !u!64 &64802282424720384
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1447187959263962}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300032, guid: 7b9566f7c32c2c944b3b5d0e4a90b6dc, type: 3}
---- !u!64 &64853234985642546
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1072938884730656}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300032, guid: 7b9566f7c32c2c944b3b5d0e4a90b6dc, type: 3}
 --- !u!65 &65017337402819888
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4034,6 +3974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ItemType: 1
+  Duration: 0
 --- !u!114 &114246922063538870
 MonoBehaviour:
   m_ObjectHideFlags: 1

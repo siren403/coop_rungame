@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 4181543212483022}
   - component: {fileID: 33411874190862400}
   - component: {fileID: 23033021118227928}
-  - component: {fileID: 64824366775682382}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Left
   m_TagString: Untagged
@@ -1181,7 +1180,6 @@ GameObject:
   - component: {fileID: 4906664599544484}
   - component: {fileID: 33982996189003732}
   - component: {fileID: 23610913284762584}
-  - component: {fileID: 64024394529698940}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Right
   m_TagString: Untagged
@@ -1684,7 +1682,6 @@ GameObject:
   - component: {fileID: 4243711145251782}
   - component: {fileID: 33730317443415658}
   - component: {fileID: 23639555756169476}
-  - component: {fileID: 64887818560781984}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Left
   m_TagString: Untagged
@@ -1702,7 +1699,6 @@ GameObject:
   - component: {fileID: 4048084548839126}
   - component: {fileID: 33390559053790030}
   - component: {fileID: 23966094237899784}
-  - component: {fileID: 64027802904093782}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Right
   m_TagString: Untagged
@@ -1788,7 +1784,6 @@ GameObject:
   - component: {fileID: 4284066269183308}
   - component: {fileID: 33663022744171706}
   - component: {fileID: 23784509657390004}
-  - component: {fileID: 64854668114144956}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Right
   m_TagString: Untagged
@@ -2163,7 +2158,6 @@ GameObject:
   - component: {fileID: 4650070576583970}
   - component: {fileID: 33478563519291388}
   - component: {fileID: 23834411169922848}
-  - component: {fileID: 64541616018570452}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Right
   m_TagString: Untagged
@@ -2363,7 +2357,6 @@ GameObject:
   - component: {fileID: 4949714799553972}
   - component: {fileID: 33574144295709200}
   - component: {fileID: 23891833685119182}
-  - component: {fileID: 64585865347777628}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Left
   m_TagString: Untagged
@@ -2618,7 +2611,6 @@ GameObject:
   - component: {fileID: 4340513303089550}
   - component: {fileID: 33727385022083932}
   - component: {fileID: 23052240495307902}
-  - component: {fileID: 64942742607052702}
   m_Layer: 0
   m_Name: Mod_Plane_Desert_Left
   m_TagString: Untagged
@@ -3207,7 +3199,6 @@ GameObject:
   - component: {fileID: 4439770316644948}
   - component: {fileID: 33750181784055718}
   - component: {fileID: 23505271299929340}
-  - component: {fileID: 64219974342916270}
   m_Layer: 0
   m_Name: Cliff_24
   m_TagString: Untagged
@@ -11477,34 +11468,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1868036611975140}
   m_Mesh: {fileID: 4300066, guid: 368189e02fd237c4f9512f5ea85169c2, type: 3}
---- !u!64 &64024394529698940
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356271534345522}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
---- !u!64 &64027802904093782
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1544189180913688}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
 --- !u!64 &64112565028752952
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -11561,20 +11524,6 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300034, guid: 07d0988ad86be6849aea7a68a977ce7f, type: 3}
---- !u!64 &64219974342916270
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1949892202623028}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300074, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
 --- !u!64 &64270141052566572
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -11645,34 +11594,6 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300034, guid: 07d0988ad86be6849aea7a68a977ce7f, type: 3}
---- !u!64 &64541616018570452
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1681557070281932}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
---- !u!64 &64585865347777628
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1751663397851886}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
 --- !u!64 &64654032121017284
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -11743,62 +11664,6 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300034, guid: 07d0988ad86be6849aea7a68a977ce7f, type: 3}
---- !u!64 &64824366775682382
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1009363473794660}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
---- !u!64 &64854668114144956
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1587204469521732}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
---- !u!64 &64887818560781984
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1538916363010272}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
---- !u!64 &64942742607052702
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1822916351848524}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 5952211c5aec30644baad22422c146a4, type: 3}
 --- !u!64 &64981998512063010
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -13532,6 +13397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ItemType: 1
+  Duration: 0
 --- !u!114 &114960289814597738
 MonoBehaviour:
   m_ObjectHideFlags: 1

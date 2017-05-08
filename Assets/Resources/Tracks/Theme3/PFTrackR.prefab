@@ -503,7 +503,6 @@ GameObject:
   - component: {fileID: 4412312996360538}
   - component: {fileID: 33240295650275696}
   - component: {fileID: 23726943926536744}
-  - component: {fileID: 64799960095550352}
   m_Layer: 0
   m_Name: Cliff_27
   m_TagString: Untagged
@@ -722,7 +721,6 @@ GameObject:
   - component: {fileID: 4884080305420312}
   - component: {fileID: 33557152917218848}
   - component: {fileID: 23823933273402370}
-  - component: {fileID: 64966695592007568}
   m_Layer: 0
   m_Name: Cliff_27
   m_TagString: Untagged
@@ -1151,7 +1149,6 @@ GameObject:
   - component: {fileID: 4769236727581728}
   - component: {fileID: 33593911971498956}
   - component: {fileID: 23030743307449828}
-  - component: {fileID: 64775285158496672}
   m_Layer: 0
   m_Name: Cliff_27
   m_TagString: Untagged
@@ -1424,7 +1421,6 @@ GameObject:
   - component: {fileID: 4626977976933448}
   - component: {fileID: 33804672083000996}
   - component: {fileID: 23711054682550150}
-  - component: {fileID: 64544057539547986}
   m_Layer: 0
   m_Name: Cliff_27
   m_TagString: Untagged
@@ -4079,62 +4075,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1448099406814466}
   m_Mesh: {fileID: 4300000, guid: b9565bd62bf9df84aa6c44e1b5cb67b0, type: 3}
---- !u!64 &64544057539547986
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1921746036895392}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300084, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64775285158496672
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1699129549747946}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300084, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64799960095550352
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1338237229074986}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300084, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64966695592007568
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1454059038077886}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300084, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
 --- !u!65 &65009515994553078
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4658,7 +4598,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1579301911999128}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -4682,7 +4622,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1057523431480344}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -4766,7 +4706,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1662954318246052}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -5222,7 +5162,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1689688185945926}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -5878,6 +5818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ItemType: 1
+  Duration: 0
 --- !u!114 &114994626081698918
 MonoBehaviour:
   m_ObjectHideFlags: 1
