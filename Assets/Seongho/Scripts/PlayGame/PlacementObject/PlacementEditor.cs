@@ -54,6 +54,16 @@ public class PlacementEditor : MonoBehaviour
         tInstance.transform.localPosition = Vector3.zero;
     }
 
+    [Button]
+    public void Heal()
+    {
+        GameObject tPF = Resources.Load<GameObject>("PlacementObject/PFHeal");
+
+        GameObject tInstance = Instantiate<GameObject>(tPF, Vector3.zero, Quaternion.identity);
+        tInstance.transform.SetParent(this.transform);
+        tInstance.transform.localPosition = Vector3.zero;
+    }
+
 }
 
 #endif

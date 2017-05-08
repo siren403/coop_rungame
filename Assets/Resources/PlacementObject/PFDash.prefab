@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 33172123651676266}
   - component: {fileID: 23896341443317768}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4651820344567762}
   - component: {fileID: 65433640810110938}
-  - component: {fileID: 114567621636870442}
+  - component: {fileID: 114532199684785046}
   m_Layer: 0
   m_Name: PFDash
   m_TagString: Untagged
@@ -152,7 +152,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 0.01, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114567621636870442
+--- !u!114 &114532199684785046
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -160,6 +160,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1764781237468900}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72fef83254b7114197c0c6a6a66783a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f560f88b4a3665459c64871e394eab8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ItemType: 4
+  Duration: 0
