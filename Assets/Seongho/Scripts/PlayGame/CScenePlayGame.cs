@@ -322,6 +322,11 @@ public class CScenePlayGame : MonoBehaviour
 
     #endregion
 
+    public void PlayerOutTrack()
+    {
+        InstPlayer.SetSpeedRatio(mPlayGameData.OutTrackSpeedRatio);
+        HpTickPerHpRatio = mPlayGameData.OutTrackHpDecrementRatio;
+    }
 
     [Button]
     public void OnRestartRun()

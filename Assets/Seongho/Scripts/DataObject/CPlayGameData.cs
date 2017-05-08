@@ -22,6 +22,12 @@ public class CPlayGameData : ScriptableObject
     public float CoinPerBoost { get { return mCoinPerBoost; } }
 
 
+    [SerializeField]
+    private float mOutTrackSpeedRatio = 0.5f;
+    public float OutTrackSpeedRatio { get { return mOutTrackSpeedRatio; } }
+    [SerializeField]
+    private float mOutTrackHpDecrementRatio = 35.0f;
+    public float OutTrackHpDecrementRatio { get { return mOutTrackHpDecrementRatio; } }
 
     [SerializeField]
     private int mTheme1EffectCount = 15;
