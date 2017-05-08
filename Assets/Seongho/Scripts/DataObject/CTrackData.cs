@@ -5,95 +5,197 @@ using Map;
 
 public class CTrackData : ScriptableObject
 {
-    [SerializeField]
-    private List<List<Map.TrackType>> mDiffcultyList = new List<List<Map.TrackType>>()
+    [System.Serializable]
+    public class TrackTypeList
     {
-        new List<Map.TrackType>()//1
+        public List<TrackType> TypeList = new List<TrackType>();
+    }
+
+    //[SerializeField]
+    //private List<List<Map.TrackType>> mDiffcultyList = new List<List<Map.TrackType>>()
+    //{
+    //    new List<Map.TrackType>()//1
+    //    {
+    //        TrackType.A,TrackType.B,TrackType.C,TrackType.D,TrackType.E,TrackType.F
+    //    },
+    //    new List<Map.TrackType>()//2
+    //    {
+    //        TrackType.A,TrackType.B,TrackType.C,TrackType.D,TrackType.E,TrackType.F },
+    //    new List<Map.TrackType>()//3
+    //    {
+    //        TrackType.A,TrackType.B,TrackType.C,TrackType.D,TrackType.E,TrackType.F,
+    //        TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K
+    //    },
+    //    new List<Map.TrackType>()//4
+    //    {
+    //        TrackType.B,TrackType.C,TrackType.D,TrackType.E,TrackType.F,
+    //        TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
+    //        TrackType.M
+    //    },
+    //    new List<Map.TrackType>()//5
+    //    {
+    //        TrackType.B,TrackType.D,TrackType.E,TrackType.F,
+    //        TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
+    //        TrackType.M,TrackType.N
+    //    },
+
+    //    new List<Map.TrackType>()//6
+    //   {
+    //        TrackType.B,TrackType.C,TrackType.F,
+    //        TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
+    //        TrackType.M,TrackType.N,TrackType.O,TrackType.P
+    //    },
+    //    new List<Map.TrackType>()//7
+    //    {
+    //        TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
+    //        TrackType.M,TrackType.N,TrackType.O,TrackType.P
+    //    },
+    //    new List<Map.TrackType>()//8
+    //    {
+    //        TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
+    //        TrackType.M,TrackType.N,TrackType.O,TrackType.P
+    //    },
+    //    new List<Map.TrackType>()//9
+    //    {
+    //        TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,
+    //        TrackType.N,TrackType.O,TrackType.P,
+    //        TrackType.Q,TrackType.R,TrackType.S,TrackType.V,TrackType.Y
+    //    },
+    //    new List<Map.TrackType>()//10
+    //    {
+    //        TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,
+    //        TrackType.O,TrackType.P,
+    //        TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.V,TrackType.Y,
+    //        TrackType.Z
+    //    },
+
+    //    new List<Map.TrackType>()//11
+    //    {
+    //        TrackType.H,TrackType.I,TrackType.J,TrackType.L,TrackType.O,TrackType.P,
+    //        TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.Y,TrackType.Z
+    //    },
+    //    new List<Map.TrackType>()//12
+    //    {
+    //        TrackType.H,TrackType.I,TrackType.J,TrackType.L,TrackType.O,
+    //        TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.W,TrackType.X,TrackType.Y,TrackType.Z
+    //    },
+    //    new List<Map.TrackType>()//13
+    //    {
+    //        TrackType.H,TrackType.I,TrackType.L,TrackType.O,
+    //        TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.W,TrackType.X,TrackType.Y,TrackType.Z
+    //    },
+    //    new List<Map.TrackType>()//14
+    //    {
+    //        TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.W,TrackType.X,TrackType.Y,TrackType.Z
+    //    },
+    //    new List<Map.TrackType>()//15
+    //    {
+    //        TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.W,TrackType.X,TrackType.Y,TrackType.Z
+    //    }
+    //};
+    //public List<List<Map.TrackType>> DiffcultyList
+    //{
+    //    get
+    //    {
+    //        return mDiffcultyList;
+    //    }
+    //}
+
+    [SerializeField]
+    private List<TrackTypeList> mDiffcultyList = new List<TrackTypeList>()
+    {
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.A,TrackType.B,TrackType.C,TrackType.D,TrackType.E,TrackType.F
-        },
-        new List<Map.TrackType>()//2
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
-            TrackType.A,TrackType.B,TrackType.C,TrackType.D,TrackType.E,TrackType.F },
-        new List<Map.TrackType>()//3
+            TrackType.A,TrackType.B,TrackType.C,TrackType.D,TrackType.E,TrackType.F
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.A,TrackType.B,TrackType.C,TrackType.D,TrackType.E,TrackType.F,
             TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K
-        },
-        new List<Map.TrackType>()//4
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.B,TrackType.C,TrackType.D,TrackType.E,TrackType.F,
             TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
             TrackType.M
-        },
-        new List<Map.TrackType>()//5
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.B,TrackType.D,TrackType.E,TrackType.F,
             TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
             TrackType.M,TrackType.N
-        },
+        } },
 
-        new List<Map.TrackType>()//6
-       {
+
+
+
+        new TrackTypeList() {TypeList = new List<TrackType>()
+        {
             TrackType.B,TrackType.C,TrackType.F,
             TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
             TrackType.M,TrackType.N,TrackType.O,TrackType.P
-        },
-        new List<Map.TrackType>()//7
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
             TrackType.M,TrackType.N,TrackType.O,TrackType.P
-        },
-        new List<Map.TrackType>()//8
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
-            TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
+           TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,TrackType.L,
             TrackType.M,TrackType.N,TrackType.O,TrackType.P
-        },
-        new List<Map.TrackType>()//9
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,
             TrackType.N,TrackType.O,TrackType.P,
             TrackType.Q,TrackType.R,TrackType.S,TrackType.V,TrackType.Y
-        },
-        new List<Map.TrackType>()//10
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.G,TrackType.H,TrackType.I,TrackType.J,TrackType.K,
             TrackType.O,TrackType.P,
             TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.V,TrackType.Y,
             TrackType.Z
-        },
+        } },
 
-        new List<Map.TrackType>()//11
+
+
+
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
-            TrackType.H,TrackType.I,TrackType.J,TrackType.L,TrackType.O,TrackType.P,
-            TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.Y,TrackType.Z
-        },
-        new List<Map.TrackType>()//12
+           TrackType.H,TrackType.I,TrackType.J,TrackType.L,TrackType.O,TrackType.P,
+           TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.Y,TrackType.Z
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.H,TrackType.I,TrackType.J,TrackType.L,TrackType.O,
             TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.W,TrackType.X,TrackType.Y,TrackType.Z
-        },
-        new List<Map.TrackType>()//13
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.H,TrackType.I,TrackType.L,TrackType.O,
             TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.W,TrackType.X,TrackType.Y,TrackType.Z
-        },
-        new List<Map.TrackType>()//14
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.W,TrackType.X,TrackType.Y,TrackType.Z
-        },
-        new List<Map.TrackType>()//15
+        } },
+        new TrackTypeList() {TypeList = new List<TrackType>()
         {
             TrackType.Q,TrackType.R,TrackType.S,TrackType.T,TrackType.U,TrackType.V,TrackType.W,TrackType.X,TrackType.Y,TrackType.Z
-        }
+        } },
     };
-    public List<List<Map.TrackType>> DiffcultyList
+    public List<TrackTypeList> DiffcultyList
     {
         get
         {
             return mDiffcultyList;
         }
     }
-
 
 }
