@@ -13,12 +13,10 @@ public class CShieldItem : CTrackItem {
     public override void Activate()
     {
         mPlayer.SetShield(true);
-        //mPlayer.ScenePlayGame.ScoreTickRatio = 2.0f;
     }
 
     public override void Deactivate()
     {
         mPlayer.SetShield(false);
-        //mPlayer.ScenePlayGame.ScoreTickRatio = 1.0f;
     }
 }

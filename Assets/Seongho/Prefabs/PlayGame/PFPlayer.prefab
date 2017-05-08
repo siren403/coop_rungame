@@ -861,10 +861,7 @@ GameObject:
   - component: {fileID: 4204735598330966}
   - component: {fileID: 114915367033450418}
   - component: {fileID: 54113583569763058}
-  - component: {fileID: 136342336416063942}
-  - component: {fileID: 136135770910332398}
   - component: {fileID: 65151379726701696}
-  - component: {fileID: 65268216870074000}
   m_Layer: 0
   m_Name: PFPlayer
   m_TagString: tagPlayer
@@ -1050,6 +1047,22 @@ GameObject:
   m_Layer: 0
   m_Name: Hand_Right_jnt
   m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1346014914530812
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4628070862992652}
+  - component: {fileID: 65781801730931686}
+  m_Layer: 0
+  m_Name: instTrigger
+  m_TagString: tagMagnet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3724,8 +3737,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4459978263688758}
   - {fileID: 4867691747842360}
+  - {fileID: 4459978263688758}
+  - {fileID: 4628070862992652}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4330,7 +4344,7 @@ Transform:
   - {fileID: 4372096203718114}
   - {fileID: 4886172032943672}
   m_Father: {fileID: 4204735598330966}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4466174175147520
 Transform:
@@ -4753,6 +4767,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4867691747842360}
   m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4628070862992652
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1346014914530812}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4204735598330966}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4630778136728034
 Transform:
@@ -5516,7 +5543,7 @@ Transform:
   - {fileID: 4149814142829678}
   - {fileID: 4435802617798082}
   m_Father: {fileID: 4204735598330966}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4869212295258688
 Transform:
@@ -6158,18 +6185,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 3, z: 1.5}
   m_Center: {x: 0, y: 1.5, z: 0}
---- !u!65 &65268216870074000
+--- !u!65 &65781801730931686
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1288451374299136}
+  m_GameObject: {fileID: 1346014914530812}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1, z: 1.5}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 18, y: 5, z: 18}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &95139303500748860
 Animator:
   serializedVersion: 3
@@ -6199,7 +6226,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: bef4493cc8af3c947bba6a2f5af6eeac, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -6226,35 +6253,9 @@ MonoBehaviour:
   mInputDirection: {x: 0, y: 0, z: 0}
   mRotateDirection: 0
   StandCollider: {fileID: 65151379726701696}
-  SlideCollider: {fileID: 65268216870074000}
   IsImmotal: 0
+  IsControl: 1
   IsOnGUI: 0
---- !u!136 &136135770910332398
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1288451374299136}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.46, z: 0}
---- !u!136 &136342336416063942
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1288451374299136}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 3.3
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.6, z: 0}
 --- !u!137 &137042216003463648
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
