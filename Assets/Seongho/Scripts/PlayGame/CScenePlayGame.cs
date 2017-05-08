@@ -224,7 +224,7 @@ public class CScenePlayGame : MonoBehaviour
                 if (mIsTrackEffect == false)
                 {
                     if (mTrackCreator.CurrentPivot < 65 &&
-                        mTrackCreator.CurrentPivot != 0 && mTrackCreator.CurrentPivot % 5 == 0)
+                        mTrackCreator.CurrentPivot != 0 && mTrackCreator.CurrentPivot % 15 == 0)
                     {
                         mIsTrackEffect = true;
                         Debug.Log("Effect");
