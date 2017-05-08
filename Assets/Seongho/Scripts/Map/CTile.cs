@@ -17,6 +17,13 @@ namespace Map
             }
         }
         private int mIndex = 0;
+        public int Index
+        {
+            get
+            {
+                return mIndex;
+            }
+        }
         private CPlacementObject[] mPlacementObjects = null;
         private TrackType mTrackType;
         private CTrack mCachedParentTrack = null;

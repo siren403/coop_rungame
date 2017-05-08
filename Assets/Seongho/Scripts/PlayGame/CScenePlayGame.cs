@@ -42,6 +42,12 @@ public class CScenePlayGame : MonoBehaviour
     [ReadOnly]
     [SerializeField]
     private CUIPlayGame mUIPlayGame = null;
+    public CUIPlayGame UIPlayGame
+    {
+        get {
+            return mUIPlayGame;
+        }
+    }
 
     private Coroutine mCoroutineTickHp = null;
     private Coroutine mCoroutineTickScore = null;
@@ -144,6 +150,7 @@ public class CScenePlayGame : MonoBehaviour
     }
     private IEnumerator Start()
     {
+        mUIPlayGame.FadeInPanel();
         yield return new WaitForSeconds(1.0f);
         OnStartRun();
     }
@@ -224,7 +231,7 @@ public class CScenePlayGame : MonoBehaviour
                 if (mIsTrackEffect == false)
                 {
                     if (mTrackCreator.CurrentPivot < 65 &&
-                        mTrackCreator.CurrentPivot != 0 && mTrackCreator.CurrentPivot % 5 == 0)
+                        mTrackCreator.CurrentPivot != 0 && mTrackCreator.CurrentPivot % 15 == 0)
                     {
                         mIsTrackEffect = true;
                         Debug.Log("Effect");
