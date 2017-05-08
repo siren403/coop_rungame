@@ -18,7 +18,7 @@ public class CItemTimer : MonoBehaviour
         mTrackItem.Add(CItemObject.ItemType.Shield, tItem);
         mTrackItem.Add(CItemObject.ItemType.Magnet, tItem);
         mTrackItem.Add(CItemObject.ItemType.Heal, tItem);
-        mTrackItem.Add(CItemObject.ItemType.FootHoldBoost, tItem);
+        mTrackItem.Add(CItemObject.ItemType.Dash, tItem);
     }
 
     public void SetScene(CScenePlayGame tScene)
