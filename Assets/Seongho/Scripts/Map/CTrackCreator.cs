@@ -1,6 +1,6 @@
 ﻿//#define DIFFCULTY
-#define LOW
-//#define MEDIUM
+//#define LOW
+#define MEDIUM
 
 using System.Collections;
 using System.Collections.Generic;
