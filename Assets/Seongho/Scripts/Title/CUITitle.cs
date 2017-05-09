@@ -8,6 +8,9 @@ public class CUITitle : MonoBehaviour
     public AudioClip BtnSfx;
     
     AudioSource MySource;
+
+    public GameObject mFind;
+
     public static CUITitle instance;
 
     private void Awake()
@@ -20,6 +23,9 @@ public class CUITitle : MonoBehaviour
     private void Start()
     {
         MySource = this.gameObject.GetComponent<AudioSource>();
+        mFind = GameObject.Find("Main Camera");
+
+        DontDestroyOnLoad(mFind);
     }
 
     public void OnClickBtnMoveLobby()

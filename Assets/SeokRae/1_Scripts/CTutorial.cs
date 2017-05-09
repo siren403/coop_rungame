@@ -7,7 +7,13 @@ public class CTutorial : MonoBehaviour {
     public GameObject mTuto1;
     public GameObject mTuto2;
 
+    GameObject mDestroythisScene;
 
+
+    private void Start()
+    {
+        mDestroythisScene = GameObject.FindGameObjectWithTag("Destroy");
+    }
     public void OnClickTuto1Btn()
     {
         mTuto1.SetActive(false);
@@ -16,6 +22,8 @@ public class CTutorial : MonoBehaviour {
     public void OnClickTutoBtn2()
     {
         SceneManager.LoadScene("SceneMainLobby");
+        Destroy(mDestroythisScene);
+        
     }
 }
 
