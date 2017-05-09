@@ -58,7 +58,8 @@ public class CItemObject : CPlacementObject
         switch (_ItemType)
         {
             case ItemType.Boost:
-                if(mItemdata.Item3 == 1)
+            case ItemType.Dash:
+                if (mItemdata.Item3 == 1)
                 {
                     Duration = 5.0f + 2.0f;
                     Debug.Log("증가함?");
@@ -69,7 +70,10 @@ public class CItemObject : CPlacementObject
                 }
                 CTrackBoostItem item = new CTrackBoostItem(tPlayer, Duration);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType,item);
-                Destroy(this.gameObject);
+                if(_ItemType == ItemType.Boost)
+                {
+                    Destroy(this.gameObject);
+                }
                 break;
             case ItemType.Shield:
                 if (mItemdata.Item3 == 1)
@@ -103,9 +107,7 @@ public class CItemObject : CPlacementObject
                 tPlayer.SetAddHeal(1000);
                 Destroy(this.gameObject);
                 break;
-            case ItemType.Dash:
-                
-                break;
+
         }
         
     }
@@ -115,7 +117,10 @@ public class CItemObject : CPlacementObject
     {
         if (tPlayer.IsMagnet == true)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, tPlayer.transform.position, mMagnetDistanceDelta);
+            if(_ItemType != ItemType.Dash)
+            {
+                this.transform.position = Vector3.MoveTowards(this.transform.position, tPlayer.transform.position, mMagnetDistanceDelta);
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ public class CPlayer : MonoBehaviour
 
     public ForceMode JumpForceMode;
 
+    public SkinnedMeshRenderer PlayerColor;
+
     //State Values
     [SerializeField]
     private CPlayerData mData = null;
@@ -82,11 +84,17 @@ public class CPlayer : MonoBehaviour
             return mData.Speed;
         }
     }
+    private float mSideSpeed = 10.0f;
     public float SideSpeed
     {
         get
         {
-            return mData.SideSpeed;
+            //return mData.SideSpeed;
+            return mSideSpeed;
+        }
+        set
+        {
+            mSideSpeed = value;
         }
     }
     [ReadOnly]
@@ -199,6 +207,7 @@ public class CPlayer : MonoBehaviour
         mItemData = new CItemData();
         CurrentHp.Value = Hp;
         AddHp.Value = 200;
+        ResetSideSpeed();
         SwitchPlayerCollider(true);
     }
 
@@ -232,6 +241,10 @@ public class CPlayer : MonoBehaviour
         }
     }
 
+    public void ResetSideSpeed()
+    {
+        mSideSpeed = mData.SideSpeed;
+    }
 
     private void Update()
     {

@@ -12,7 +12,7 @@ public class CTrackBoostItem : CTrackItem
 
     public override void Activate()
     {
-        mPlayer.SetBoostSpeedRatio(1.5f);
+        mPlayer.SetBoostSpeedRatio(1.3f);
         mPlayer.instBoost.SetActive(true);
         //mPlayer.ScenePlayGame.ScoreTickRatio = 2.0f;
     }
