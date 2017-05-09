@@ -14,6 +14,8 @@ public class CScenePlayGame : MonoBehaviour
 
     private UserData mUserData = null;
 
+    private CItemData mItemdata = null;
+
     //GameState
     [ReadOnly]
     [SerializeField]
@@ -49,6 +51,17 @@ public class CScenePlayGame : MonoBehaviour
         }
     }
 
+    private CUILobby mUILobby = null;
+    public CUILobby UILobby
+    {
+        get
+        {
+            return mUILobby;
+        }
+    }
+
+
+
     private Coroutine mCoroutineTickHp = null;
     private Coroutine mCoroutineTickScore = null;
 
@@ -69,8 +82,9 @@ public class CScenePlayGame : MonoBehaviour
        
 
         mUserData = new UserData();
-
+        mItemdata = new CItemData();
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
+
 
         CPlayerController tController = null;
 #if UNITY_EDITOR
@@ -103,6 +117,18 @@ public class CScenePlayGame : MonoBehaviour
         //포기 확인
         mUIPlayGame.InstBtnSubmitRetire.onClick.AddListener(OnRetire);
 
+        if(mItemdata.Item1 == 1)
+        {
+            mUIPlayGame.InstSliderAddHPBar.gameObject.SetActive(true);
+            InstPlayer.AddHp.Subscribe((hp) =>
+            {
+                mUIPlayGame.InstSliderAddHPBar.value = (float)hp / InstPlayer.AddHpValue;
+                if(mUIPlayGame.InstSliderAddHPBar.value <= 0)
+                {
+                    mUIPlayGame.InstSliderAddHPBar.gameObject.SetActive(false);
+                }
+            });
+        }
         InstPlayer.CurrentHp.Subscribe((hp) => mUIPlayGame.InstSliderHPBar.value = (float)hp / InstPlayer.Hp);
         InstPlayer.CurrentBoost.Subscribe((boost) => mUIPlayGame.InstSliderBoostBar.value = boost / InstPlayer.Boost);
 
@@ -180,6 +206,7 @@ public class CScenePlayGame : MonoBehaviour
     {
         mUIPlayGame.ShowUIGameOver(0, TotalScore, mCoin.Value);
         InstItemTimer.Reset();
+        mItemdata.RsetData();
         mUserData.Coin += mCoin.Value;
         mIsPlaying = false;
     }
@@ -360,7 +387,17 @@ public class CScenePlayGame : MonoBehaviour
     [Button]
     public void OnIncrementCoin()
     {
-        mCoin.Value += 1;
+
+        if(mItemdata.Item2 == 1)
+        {
+            mCoin.Value += 1 * 2;
+        }
+        else
+        {
+            mCoin.Value += 1;
+        }
+
+       
         InstPlayer.IncrementBoost(CoinPerBoost);
     }
 

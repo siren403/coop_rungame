@@ -14,6 +14,7 @@ public class CPlayer : MonoBehaviour
     //State Values
     [SerializeField]
     private CPlayerData mData = null;
+    private CItemData mItemData = null;
 
     public int Hp
     {
@@ -34,6 +35,26 @@ public class CPlayer : MonoBehaviour
                 mCurrentHp = new IntReactiveProperty();
             }
             return mCurrentHp;
+        }
+    }
+
+    private IntReactiveProperty mAddHp = null;
+    public IntReactiveProperty AddHp
+    {
+        get
+        {
+            if(mAddHp == null)
+            {
+                mAddHp = new IntReactiveProperty();
+            }
+            return mAddHp;
+        }
+    }
+    public int AddHpValue
+    {
+        get
+        {
+            return 200;
         }
     }
 
@@ -175,9 +196,9 @@ public class CPlayer : MonoBehaviour
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
         Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
-
+        mItemData = new CItemData();
         CurrentHp.Value = Hp;
-
+        AddHp.Value = 200;
         SwitchPlayerCollider(true);
     }
 
@@ -413,12 +434,24 @@ public class CPlayer : MonoBehaviour
 
     public void DecrementHp(int value)
     {
-        mCurrentHp.Value -= value;
-        if (mCurrentHp.Value < 0)
+        if(mItemData.Item1 == 1 && mAddHp.Value > 0)
         {
-            mCurrentHp.Value = 0;
-            GameOver();
+            mAddHp.Value -= value;
+            if(mAddHp.Value < 0)
+            {
+                mAddHp.Value = 0;
+            }
         }
+        else
+        {
+            mCurrentHp.Value -= value;
+            if (mCurrentHp.Value < 0)
+            {
+                mCurrentHp.Value = 0;
+                GameOver();
+            }
+        }
+        
     }
     public void IncrementBoost(float value)
     {

@@ -12,6 +12,7 @@ public class CUIPlayGame : MonoBehaviour
 
     //PlayUI
     public Slider InstSliderHPBar = null;//체력바
+    public Slider InstSliderAddHPBar = null;//추가체력바
     public Slider InstSliderBoostBar = null;//부스터게이지
     public Slider InstSliderJoyStick = null;//조이스틱
     [SerializeField]

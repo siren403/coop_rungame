@@ -13,12 +13,17 @@ public class CItemObject : CPlacementObject
         Heal = 3,
         Dash = 4,
     }
-    
+
+    private CItemData mItemdata = null;
 
     public ItemType _ItemType;
 
     public float Duration = 0.0f;
 
+    private void Awake()
+    {
+        mItemdata = new CItemData();
+    }
 
 
     protected override void OnPlayerEnter(CPlayer tPlayer)
@@ -53,19 +58,43 @@ public class CItemObject : CPlacementObject
         switch (_ItemType)
         {
             case ItemType.Boost:
-                Duration = 5.0f;
+                if(mItemdata.Item3 == 1)
+                {
+                    Duration = 5.0f + 2.0f;
+                    Debug.Log("증가함?");
+                }
+                else
+                {
+                    Duration = 5.0f;
+                }
                 CTrackBoostItem item = new CTrackBoostItem(tPlayer, Duration);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType,item);
                 Destroy(this.gameObject);
                 break;
             case ItemType.Shield:
-                Duration = 10.0f;
+                if (mItemdata.Item3 == 1)
+                {
+                    Duration = 10.0f + 2.0f;
+                    Debug.Log("증가함?");
+                }
+                else
+                {
+                    Duration = 10.0f;
+                }
                 CShieldItem Shielditem = new CShieldItem(tPlayer, Duration);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType, Shielditem);
                 Destroy(this.gameObject);
                 break;
             case ItemType.Magnet:
-                Duration = 5.0f;
+                if (mItemdata.Item3 == 1)
+                {
+                    Duration = 5.0f + 2.0f;
+                    Debug.Log("증가함?");
+                }
+                else
+                {
+                    Duration = 5.0f;
+                }
                 CMagnetItem MagnetItem = new CMagnetItem(tPlayer, Duration);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType, MagnetItem);
                 Destroy(this.gameObject);
