@@ -24,7 +24,7 @@ public class ShowUserData : MonoBehaviour
         }
         if (InstTxtCoin != null)
         {
-            InstTxtCoin.text = string.Format("COIN : {0}", mUserData.Coin);
+            InstTxtCoin.text = string.Format("{0}", mUserData.Coin);
         }
     }
 }

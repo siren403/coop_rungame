@@ -147,23 +147,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4867691747842360, guid: 88712f8bb8fb1a54398ce525a0456645, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4459978263688758, guid: 88712f8bb8fb1a54398ce525a0456645, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 95924792247129138, guid: 88712f8bb8fb1a54398ce525a0456645,
-        type: 2}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 136342336416063942, guid: 88712f8bb8fb1a54398ce525a0456645, type: 2}
-    - {fileID: 136135770910332398, guid: 88712f8bb8fb1a54398ce525a0456645, type: 2}
-    - {fileID: 65268216870074000, guid: 88712f8bb8fb1a54398ce525a0456645, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88712f8bb8fb1a54398ce525a0456645, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &11748525 stripped
@@ -1602,7 +1586,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.031645503, y: 0.10215308}
   m_AnchorMax: {x: 0.3197414, y: 0.21723731}
-  m_AnchoredPosition: {x: 1.4700012, y: -0.14892578}
+  m_AnchoredPosition: {x: 1.4700317, y: -0.14892578}
   m_SizeDelta: {x: -0.1000061, y: -4.2959976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &526545299
@@ -2109,6 +2093,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ceaa57e62eb354bb5d603f6daeeba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InstEdgeFire: {fileID: 0}
+  InstStartPanel: {fileID: 0}
   InstSliderHPBar: {fileID: 763493898}
   InstSliderBoostBar: {fileID: 763493901}
   InstSliderJoyStick: {fileID: 763493900}
@@ -2118,6 +2104,9 @@ MonoBehaviour:
   InstBtnPauseClose: {fileID: 746705811}
   InstSliderTrackProgress: {fileID: 416049005}
   InstTxtStageNumber: {fileID: 1070157901}
+  InstTheme1Left: {fileID: 0}
+  InstTheme1Right: {fileID: 0}
+  InstTheme2Slow: {fileID: 0}
   InstPanelPause: {fileID: 859110801}
   InstTxtPauseScore: {fileID: 1015224342}
   InstUIGameOver: {fileID: 1395180271}

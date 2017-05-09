@@ -34,6 +34,10 @@ public class CUILobby : MonoBehaviour {
 
     public Image mFade;
 
+    public AudioClip BtnSfx;
+    AudioSource MySource;
+    public static CUILobby instance;
+
     private void Awake()
     {
         UIPopUpHeart.SetUILobby(this);
@@ -52,14 +56,21 @@ public class CUILobby : MonoBehaviour {
             SceneMainLobby.m_Timecontrol.text = string.Format("{0} :{1:D2}", Min,Sec);
         });
 
-       
+        if (CUILobby.instance == null)
+        {
+            CUILobby.instance = this;
+        }
+
     }
 
     public void SetUIItem(CUIItem tUITem)
     {
         UIItem = tUITem;
     }
-
+    private void Start()
+    {
+        MySource = this.gameObject.GetComponent<AudioSource>();
+    }
     private void Update()
     {
         UpdateHeartArray();
@@ -84,7 +95,9 @@ public class CUILobby : MonoBehaviour {
             DOTween.To(() => { return mFade.color; }, (color) => mFade.color = color, new Color(0, 0, 0, 1), 0.2f)
                 .OnComplete(() =>
                 {
-                    SceneManager.LoadScene("ScenePlayGame");
+                    MySource.PlayOneShot(BtnSfx);
+                    Invoke("invokeLoadScene", 0.5f);
+                    
                 });
         }
         else
@@ -206,6 +219,10 @@ public class CUILobby : MonoBehaviour {
     public void SetHeart(int tHeart)
     {
         mHeart = tHeart;
+    }
+    void invokeLoadScene()
+    {
+        SceneManager.LoadScene("ScenePlayGame");
     }
 
 

@@ -572,7 +572,6 @@ GameObject:
   - component: {fileID: 4360952711823106}
   - component: {fileID: 33410909424523342}
   - component: {fileID: 23147257611794968}
-  - component: {fileID: 64652803324191910}
   m_Layer: 0
   m_Name: Cliff_20
   m_TagString: Untagged
@@ -934,7 +933,6 @@ GameObject:
   - component: {fileID: 4396783544177804}
   - component: {fileID: 33221609778795026}
   - component: {fileID: 23316566895099800}
-  - component: {fileID: 64362336846838270}
   m_Layer: 0
   m_Name: Cliff_05
   m_TagString: Untagged
@@ -1310,7 +1308,6 @@ GameObject:
   - component: {fileID: 4194821532158034}
   - component: {fileID: 33832095447177368}
   - component: {fileID: 23404018396588726}
-  - component: {fileID: 64970150616461968}
   m_Layer: 0
   m_Name: Cliff_05 (1)
   m_TagString: Untagged
@@ -1707,7 +1704,6 @@ GameObject:
   - component: {fileID: 4021184955657848}
   - component: {fileID: 33553493663701348}
   - component: {fileID: 23843944510453668}
-  - component: {fileID: 64811260121755990}
   m_Layer: 0
   m_Name: Cliff_26
   m_TagString: Untagged
@@ -4955,62 +4951,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628339709857834}
   m_Mesh: {fileID: 4300000, guid: b9565bd62bf9df84aa6c44e1b5cb67b0, type: 3}
---- !u!64 &64362336846838270
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1549844574010108}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64652803324191910
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1295841471695130}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300044, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64811260121755990
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1921701846735486}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300082, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
---- !u!64 &64970150616461968
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1719168284844112}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: e6b7b14d04d2b1d48a9e57192b75fc52, type: 3}
 --- !u!65 &65022443853563420
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -6857,6 +6797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ItemType: 1
+  Duration: 0
 --- !u!114 &114459197440226790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6880,6 +6821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ItemType: 1
+  Duration: 0
 --- !u!114 &114497756179261288
 MonoBehaviour:
   m_ObjectHideFlags: 1

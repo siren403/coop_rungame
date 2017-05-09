@@ -1,7 +1,13 @@
-﻿using System.Collections;
+﻿//#define DIFFCULTY
+#define LOW
+//#define MEDIUM
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
+
 namespace Map
 {
     public enum TrackType
@@ -33,7 +39,7 @@ namespace Map
         private int mSight = 6;
 
 
-        private List<TrackType> mTrackData = new List<TrackType>();
+        private List<TrackType> mTrackPlaceData = new List<TrackType>();
         private Dictionary<TrackType, CTrack> CurrentPFTracks
         {
             get
@@ -42,7 +48,7 @@ namespace Map
             }
         }
         private int mCurrentPFTrackIndex = 0;
-        private int mStageCount = 0;
+        private int mStageIndex = 0;
         private List<Dictionary<TrackType, CTrack>> mPFTrackList = new List<Dictionary<TrackType, CTrack>>();
 
         private Dictionary<int,CTile> mInstTileList = new Dictionary<int, CTile>();
@@ -55,14 +61,14 @@ namespace Map
         {
             get
             {
-                return mCurrentPivot - (73 * mStageCount);
+                return mCurrentPivot - (73 * mStageIndex);
             }
         }
         public int TrackCount
         {
             get
             {
-                return mInstTrackIndex - (73 * mStageCount);
+                return mInstTrackIndex - (73 * mStageIndex);
             }
         }
 
@@ -73,7 +79,7 @@ namespace Map
             {
                 if (mCurrentPivot >= 0)
                 {
-                    return (float)(mCurrentPivot - (73 * mStageCount)) /(mInstTrackIndex - (73 * mStageCount));
+                    return (float)(mCurrentPivot - (73 * mStageIndex)) /(mInstTrackIndex - (73 * mStageIndex));
                 }
                 return 0.0f;
             }
@@ -103,12 +109,16 @@ namespace Map
         private int LeftThemeIndex = 0;
         private int RightThemeIndex = 0;
 
+        private CTrackData mTrackData = null;
+
         public CTrackCreator(Transform tParent)
         {
             mParent = tParent;
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme1"));
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme2"));
             mPFTrackList.Add(LoadThemePFTrack("Tracks/Theme3"));
+
+            mTrackData = Resources.Load<CTrackData>("GameData/CTrackData");
 
             List<int> tStageNumbers = new List<int>() { 1, 2 };
             for (int i = 0; i < 2; i++)
@@ -140,7 +150,7 @@ namespace Map
             List<TrackType> tTypes = new List<TrackType>();
             tTypes.Add(TrackType.E);
 
-            mTrackData.Clear();
+            mTrackPlaceData.Clear();
 
             bool tIsStartRoad = false;
             bool tIsEndRoad = false;
@@ -148,7 +158,7 @@ namespace Map
             for (int i = 0; i < mTileCount - 1;)
             {
                 TrackType addTrack = tTypes[UnityEngine.Random.Range(0, tTypes.Count)];
-                mTrackData.Add(addTrack);
+                mTrackPlaceData.Add(addTrack);
 
                 if (CurrentPFTracks.ContainsKey(addTrack))
                 {
@@ -162,15 +172,25 @@ namespace Map
                 if (tIsStartRoad == false && i >= 5)
                 {
                     tIsStartRoad = true;
-
-                    for (int tTrackValue = (int)TrackType.A; tTrackValue < (int)TrackType.Z; tTrackValue++)
+                    List<TrackType> tTrackDiffcultyList = null;
+#if DIFFCULTY
+                    tTrackDiffcultyList = mTrackData.DiffcultyList[Mathf.Clamp(mStageIndex, 0, mTrackData.DiffcultyList.Count - 1)];
+#elif LOW
+                    tTrackDiffcultyList = new List<TrackType>();
+                    for (int start = (int)TrackType.A; start <= (int)TrackType.F; start++)
                     {
-                        if (CurrentPFTracks.ContainsKey((TrackType)tTrackValue))
-                        {
-                            tTypes.Add((TrackType)tTrackValue);
-                            //Debug.Log((TrackType)tTrackValue);
-                        }
+                        tTrackDiffcultyList.Add((TrackType)start);
                     }
+#elif MEDIUM
+                    tTrackDiffcultyList = new List<TrackType>();
+                    for (int start = (int)TrackType.A; start <= (int)TrackType.P; start++)
+                    {
+                        tTrackDiffcultyList.Add((TrackType)start);
+                    }
+#endif
+
+
+                    tTypes.AddRange(tTrackDiffcultyList);
 
                 }
                 else if (tIsEndRoad == false && i >= mTileCount - 5)
@@ -180,10 +200,10 @@ namespace Map
                     tTypes.Add(TrackType.EMPTY);
                 }
             }
-            mTrackData.Add(TrackType.END);
+            mTrackPlaceData.Add(TrackType.END);
             for (int i = 0; i < 3; i++)
             {
-                mTrackData.Add(TrackType.EMPTY);
+                mTrackPlaceData.Add(TrackType.EMPTY);
             }
 
         }
@@ -191,7 +211,7 @@ namespace Map
         public void PositionTracks()
         {
          
-            foreach(var tTrackType in mTrackData)
+            foreach(var tTrackType in mTrackPlaceData)
             {
                 if (CurrentPFTracks.ContainsKey(tTrackType))
                 {
@@ -201,6 +221,7 @@ namespace Map
 
 
                     tTrack.DisableTiles();
+                    tTrack.gameObject.name = string.Format("[{0}] {1}", mInstTrackIndex, tTrack.gameObject.name);
 
                     foreach (var tile in tTrack.InstTileList)
                     {
@@ -208,11 +229,10 @@ namespace Map
                         tile.Init(this, mInstTrackIndex, tTrackType);
                         mInstTrackIndex++;
                     }
-                    tTrack.gameObject.name = string.Format("[{0}] {1}", mInstTrackIndex, tTrack.gameObject.name);
 
                 }
             }
-            mOnChangeStage.SafeInvoke(mStageCount + 1, mCurrentPFTrackIndex);
+            mOnChangeStage.SafeInvoke(mStageIndex + 1, mCurrentPFTrackIndex);
 
         }
 
@@ -229,6 +249,7 @@ namespace Map
 
             for (int i = start; i < end; i++)
             {
+
                 if(mShowTileQueue.Contains(mInstTileList[i]) == false)
                 {
                     mInstTileList[i].Show();
@@ -277,29 +298,44 @@ namespace Map
         {
             if (mIsNextTheme)
             {
-                if(select == -1)
+                if (select == -1)
                 {
                     mCurrentPFTrackIndex = LeftThemeIndex;
-                    if (mThemeStack.Count != 0)
+                    if (mStageIndex < 1)
                     {
                         mThemeStack.Push(RightThemeIndex);
                     }
                 }
-                else if(select == 1)
+                else if (select == 1)
                 {
                     mCurrentPFTrackIndex = RightThemeIndex;
-                    if (mThemeStack.Count != 0)
+                    if (mStageIndex < 1)
                     {
                         mThemeStack.Push(LeftThemeIndex);
                     }
                 }
+                foreach(var num in mThemeStack)
+                {
+                    Debug.Log("theme num : " + num);
+                }
 
                 mIsNextTheme = false;
-                int start = (70 - 2) * mStageCount;
-                int end = (70 - 2) * (mStageCount + 1);
-                if (mStageCount > 0)
+                int start = (70 - 2) * mStageIndex;
+                int end = (70 - 2) * (mStageIndex + 1);
+
+                foreach(var tile in mInstTileList)
                 {
-                    end += 4 + (mStageCount);
+                    if(tile.Value.GetTrackType() == TrackType.END)
+                    {
+                        end = tile.Value.Index-1;
+                        break;
+                    }
+                }
+
+                Debug.Log(end);
+                if (mStageIndex > 0)
+                {
+                    end += 4 + (mStageIndex);
                 }
                 for (int i = start; i < end; i++)
                 {
@@ -309,7 +345,7 @@ namespace Map
                         mInstTileList.Remove(i);
                     }
                 }
-                mStageCount++;
+                mStageIndex++;
                 CreateTrackData();
                 PositionTracks();
             }

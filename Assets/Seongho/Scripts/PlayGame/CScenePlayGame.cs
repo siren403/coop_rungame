@@ -13,6 +13,14 @@ public class CScenePlayGame : MonoBehaviour
     private PlayGamePrefabs mPlayGamePrefabs = new PlayGamePrefabs();
 
     private UserData mUserData = null;
+    private CPlayGameData mPlayGameData = null;
+    public CPlayGameData PlayGameData
+    {
+        get
+        {
+            return mPlayGameData;
+        }
+    }
 
     //GameState
     [ReadOnly]
@@ -28,12 +36,7 @@ public class CScenePlayGame : MonoBehaviour
     private FloatReactiveProperty mScore = null;
     private IntReactiveProperty mCoin = null;
 
-    public float HpTickTime = 0.5f;
-    public int HpTickPerHp = 10;
     public float HpTickPerHpRatio = 1.0f;
-    public float ScoreTickTime = 0.01f;
-    public float CoinPerScore = 20.0f;
-    public float CoinPerBoost = 1.0f;
     public int TotalScore = 0;
     //Ref
     public CPlayer InstPlayer = null;
@@ -42,6 +45,12 @@ public class CScenePlayGame : MonoBehaviour
     [ReadOnly]
     [SerializeField]
     private CUIPlayGame mUIPlayGame = null;
+    public CUIPlayGame UIPlayGame
+    {
+        get {
+            return mUIPlayGame;
+        }
+    }
 
     private Coroutine mCoroutineTickHp = null;
     private Coroutine mCoroutineTickScore = null;
@@ -61,8 +70,8 @@ public class CScenePlayGame : MonoBehaviour
         InstItemTimer.SetScene(this);
 
        
-
         mUserData = new UserData();
+        mPlayGameData = Resources.Load<CPlayGameData>("GameData/CPlayGameData");
 
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
 
@@ -103,7 +112,7 @@ public class CScenePlayGame : MonoBehaviour
         mScore = new FloatReactiveProperty();
         mScore.Subscribe((score) =>
         {
-            TotalScore = (int)score + (mCoin.Value * (int)CoinPerScore);
+            TotalScore = (int)score + (mCoin.Value * (int)mPlayGameData.CoinPerScore);
             mUIPlayGame.SetTxtScore(TotalScore);
             mUIPlayGame.SetTxtPauseScore(TotalScore);
         });
@@ -125,15 +134,18 @@ public class CScenePlayGame : MonoBehaviour
             {
                 StopCoroutine(mCurrentStageTick);
             }
+
+            InstPlayer.ResetSideSpeed();
             switch(theme)
             {
                 case 0:
-                    mCurrentStageTick = StartCoroutine(StageTick_1());
+                    mCurrentStageTick = StartCoroutine(ThemeTick_1());
                     break;
                 case 1:
-                    mCurrentStageTick = StartCoroutine(StageTick_2());
+                    mCurrentStageTick = StartCoroutine(ThemeTick_2());
                     break;
                 case 2:
+                    InstPlayer.SideSpeed = 20.0f;
                     break;
             }
         };
@@ -144,6 +156,7 @@ public class CScenePlayGame : MonoBehaviour
     }
     private IEnumerator Start()
     {
+        mUIPlayGame.FadeInPanel();
         yield return new WaitForSeconds(1.0f);
         OnStartRun();
     }
@@ -172,9 +185,13 @@ public class CScenePlayGame : MonoBehaviour
     private void OnGameOver()
     {
         mUIPlayGame.ShowUIGameOver(0, TotalScore, mCoin.Value);
-        InstItemTimer.Reset();
         mUserData.Coin += mCoin.Value;
+        StopCoroutine(mCoroutineTickHp);
+        StopCoroutine(mCoroutineTickScore);
+        StopCoroutine(mCurrentStageTick);
         mIsPlaying = false;
+
+        InstItemTimer.Reset();
     }
 
     private void OnRetire()
@@ -199,8 +216,8 @@ public class CScenePlayGame : MonoBehaviour
     {
         while(mIsPlaying)
         {
-            InstPlayer.DecrementHp((int)(HpTickPerHp * HpTickPerHpRatio));
-            yield return new WaitForSeconds(HpTickTime);
+            InstPlayer.DecrementHp((int)(mPlayGameData.HpTickPerHp * HpTickPerHpRatio));
+            yield return new WaitForSeconds(mPlayGameData.HpTickTime);
         }
     }
     private IEnumerator TickScore()
@@ -208,14 +225,14 @@ public class CScenePlayGame : MonoBehaviour
         while(mIsPlaying)
         {
             mScore.Value += 1 * InstPlayer.TotalSpeedRatio;
-            yield return new WaitForSeconds(ScoreTickTime);
+            yield return new WaitForSeconds(mPlayGameData.ScoreTickTime);
         }
     }
 
 
     #region Stage Tick
     private bool mIsTrackEffect = false;
-    private IEnumerator StageTick_1()
+    private IEnumerator ThemeTick_1()
     {
         while(true)
         {
@@ -224,15 +241,17 @@ public class CScenePlayGame : MonoBehaviour
                 if (mIsTrackEffect == false)
                 {
                     if (mTrackCreator.CurrentPivot < 65 &&
-                        mTrackCreator.CurrentPivot != 0 && mTrackCreator.CurrentPivot % 5 == 0)
+                        mTrackCreator.CurrentPivot != 0 && mTrackCreator.CurrentPivot % mPlayGameData.Theme1EffectCount == 0)
                     {
                         mIsTrackEffect = true;
                         Debug.Log("Effect");
 
+                        float tDelay = mPlayGameData.Theme1EffectDelay;
+
                         int tIsDir = Random.value > 0.5f ? -1 : 1;
-                        mUIPlayGame.ShowTheme1UI(tIsDir,1.5f);
+                        mUIPlayGame.ShowTheme1UI(tIsDir, tDelay);
                         InstPlayer.transform.DOMoveX(tIsDir == 1 ? -3.0f : 3.0f, 0.25f)
-                            .SetDelay(1.5f)
+                            .SetDelay(tDelay)
                             .SetRelative()
                             .OnStart(() =>
                             {
@@ -260,7 +279,7 @@ public class CScenePlayGame : MonoBehaviour
         }
     }
     private float mNotInputTime = 0.0f;
-    private IEnumerator StageTick_2()
+    private IEnumerator ThemeTick_2()
     {
         while (true)
         {
@@ -272,11 +291,11 @@ public class CScenePlayGame : MonoBehaviour
                 {
                     mNotInputTime += Time.deltaTime;
 
-                    if (mNotInputTime >= 3.0f)
+                    if (mNotInputTime >= mPlayGameData.Theme2NotInputDuration)
                     {
                         Debug.Log("Down Speed");
                         mUIPlayGame.ShowTheme2UI(true);
-                        InstPlayer.SetSpeedRatio(0.5f);
+                        InstPlayer.SetSpeedRatio(mPlayGameData.Theme2EffectSpeedRatio);
                     }
                 }
                 else
@@ -310,6 +329,11 @@ public class CScenePlayGame : MonoBehaviour
 
     #endregion
 
+    public void PlayerOutTrack()
+    {
+        InstPlayer.SetSpeedRatio(mPlayGameData.OutTrackSpeedRatio);
+        HpTickPerHpRatio = mPlayGameData.OutTrackHpDecrementRatio;
+    }
 
     [Button]
     public void OnRestartRun()
@@ -343,7 +367,7 @@ public class CScenePlayGame : MonoBehaviour
     [Button]
     public void OnIncrementBoost()
     {
-        InstPlayer.IncrementBoost(5.7f);
+        InstPlayer.IncrementBoost(2.0f);//5.7f);
     }
     [Button]
     public void OnIncrementScore()
@@ -354,7 +378,7 @@ public class CScenePlayGame : MonoBehaviour
     public void OnIncrementCoin()
     {
         mCoin.Value += 1;
-        InstPlayer.IncrementBoost(CoinPerBoost);
+        InstPlayer.IncrementBoost(mPlayGameData.CoinPerBoost);
     }
 
     

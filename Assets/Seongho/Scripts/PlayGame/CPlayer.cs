@@ -11,6 +11,8 @@ public class CPlayer : MonoBehaviour
 
     public ForceMode JumpForceMode;
 
+    public SkinnedMeshRenderer PlayerColor;
+    
     //State Values
     [SerializeField]
     private CPlayerData mData = null;
@@ -22,7 +24,6 @@ public class CPlayer : MonoBehaviour
             return mData.Hp;
         }
     }
-
 
     private IntReactiveProperty mCurrentHp = null;
     public IntReactiveProperty CurrentHp
@@ -61,11 +62,17 @@ public class CPlayer : MonoBehaviour
             return mData.Speed;
         }
     }
+    private float mSideSpeed = 10.0f;
     public float SideSpeed
     {
         get
         {
-            return mData.SideSpeed;
+            //return mData.SideSpeed;
+            return mSideSpeed;
+        }
+        set
+        {
+            mSideSpeed = value;
         }
     }
     [ReadOnly]
@@ -116,6 +123,19 @@ public class CPlayer : MonoBehaviour
         }
     }
 
+    private bool mIsMagnet = false;
+    public bool IsMagnet
+    {
+        get
+        {
+            return mIsMagnet;
+        }
+        set
+        {
+            mIsMagnet = value;
+        }
+    }
+
     private CacheComponent<Rigidbody> Body = null;
     private CacheComponent<Animator> Anim = null;
 
@@ -152,7 +172,10 @@ public class CPlayer : MonoBehaviour
 
     public bool IsControl = true;
 
-   
+
+    public GameObject instMagnet = null;
+    public GameObject instShield = null;
+    public GameObject instBoost = null;
 
 
     private void Awake()
@@ -161,6 +184,7 @@ public class CPlayer : MonoBehaviour
         Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
 
         CurrentHp.Value = Hp;
+        ResetSideSpeed();
 
         SwitchPlayerCollider(true);
     }
@@ -194,7 +218,10 @@ public class CPlayer : MonoBehaviour
             StandCollider.size = new Vector3(1.5f, 1, 1.5f);
         }
     }
-
+    public void ResetSideSpeed()
+    {
+        mSideSpeed = mData.SideSpeed;
+    }
 
     private void Update()
     {
@@ -355,6 +382,28 @@ public class CPlayer : MonoBehaviour
     public void SetShield(bool tIsShield)
     {
         IsShield = tIsShield;
+        if(IsShield == true)
+        {
+            instShield.SetActive(true);
+        }
+        else
+        {
+            instShield.SetActive(false);
+        }
+    }
+
+    public void SetMagnet(bool tIsMagnet)
+    {
+        IsMagnet = tIsMagnet;
+        if(IsMagnet == true)
+        {
+            instMagnet.SetActive(true);
+        }
+        else
+        {
+            instMagnet.SetActive(false);
+        }
+            
     }
 
 
