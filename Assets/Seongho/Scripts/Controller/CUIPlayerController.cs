@@ -64,6 +64,7 @@ public class CUIPlayerController : CPlayerController
     public void OnClickBtnJump()
     {
         CallOnJump.SafeInvoke();
+
     }
     public void OnClickBtnSlide()
     {
