@@ -62,11 +62,17 @@ public class CPlayer : MonoBehaviour
             return mData.Speed;
         }
     }
+    private float mSideSpeed = 10.0f;
     public float SideSpeed
     {
         get
         {
-            return mData.SideSpeed;
+            //return mData.SideSpeed;
+            return mSideSpeed;
+        }
+        set
+        {
+            mSideSpeed = value;
         }
     }
     [ReadOnly]
@@ -178,6 +184,7 @@ public class CPlayer : MonoBehaviour
         Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
 
         CurrentHp.Value = Hp;
+        ResetSideSpeed();
 
         SwitchPlayerCollider(true);
     }
@@ -211,7 +218,10 @@ public class CPlayer : MonoBehaviour
             StandCollider.size = new Vector3(1.5f, 1, 1.5f);
         }
     }
-
+    public void ResetSideSpeed()
+    {
+        mSideSpeed = mData.SideSpeed;
+    }
 
     private void Update()
     {

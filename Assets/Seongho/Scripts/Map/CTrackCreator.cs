@@ -298,21 +298,25 @@ namespace Map
         {
             if (mIsNextTheme)
             {
-                if(select == -1)
+                if (select == -1)
                 {
                     mCurrentPFTrackIndex = LeftThemeIndex;
-                    if (mThemeStack.Count != 0)
+                    if (mStageIndex < 1)
                     {
                         mThemeStack.Push(RightThemeIndex);
                     }
                 }
-                else if(select == 1)
+                else if (select == 1)
                 {
                     mCurrentPFTrackIndex = RightThemeIndex;
-                    if (mThemeStack.Count != 0)
+                    if (mStageIndex < 1)
                     {
                         mThemeStack.Push(LeftThemeIndex);
                     }
+                }
+                foreach(var num in mThemeStack)
+                {
+                    Debug.Log("theme num : " + num);
                 }
 
                 mIsNextTheme = false;

@@ -134,6 +134,8 @@ public class CScenePlayGame : MonoBehaviour
             {
                 StopCoroutine(mCurrentStageTick);
             }
+
+            InstPlayer.ResetSideSpeed();
             switch(theme)
             {
                 case 0:
@@ -143,6 +145,7 @@ public class CScenePlayGame : MonoBehaviour
                     mCurrentStageTick = StartCoroutine(ThemeTick_2());
                     break;
                 case 2:
+                    InstPlayer.SideSpeed = 20.0f;
                     break;
             }
         };
@@ -182,9 +185,13 @@ public class CScenePlayGame : MonoBehaviour
     private void OnGameOver()
     {
         mUIPlayGame.ShowUIGameOver(0, TotalScore, mCoin.Value);
-        InstItemTimer.Reset();
         mUserData.Coin += mCoin.Value;
+        StopCoroutine(mCoroutineTickHp);
+        StopCoroutine(mCoroutineTickScore);
+        StopCoroutine(mCurrentStageTick);
         mIsPlaying = false;
+
+        InstItemTimer.Reset();
     }
 
     private void OnRetire()

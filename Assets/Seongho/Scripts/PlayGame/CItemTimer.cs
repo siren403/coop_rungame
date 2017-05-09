@@ -139,11 +139,21 @@ public class CItemTimer : MonoBehaviour
     
     public void Reset()
     {
-        for (int ti = 0; ti < mTrackItem.Count; ti++)
+        //for (int ti = 0; ti < mTrackItem.Count; ti++)
+        //{
+        //    mTrackItem[(CItemObject.ItemType)ti].Deactivate();
+        //    mTrackItem[(CItemObject.ItemType)ti].Reset();
+        //    mTrackItem[(CItemObject.ItemType)ti].Dispose();
+        //}
+
+        foreach(var item in mTrackItem)
         {
-            mTrackItem[(CItemObject.ItemType)ti].Deactivate();
-            mTrackItem[(CItemObject.ItemType)ti].Reset();
-            mTrackItem[(CItemObject.ItemType)ti].Dispose();
+            if (item.Value != null)
+            {
+                item.Value.Deactivate();
+                item.Value.Reset();
+                item.Value.Dispose();
+            }
         }
         mTrackItem.Clear();
     }
