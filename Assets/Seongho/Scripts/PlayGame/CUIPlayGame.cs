@@ -71,8 +71,8 @@ public class CUIPlayGame : MonoBehaviour
             //InstSliderHPBar.fillRect.GetComponent<Image>().color = new Color(1, 1, 1, 0);
             
             DOTween.To(() => InstSliderHPBar.fillRect.GetComponent<Image>().color, (color) =>
-                InstSliderHPBar.fillRect.GetComponent<Image>().color = color, new Color(0, 0, 0, 0), 0.5f)
-                .OnComplete(() => { InstSliderHPBar.fillRect.GetComponent<Image>().color = new Color(1, 0, 0, 1); }).
+                InstSliderHPBar.fillRect.GetComponent<Image>().color = color, new Color(1, 1, 0, 0.5f), 0.5f)
+                .OnComplete(() => { InstSliderHPBar.fillRect.GetComponent<Image>().color = new Color(0, 0, 0, 1); }).
                 SetLoops(-1,LoopType.Restart).SetId("ABCD");
 
             InstChangeHPBar = false;
@@ -123,7 +123,8 @@ public class CUIPlayGame : MonoBehaviour
     public void FadeInPanel()
     {
         DOTween.To(() => InstStartPanel.color, (color) => 
-        InstStartPanel.color = color, new Color(0, 0, 0, 0), 1.0f);
+        InstStartPanel.color = color, new Color(0, 0, 0, 0), 1.0f).OnComplete(() =>
+        InstStartPanel.gameObject.SetActive(false));
     }
     #endregion
 
