@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class CPlayer : MonoBehaviour
 {
-    public float JumpPower = 10.0f;
+    public float JumpPower = 9.0f;
 
     public ForceMode JumpForceMode;
 
