@@ -45,7 +45,10 @@ public class CUILobby : MonoBehaviour {
 
         HeartArray = new GameObject[TOTAL_HEARTCOUNT];
         HeartArray = SceneMainLobby.HeartArray;
+
         mUserData = new UserData();
+        
+
         mTime = new IntReactiveProperty();
         mTime.Subscribe((time) =>
         {
@@ -90,6 +93,7 @@ public class CUILobby : MonoBehaviour {
             mUserData.Heart = mHeart;
 
             UIItem.ApplyItem();
+
 
             mFade.gameObject.SetActive(true);
             DOTween.To(() => { return mFade.color; }, (color) => mFade.color = color, new Color(0, 0, 0, 1), 0.2f)

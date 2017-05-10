@@ -12,6 +12,7 @@ public class CUIPlayGame : MonoBehaviour
     public bool InstChangeHPBar = true;
     //PlayUI
     public Slider InstSliderHPBar = null;//체력바
+    public Slider InstSliderAddHPBar = null;//추가체력바
     public Image InstSliderHPBarFill;
     public Slider InstSliderBoostBar = null;//부스터게이지
     public Slider InstSliderJoyStick = null;//조이스틱
