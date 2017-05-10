@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
-using UnityEngine.SocialPlatforms;
 
 public class InApp : MonoBehaviour, IStoreListener
 {
