@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 //using UnityEngine.Advertisements;
 
+
+
 public class CAdsReward : MonoBehaviour
 {
     public Text mTxtAdsResult = null;

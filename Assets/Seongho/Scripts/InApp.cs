@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using UnityEngine.Events;
 
 public class InApp : MonoBehaviour, IStoreListener
 {
@@ -15,6 +16,10 @@ public class InApp : MonoBehaviour, IStoreListener
     public static string mProductID_Coin_1000 = "coin_1000";
     public static string mProductID_Coin_5000 = "coin_5000";
     public static string mProductID_Coin_20000 = "coin_20000";
+
+    public UnityEvent OnBuyCoin1000 = null;
+    public UnityEvent OnBuyCoin5000 = null;
+    public UnityEvent OnBuyCoin20000 = null;
 
 
     private bool mIsInitialized
@@ -28,25 +33,25 @@ public class InApp : MonoBehaviour, IStoreListener
 
     private void Start()
     {
-        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
-               // enables saving game progress.
-               //.EnableSavedGames()
-               // registers a callback to handle game invitations received while the game is not running.
-               //.WithInvitationDelegate(<callback method>)
-               // registers a callback for turn based match notifications received while the
-               // game is not running.
-               //.WithMatchDelegate(<callback method>)
-               // require access to a player's Google+ social graph (usually not needed)
-               .RequireGooglePlus()
-               .Build();
+        //PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+        //       // enables saving game progress.
+        //       //.EnableSavedGames()
+        //       // registers a callback to handle game invitations received while the game is not running.
+        //       //.WithInvitationDelegate(<callback method>)
+        //       // registers a callback for turn based match notifications received while the
+        //       // game is not running.
+        //       //.WithMatchDelegate(<callback method>)
+        //       // require access to a player's Google+ social graph (usually not needed)
+        //       .RequireGooglePlus()
+        //       .Build();
 
-        PlayGamesPlatform.InitializeInstance(config);
-        PlayGamesPlatform.DebugLogEnabled = true;
-        PlayGamesPlatform.Activate();
+        //PlayGamesPlatform.InitializeInstance(config);
+        //PlayGamesPlatform.DebugLogEnabled = true;
+        //PlayGamesPlatform.Activate();
 
-        Social.localUser.Authenticate((bool success) => {
-            InitializePurchasing();
-        });
+        //Social.localUser.Authenticate((bool success) => {
+        //});
+        InitializePurchasing();
 
 
     }
@@ -82,6 +87,27 @@ public class InApp : MonoBehaviour, IStoreListener
         if (String.Equals(args.purchasedProduct.definition.id, mProductID_test, StringComparison.Ordinal))
         {
             Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+        }
+        else if (String.Equals(args.purchasedProduct.definition.id, mProductID_Coin_1000, StringComparison.Ordinal))
+        {
+            if(OnBuyCoin1000 != null)
+            {
+                OnBuyCoin1000.Invoke();
+            }
+        }
+        else if (String.Equals(args.purchasedProduct.definition.id, mProductID_Coin_5000, StringComparison.Ordinal))
+        {
+            if (OnBuyCoin5000 != null)
+            {
+                OnBuyCoin5000.Invoke();
+            }
+        }
+        else if (String.Equals(args.purchasedProduct.definition.id, mProductID_Coin_20000, StringComparison.Ordinal))
+        {
+            if (OnBuyCoin20000 != null)
+            {
+                OnBuyCoin20000.Invoke();
+            }
         }
         else
         {
