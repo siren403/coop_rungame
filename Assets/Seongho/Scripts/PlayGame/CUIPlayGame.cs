@@ -35,6 +35,22 @@ public class CUIPlayGame : MonoBehaviour
     [SerializeField]
     private Image InstTheme2Slow = null;
 
+    [SerializeField]
+    private Image InstImageWarning = null;
+    [SerializeField]
+    private Image InstImageSlide = null;
+
+    [SerializeField]
+    private Image mInstImageLeftTheme = null;
+    [SerializeField]
+    private Image mInstImageRightTheme = null;
+
+    [SerializeField]
+    private Sprite mTheme2Icon = null;
+    [SerializeField]
+    private Sprite mTheme3Icon = null;
+    
+    
     //PauseUI
     [Space]
     [SerializeField]
@@ -102,15 +118,70 @@ public class CUIPlayGame : MonoBehaviour
             .OnComplete(()=>InstTxtStageNumber.gameObject.SetActive(false));
 
     }
+
     public void ShowTxtSelectTheme(int left,int right)
     {
-        InstTxtSelectTheme.text = string.Format("{0} : LEFT / RIGHT : {1}", left, right);
-        InstTxtSelectTheme.gameObject.SetActive(true);
+        //InstTxtSelectTheme.text = string.Format("{0} : LEFT / RIGHT : {1}", left, right);
+        //InstTxtSelectTheme.gameObject.SetActive(true);
+        mInstImageLeftTheme.sprite = GetThemeIcon(left);
+        mInstImageRightTheme.sprite = GetThemeIcon(right);
+        mInstImageLeftTheme.color = Color.white;
+        mInstImageRightTheme.color = Color.white;
     }
     public void HideTxtSelectTheme()
     {
         InstTxtSelectTheme.gameObject.SetActive(false);
     }
+    public void SelectTheme(int tLeftOrRight)
+    {
+        if(tLeftOrRight == -1)
+        {
+            mInstImageRightTheme.color = new Color(1, 1, 1, 0.35f);
+            if (DOTween.IsTweening("TweenSelectTheme") == false)
+            {
+                DOTween.To(() => mInstImageLeftTheme.color, (color) => mInstImageLeftTheme.color = color, Color.white, 0.15f)
+                    .SetLoops(12, LoopType.Yoyo)
+                    .OnComplete(() =>
+                    {
+                        mInstImageLeftTheme.color = new Color(1, 1, 1, 0);
+                        mInstImageRightTheme.color = new Color(1, 1, 1, 0);
+                    })
+                    .SetId("TweenSelectTheme");
+            }
+        }
+        else
+        {
+            mInstImageLeftTheme.color = new Color(1, 1, 1, 0.35f);
+            if (DOTween.IsTweening("TweenSelectTheme") == false)
+            {
+                DOTween.To(() => mInstImageRightTheme.color, (color) => mInstImageRightTheme.color = color, Color.white, 0.15f)
+                    .SetLoops(12, LoopType.Yoyo)
+                    .OnComplete(() =>
+                    {
+                        mInstImageRightTheme.color = new Color(1, 1, 1, 0);
+                        mInstImageLeftTheme.color = new Color(1, 1, 1, 0);
+
+                    })
+                    .SetId("TweenSelectTheme");
+            }
+        }
+    }
+    private Sprite GetThemeIcon(int theme)
+    {
+        Sprite tIcon = null;
+
+        if(theme == 1)
+        {
+            tIcon = mTheme2Icon;
+        }
+        else
+        {
+            tIcon = mTheme3Icon;
+        }
+
+        return tIcon;
+    }
+
     public void AlphaValue()
     {
       InstEdgeFire.color = new Color(1, 0, 0, 0.3f);
@@ -204,5 +275,27 @@ public class CUIPlayGame : MonoBehaviour
         InstTheme2Slow.gameObject.SetActive(isSlow);
     }
     #endregion
+
+    public void ShowWarning()
+    {
+        if (DOTween.IsTweening("TweenWarning") == false)
+        {
+            DOTween.To(() => InstImageWarning.color, (color) => InstImageWarning.color = color, Color.white, 0.15f)
+                .SetLoops(12, LoopType.Yoyo)
+                .OnComplete(() => InstImageWarning.color = new Color(1, 1, 1, 0))
+                .SetId("TweenWarning");
+        }
+    }
+    public void ShowSlideIcon()
+    {
+        if (DOTween.IsTweening("TweenSlide") == false)
+        {
+            DOTween.To(() => InstImageSlide.color, (color) => InstImageSlide.color = color, Color.white, 0.15f)
+                .SetLoops(12, LoopType.Yoyo)
+                .OnComplete(() => InstImageWarning.color = new Color(1, 1, 1, 0))
+                .SetId("TweenSlide");
+        }
+
+    }
 }
 

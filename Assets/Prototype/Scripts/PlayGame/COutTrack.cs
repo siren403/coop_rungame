@@ -10,10 +10,12 @@ public class COutTrack : MonoBehaviour {
     {
         if (other.CompareTag(CTag.TAG_PLAYER))
         {
-            other.GetComponent<CPlayer>().SetSpeedRatio(0.5f);
+            CPlayer tPlayer = other.GetComponent<CPlayer>();
+            tPlayer.SetSpeedRatio(0.5f);
             FindObjectOfType<CScenePlayGame>().HpTickPerHpRatio = 35.0f;
-            other.GetComponent<CPlayer>().ScenePlayGame.UIPlayGame.AlphaValue();
-            other.GetComponent<CPlayer>().ScenePlayGame.AudioData.OutLineSound();
+            tPlayer.ScenePlayGame.UIPlayGame.AlphaValue();
+            tPlayer.ScenePlayGame.UIPlayGame.ShowWarning();
+            tPlayer.ScenePlayGame.AudioData.OutLineSound();
             
         }
     }
