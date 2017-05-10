@@ -101,6 +101,14 @@ namespace Map
                 mOnChangeStage = value;
             }
         }
+        private System.Action<int> mOnSelectTheme = null;
+        public System.Action<int> OnSelectTheme
+        {
+            set
+            {
+                mOnSelectTheme = value;
+            }
+        }
         private Vector3 mTrackInstancePosition = Vector3.zero;
         private bool mIsNextTheme = false;
 
@@ -249,8 +257,7 @@ namespace Map
 
             for (int i = start; i < end; i++)
             {
-
-                if(mShowTileQueue.Contains(mInstTileList[i]) == false)
+                if(mInstTileList.ContainsKey(i) && mShowTileQueue.Contains(mInstTileList[i]) == false)
                 {
                     mInstTileList[i].Show();
 
@@ -294,7 +301,7 @@ namespace Map
             return tTile;
         }
 
-        public void OnSelectNextTheme(int select)
+        public void SelectNextTheme(int select)
         {
             if (mIsNextTheme)
             {
@@ -314,10 +321,7 @@ namespace Map
                         mThemeStack.Push(LeftThemeIndex);
                     }
                 }
-                foreach(var num in mThemeStack)
-                {
-                    Debug.Log("theme num : " + num);
-                }
+                mOnSelectTheme.SafeInvoke(select);
 
                 mIsNextTheme = false;
                 int start = (70 - 2) * mStageIndex;

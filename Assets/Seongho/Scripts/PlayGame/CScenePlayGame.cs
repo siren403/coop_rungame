@@ -102,7 +102,7 @@ public class CScenePlayGame : MonoBehaviour
         InstItemTimer.SetScene(this);
 
 
-
+        mPlayGameData = Resources.Load<CPlayGameData>("GameData/CPlayGameData");
         mUserData = new UserData();
         mItemdata = new CItemData();
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
@@ -175,10 +175,12 @@ public class CScenePlayGame : MonoBehaviour
         {
             mUIPlayGame.ShowTxtSelectTheme(left, right);
         };
+        mTrackCreator.OnSelectTheme = (select) => 
+        {
+            mUIPlayGame.SelectTheme(select);
+        };
         mTrackCreator.OnChangeStage = (stage,theme) =>
         {
-            mUIPlayGame.SetTxtStageNumber(stage);
-            mUIPlayGame.HideTxtSelectTheme();
 
             if(mCurrentStageTick != null)
             {
@@ -195,6 +197,7 @@ public class CScenePlayGame : MonoBehaviour
                     break;
                 case 2:
                     InstPlayer.SideSpeed = 20.0f;
+                    mUIPlayGame.ShowSlideIcon();
                     break;
             }
         };
