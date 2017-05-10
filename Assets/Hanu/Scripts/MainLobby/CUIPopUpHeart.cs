@@ -10,7 +10,7 @@ public class CUIPopUpHeart : MonoBehaviour {
     public CUILobby UILobby = null;
 
     public const int TOTAL_HEARTCOUNT = 5;
-    public const int HAERT_PRICE = 10;
+    public const int HAERT_PRICE = 3000;
 
     private int mHeart = 0;
 
@@ -33,11 +33,11 @@ public class CUIPopUpHeart : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        UpdateHeartArray();
+      //  UpdateHeartArray();
 
     }
 
-
+    /*
     public void UpdateHeartArray()
     {
         mHeart = UILobby.GetHeart();
@@ -53,7 +53,7 @@ public class CUIPopUpHeart : MonoBehaviour {
             }
         }
     }
-
+    */
     public void OnClickBuyHeart()
     {
         if(mHeart != 5)
@@ -64,6 +64,10 @@ public class CUIPopUpHeart : MonoBehaviour {
                 mUserData.Heart = mHeart;
                 mUserData.Coin -= HAERT_PRICE;
                 UILobby.UIItem.GetCoinText().UpdateUserData();
+            }
+            else
+            {
+                //돈없을때
             }
         }
         else

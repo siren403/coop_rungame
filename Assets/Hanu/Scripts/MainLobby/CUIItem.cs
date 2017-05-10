@@ -148,6 +148,7 @@ public class CUIItem : MonoBehaviour {
         }
         else
         {
+            SceneMainLobby.CoinIsNull.SetActive(true);
             Debug.Log("돈이 부족함");
         }
     }
