@@ -11,7 +11,7 @@ public class CObstacleObject : CPlacementObject
     [SerializeField]
     private bool mIsGameOver = false;
     [SerializeField]
-    private int mDamageValue = 100;
+    private int mDamageValue = 200;
 
     
 

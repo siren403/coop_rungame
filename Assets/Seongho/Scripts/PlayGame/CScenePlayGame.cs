@@ -199,6 +199,23 @@ public class CScenePlayGame : MonoBehaviour
             }
         };
 
+        if(mItemdata.Item2 == 1)
+        {
+            mUIPlayGame.InstItem_1.gameObject.SetActive(false);            
+        }
+        else
+        {
+            mUIPlayGame.InstItem_1.gameObject.SetActive(true);
+        }
+        if(mItemdata.Item3 == 1)
+        {
+            mUIPlayGame.InstItem_2.gameObject.SetActive(false);
+        }
+        else
+        {
+            mUIPlayGame.InstItem_2.gameObject.SetActive(true);
+        }
+
         mTrackCreator.CreateTrackData();
         mTrackCreator.PositionTracks();
         mTrackCreator.UpdateTrackTile(0);
