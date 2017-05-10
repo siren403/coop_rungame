@@ -13,6 +13,17 @@ public class CScenePlayGame : MonoBehaviour
     private PlayGamePrefabs mPlayGamePrefabs = new PlayGamePrefabs();
 
     private UserData mUserData = null;
+
+
+    private CAudio mAudioData = null;
+    public CAudio AudioData
+    {
+        get
+        {
+            return mAudioData;
+        }
+    }
+
     private CPlayGameData mPlayGameData = null;
     public CPlayGameData PlayGameData
     {
@@ -66,6 +77,7 @@ public class CScenePlayGame : MonoBehaviour
 
     private void Awake()
     {
+
         InstPlayer.SetScene(this);
         InstItemTimer.SetScene(this);
 
@@ -74,6 +86,8 @@ public class CScenePlayGame : MonoBehaviour
         mPlayGameData = Resources.Load<CPlayGameData>("GameData/CPlayGameData");
 
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
+
+        mAudioData = mUIPlayGame.GetComponent<CAudio>();
 
         CPlayerController tController = null;
 #if UNITY_EDITOR
@@ -181,10 +195,16 @@ public class CScenePlayGame : MonoBehaviour
 
     private void OnGameOver()
     {
+        AudioSource tAudioEnd;
+        tAudioEnd = this.GetComponent<AudioSource>();
+        tAudioEnd.Pause();
+
+        this.AudioData.DeadSound();
         mUIPlayGame.ShowUIGameOver(0, TotalScore, mCoin.Value);
         InstItemTimer.Reset();
         mUserData.Coin += mCoin.Value;
         mIsPlaying = false;
+
     }
 
     private void OnRetire()
@@ -237,8 +257,8 @@ public class CScenePlayGame : MonoBehaviour
                         mTrackCreator.CurrentPivot != 0 && mTrackCreator.CurrentPivot % mPlayGameData.Theme1EffectCount == 0)
                     {
                         mIsTrackEffect = true;
+                        
                         Debug.Log("Effect");
-
                         float tDelay = mPlayGameData.Theme1EffectDelay;
 
                         int tIsDir = Random.value > 0.5f ? -1 : 1;
@@ -249,6 +269,7 @@ public class CScenePlayGame : MonoBehaviour
                             .OnStart(() =>
                             {
                                 InstPlayer.IsControl = false;
+                                this.AudioData.WindDangerousSound();
                                 Debug.Log("Effect Start");
                             })
                             .OnComplete(() =>
@@ -287,6 +308,10 @@ public class CScenePlayGame : MonoBehaviour
                     if (mNotInputTime >= mPlayGameData.Theme2NotInputDuration)
                     {
                         Debug.Log("Down Speed");
+                        
+                        this.AudioData.DesertPlaySound();
+
+
                         mUIPlayGame.ShowTheme2UI(true);
                         InstPlayer.SetSpeedRatio(mPlayGameData.Theme2EffectSpeedRatio);
                     }
@@ -296,6 +321,7 @@ public class CScenePlayGame : MonoBehaviour
                     mNotInputTime = 0.0f;
                     InstPlayer.SetSpeedRatio(1.0f);
                     mUIPlayGame.ShowTheme2UI(false);
+                    this.AudioData.DesertStopSound();
                 }
 
                 if (mIsInputJumpAndSlide)
@@ -304,6 +330,7 @@ public class CScenePlayGame : MonoBehaviour
                     mNotInputTime = 0.0f;
                     InstPlayer.SetSpeedRatio(1.0f);
                     mUIPlayGame.ShowTheme2UI(false);
+                    this.AudioData.DesertStopSound();
                 }
             }
         }

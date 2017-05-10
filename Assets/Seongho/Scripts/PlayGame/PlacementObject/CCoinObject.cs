@@ -9,6 +9,7 @@ public class CCoinObject : CPlacementObject
     protected override void OnPlayerEnter(CPlayer tPlayer)
     {
         tPlayer.ScenePlayGame.OnIncrementCoin();
+        tPlayer.ScenePlayGame.AudioData.GetCoinSound();
         Destroy(this.gameObject);
     }
 

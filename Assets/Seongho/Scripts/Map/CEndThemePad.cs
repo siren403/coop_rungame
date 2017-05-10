@@ -19,6 +19,7 @@ namespace Map
                 if (tPlayer.PositionAbsMove(mPivot.position))
                 {
                     GetComponentInParent<CTile>().Creator.OnSelectNextTheme(LeftOrRight);
+                    tPlayer.ScenePlayGame.AudioData.EndTrackSound();
                 }
             }
         }
