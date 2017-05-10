@@ -96,7 +96,7 @@ public class CUILobby : MonoBehaviour {
 
 
             mFade.gameObject.SetActive(true);
-            DOTween.To(() => { return mFade.color; }, (color) => mFade.color = color, new Color(0, 0, 0, 1), 1)
+            DOTween.To(() => { return mFade.color; }, (color) => mFade.color = color, new Color(1, 1, 1, 1), 2.0f)
                 .OnComplete(() =>
                 {
                     MySource.PlayOneShot(BtnSfx);

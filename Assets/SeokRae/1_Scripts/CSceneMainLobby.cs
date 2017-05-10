@@ -55,7 +55,7 @@ public class CSceneMainLobby : MonoBehaviour {
     public void OnStart()
     {
         mFade.gameObject.SetActive(true);
-        DOTween.To(() => mFade.color, (color) => mFade.color = color, new Color(0, 0, 0, 1), 1.0f)
+        DOTween.To(() => mFade.color, (color) => mFade.color = color, new Color(1, 1, 1, 1), 2.0f)
         .OnComplete(() => { SceneManager.LoadScene("TestScene");});  
     }
 
