@@ -52,8 +52,8 @@ public class CItemObject : CPlacementObject
                 break;
         }
         Debug.Log(_ItemType.ToString());
+        tPlayer.ViewGetItemUI(_ItemType);
 
-        
 
         switch (_ItemType)
         {
@@ -72,6 +72,7 @@ public class CItemObject : CPlacementObject
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType,item);
                 if(_ItemType == ItemType.Boost)
                 {
+                    
                     Destroy(this.gameObject);
                 }
                 break;
@@ -109,6 +110,7 @@ public class CItemObject : CPlacementObject
                 break;
 
         }
+       
         
     }
 
