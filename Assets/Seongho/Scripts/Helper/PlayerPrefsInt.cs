@@ -11,6 +11,7 @@ public class PlayerPrefsInt
         set
         {
             PlayerPrefs.SetInt(mKey, value);
+            PlayerPrefs.Save();
         }
     }
     private string mKey = "";
