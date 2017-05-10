@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Advertisements;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+//using UnityEngine.Advertisements;
 
 public class CAdsReward : MonoBehaviour
 {
@@ -32,7 +30,7 @@ public class CAdsReward : MonoBehaviour
     //            //
     //            // YOUR CODE TO REWARD THE GAMER
     //            // Give coins etc.
-    //            if(AdsFinished != null)
+    //            if (AdsFinished != null)
     //            {
     //                AdsFinished.Invoke();
     //            }
