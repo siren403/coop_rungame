@@ -7,10 +7,14 @@ using DG.Tweening;
 public class CObstacleObject : CPlacementObject
 {
     private CPlayer mPlayerColorChange;
+    private CScenePlayGame mScenePlayGame;
     [SerializeField]
     private bool mIsGameOver = false;
     [SerializeField]
     private int mDamageValue = 100;
+
+    
+
 
     protected override void OnPlayerEnter(CPlayer tPlayer)
     {
@@ -28,6 +32,8 @@ public class CObstacleObject : CPlacementObject
                 tPlayer.PlayerColor.material.color = color, new Color(1, 0, 0, 1), 0.5f)
                 .OnComplete(() => { tPlayer.PlayerColor.material.color = new Color(1, 1, 1); });
 
+                tPlayer.ScenePlayGame.AudioData.OnClickColliderChar();
+                
             }
             else
             {

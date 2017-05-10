@@ -53,7 +53,7 @@ public class CItemObject : CPlacementObject
         }
         Debug.Log(_ItemType.ToString());
 
-        
+
 
         switch (_ItemType)
         {
@@ -88,6 +88,8 @@ public class CItemObject : CPlacementObject
                 CShieldItem Shielditem = new CShieldItem(tPlayer, Duration);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType, Shielditem);
                 Destroy(this.gameObject);
+
+                tPlayer.ScenePlayGame.AudioData.GetItemSound();
                 break;
             case ItemType.Magnet:
                 if (mItemdata.Item3 == 1)
@@ -102,14 +104,20 @@ public class CItemObject : CPlacementObject
                 CMagnetItem MagnetItem = new CMagnetItem(tPlayer, Duration);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType, MagnetItem);
                 Destroy(this.gameObject);
+
+                tPlayer.ScenePlayGame.AudioData.GetItemSound();
                 break;
             case ItemType.Heal:
                 tPlayer.SetAddHeal(1000);
                 Destroy(this.gameObject);
                 break;
 
+            case ItemType.Dash:
+                tPlayer.ScenePlayGame.AudioData.GetDashSound();
+
+                break;
         }
-        
+
     }
 
 
