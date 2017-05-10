@@ -16,6 +16,9 @@ public class CUIPlayGame : MonoBehaviour
     public Image InstSliderHPBarFill;
     public Slider InstSliderBoostBar = null;//부스터게이지
     public Slider InstSliderJoyStick = null;//조이스틱
+    public Image InstItem_1 = null;
+    public Image InstItem_2 = null;
+
     [SerializeField]
     private Text InstTxtScore = null;
     [SerializeField]

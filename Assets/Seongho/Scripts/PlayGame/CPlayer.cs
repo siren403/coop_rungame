@@ -198,13 +198,16 @@ public class CPlayer : MonoBehaviour
     public GameObject instMagnet = null;
     public GameObject instShield = null;
     public GameObject instBoost = null;
+    public GameObject InstGetItemUI = null;
 
+    public GameObject[] GetItemUI = null;
 
     private void Awake()
     {
         Body = new CacheComponent<Rigidbody>(this.gameObject);
         Anim = new CacheComponent<Animator>(this.transform.GetChild(0).gameObject);
         mItemData = new CItemData();
+      
         CurrentHp.Value = Hp;
         AddHp.Value = 200;
         ResetSideSpeed();
@@ -475,6 +478,31 @@ public class CPlayer : MonoBehaviour
         {
             mCurrentBoost.Value = 0;
             Debug.Log("Boost On");
+        }
+    }
+
+    public void ViewGetItemUI(CItemObject.ItemType tItemType)
+    {
+        switch(tItemType)
+        {
+            case CItemObject.ItemType.Boost:
+                GetItemUI[0].gameObject.SetActive(true);
+                break;
+            case CItemObject.ItemType.Shield:
+                GetItemUI[1].gameObject.SetActive(true);
+                break;
+            case CItemObject.ItemType.Magnet:
+                GetItemUI[2].gameObject.SetActive(true);
+                break;
+        }
+        Invoke("HideGetItemUI", 0.5f);
+    }
+
+    public void HideGetItemUI()
+    {
+       for(int ti = 0; ti < GetItemUI.Length;ti++)
+        {
+            GetItemUI[ti].SetActive(false);
         }
     }
 
