@@ -19,6 +19,8 @@ public class CItemTimer : MonoBehaviour
         mTrackItem.Add(CItemObject.ItemType.Magnet, tItem);
         mTrackItem.Add(CItemObject.ItemType.Heal, tItem);
         mTrackItem.Add(CItemObject.ItemType.Dash, tItem);
+        mTrackItem.Add(CItemObject.ItemType.StartBoost, tItem);
+        mTrackItem.Add(CItemObject.ItemType.None, tItem);
     }
 
     public void SetScene(CScenePlayGame tScene)
@@ -136,7 +138,17 @@ public class CItemTimer : MonoBehaviour
 
         }
     }
-    
+
+    public void StartBoostEnd()
+    {
+        //mTrackItem[CItemObject.ItemType.Boost].Dispose();
+        //mTrackItem[CItemObject.ItemType.Shield].Dispose();
+        mTrackItem[CItemObject.ItemType.Boost] = null;
+        mTrackItem[CItemObject.ItemType.Shield] = null;
+
+
+    }
+
     public void Reset()
     {
         //for (int ti = 0; ti < mTrackItem.Count; ti++)

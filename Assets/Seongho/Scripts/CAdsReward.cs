@@ -21,7 +21,7 @@ public class CAdsReward : MonoBehaviour
             Advertisement.Show("rewardedVideo", options);
         }
     }
-
+  
     private void HandleShowResult(ShowResult result)
     {
         switch (result)
@@ -49,4 +49,5 @@ public class CAdsReward : MonoBehaviour
                 break;
         }
     }
+    
 }

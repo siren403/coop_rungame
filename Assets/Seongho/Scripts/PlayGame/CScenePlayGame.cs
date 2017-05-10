@@ -95,6 +95,21 @@ public class CScenePlayGame : MonoBehaviour
 
     private bool mIsInputJumpAndSlide = false;
 
+    public GameObject InstStartBoost = null;
+
+    private bool mIsStartBoost = false;
+    public bool IsStartBoost
+    {
+        get
+        {
+            return mIsStartBoost;
+        }
+        set
+        {
+            mIsStartBoost = value;
+        }
+    }
+
     private void Awake()
     {
 
@@ -107,6 +122,11 @@ public class CScenePlayGame : MonoBehaviour
         mItemdata = new CItemData();
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
 
+        if(mItemdata.Item4 == 1)
+        {
+            IsStartBoost = true;
+            InstStartBoost.gameObject.SetActive(true);
+        }
 
         mAudioData = mUIPlayGame.GetComponent<CAudio>();
         this.AudioData.StartBGSound();
@@ -179,6 +199,16 @@ public class CScenePlayGame : MonoBehaviour
         {
             mUIPlayGame.SetTxtStageNumber(stage);
             mUIPlayGame.HideTxtSelectTheme();
+
+            if(IsStartBoost == true)
+            {
+                if(stage != 1)
+                {
+                    mItemdata.Item4 = 0;
+                    IsStartBoost = false;
+                    InstItemTimer.Reset();
+                }
+            }
 
             if(mCurrentStageTick != null)
             {
@@ -469,7 +499,7 @@ public class CScenePlayGame : MonoBehaviour
             mCoin.Value += 1;
         }
 
-
+        mScore.Value += 10;
         InstPlayer.IncrementBoost(CoinPerBoost);
     }
 
