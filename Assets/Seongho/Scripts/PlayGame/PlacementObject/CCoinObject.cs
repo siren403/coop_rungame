@@ -38,10 +38,12 @@ public class CCoinObject : CPlacementObject
 
         tPlayer.ScenePlayGame.AudioData.GetCoinSound();
 
-        InstBody.SetActive(false);
-        InstParticle.SetActive(true);
-        StartCoroutine(MoveTo(tPlayer));
-        Invoke("ObjectDestroy", 2.0f);
+        //InstBody.SetActive(false);
+        //InstParticle.SetActive(true);
+        //StartCoroutine(MoveTo(tPlayer));
+        //Invoke("ObjectDestroy", 2.0f);
+        Destroy(this.gameObject);
+
     }
 
 
