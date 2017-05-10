@@ -68,7 +68,7 @@ public class CUIPlayGame : MonoBehaviour
         if(InstSliderHPBar.value<0.2f&&InstChangeHPBar==true)
         {
             //InstSliderHPBar.fillRect.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-            Debug.Log("dkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkfkf");
+            
             DOTween.To(() => InstSliderHPBar.fillRect.GetComponent<Image>().color, (color) =>
                 InstSliderHPBar.fillRect.GetComponent<Image>().color = color, new Color(0, 0, 0, 0), 0.5f)
                 .OnComplete(() => { InstSliderHPBar.fillRect.GetComponent<Image>().color = new Color(1, 0, 0, 1); }).
@@ -95,6 +95,11 @@ public class CUIPlayGame : MonoBehaviour
     public void SetTxtStageNumber(int tNumber)
     {
         InstTxtStageNumber.text = string.Format("STAGE : {0}", tNumber);
+
+        DOTween.To(() => InstTxtStageNumber.color, (color) => InstTxtStageNumber.color = color, new Color(1, 1, 1, 0), 1.0f)
+            .OnStart(() => InstTxtStageNumber.gameObject.SetActive(true))
+            .OnComplete(()=>InstTxtStageNumber.gameObject.SetActive(false));
+
     }
     public void ShowTxtSelectTheme(int left,int right)
     {

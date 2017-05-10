@@ -59,7 +59,15 @@ namespace Map
         }
         public void Hide()
         {
-            this.gameObject.SetActive(false);
+            try
+            {
+                this.gameObject.SetActive(false);
+            }
+            catch
+            {
+
+            }
+            
             //HideRenderer(GetComponentInChildren<Renderer>());
         }
         private void ShowRenderer(Renderer target)
