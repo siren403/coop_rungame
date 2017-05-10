@@ -12,6 +12,10 @@ public class InApp : MonoBehaviour, IStoreListener
     private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
 
     public static string mProductID_test = "product_test";
+    public static string mProductID_Coin_1000 = "coin_1000";
+    public static string mProductID_Coin_5000 = "coin_5000";
+    public static string mProductID_Coin_20000 = "coin_20000";
+
 
     private bool mIsInitialized
     {
@@ -122,4 +126,17 @@ public class InApp : MonoBehaviour, IStoreListener
         BuyProductID(mProductID_test);
     }
     #endregion
+
+    public void BuyCoin1000()
+    {
+        BuyProductID(mProductID_Coin_1000);
+    }
+    public void BuyCoin5000()
+    {
+        BuyProductID(mProductID_Coin_5000);
+    }
+    public void BuyCoin20000()
+    {
+        BuyProductID(mProductID_Coin_20000);
+    }
 }
