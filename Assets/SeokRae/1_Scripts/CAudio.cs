@@ -45,7 +45,6 @@ public class CAudio : MonoBehaviour
     public void OnClickBuyItemSound()
     {
         MySource.PlayOneShot(BuyItemSfx);
-        
     }
     public void OnClickColliderChar()
     {
@@ -87,5 +86,13 @@ public class CAudio : MonoBehaviour
     public void DesertStopSound()
     {
         MySource_2.Stop();
+    }
+    public void StartBGSound()
+    {
+        MySource.Play();
+    }
+    public void StopBGSound()
+    {
+        MySource.Stop();
     }
 }

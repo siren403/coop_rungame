@@ -109,6 +109,8 @@ public class CScenePlayGame : MonoBehaviour
 
 
         mAudioData = mUIPlayGame.GetComponent<CAudio>();
+        this.AudioData.StartBGSound();
+        
 
 
         CPlayerController tController = null;
@@ -231,11 +233,10 @@ public class CScenePlayGame : MonoBehaviour
 
     private void OnGameOver()
     {
-        AudioSource tAudioEnd;
-        tAudioEnd = this.GetComponent<AudioSource>();
-        tAudioEnd.Pause();
+        this.AudioData.StopBGSound();
 
         this.AudioData.DeadSound();
+
         mUIPlayGame.ShowUIGameOver(0, TotalScore, mCoin.Value);
         mItemdata.RsetData();
         mUserData.Coin += mCoin.Value;
@@ -359,6 +360,8 @@ public class CScenePlayGame : MonoBehaviour
 
                         mUIPlayGame.ShowTheme2UI(true);
                         InstPlayer.SetSpeedRatio(0.5f);
+
+                        this.AudioData.MySource_2.Play();
                     }
                 }
                 else
@@ -367,6 +370,7 @@ public class CScenePlayGame : MonoBehaviour
                     InstPlayer.SetSpeedRatio(1.0f);
                     mUIPlayGame.ShowTheme2UI(false);
                     this.AudioData.DesertStopSound();
+                    this.AudioData.MySource_2.Stop();
                 }
 
                 if (mIsInputJumpAndSlide)
@@ -376,6 +380,7 @@ public class CScenePlayGame : MonoBehaviour
                     InstPlayer.SetSpeedRatio(1.0f);
                     mUIPlayGame.ShowTheme2UI(false);
                     this.AudioData.DesertStopSound();
+                    this.AudioData.MySource_2.Stop();
                 }
             }
         }

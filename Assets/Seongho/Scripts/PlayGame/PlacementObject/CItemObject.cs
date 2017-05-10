@@ -59,6 +59,8 @@ public class CItemObject : CPlacementObject
         {
             case ItemType.Boost:
             case ItemType.Dash:
+
+                tPlayer.ScenePlayGame.AudioData.GetDashSound();
                 if (mItemdata.Item3 == 1)
                 {
                     Duration = 5.0f + 2.0f;
@@ -112,10 +114,7 @@ public class CItemObject : CPlacementObject
                 Destroy(this.gameObject);
                 break;
 
-            case ItemType.Dash:
-                tPlayer.ScenePlayGame.AudioData.GetDashSound();
-
-                break;
+            
         }
 
     }
