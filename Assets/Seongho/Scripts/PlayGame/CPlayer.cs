@@ -346,7 +346,8 @@ public class CPlayer : MonoBehaviour
         if (mIsGround && mIsSlide == false)
         {
             mIsGround = false;
-            Anim.Get().SetTrigger("AnimIsJump");
+            //Anim.Get().SetTrigger("AnimIsJump");
+            Anim.Get().CrossFade("Jumping", 0.0f);
             Body.Get().AddForce(this.transform.up * JumpPower, JumpForceMode);
         }
     }
@@ -389,6 +390,7 @@ public class CPlayer : MonoBehaviour
         if (other.collider.CompareTag(CTag.TAG_GROUND))
         {
             Anim.Get().SetTrigger("AnimTrigJumpToGround");
+            SetGround();
         }
     }
   

@@ -124,9 +124,16 @@ public class CUILobby : MonoBehaviour {
     [Button]
     public void CheckHeartTime()
     {
-        if(mHeart == TOTAL_HEARTCOUNT)
+
+        var now = DateTime.Now.ToLocalTime();
+
+        var span = (now - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime());
+        int nowTime = (int)span.TotalSeconds;
+
+        if (mHeart == TOTAL_HEARTCOUNT)
         {
             SceneMainLobby.m_Timecontrol.gameObject.SetActive(false);
+            mUserData.ExitTime = nowTime;
             return;
         }
         else
@@ -134,10 +141,7 @@ public class CUILobby : MonoBehaviour {
             SceneMainLobby.m_Timecontrol.gameObject.SetActive(true);
         }
 
-        var now = DateTime.Now.ToLocalTime();
-
-        var span = (now - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime());
-        int nowTime = (int)span.TotalSeconds;
+      
 
         int tExitTime = 0;
 

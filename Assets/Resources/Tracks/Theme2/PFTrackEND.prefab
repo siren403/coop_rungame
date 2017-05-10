@@ -1537,7 +1537,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1152933813884122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.202055, y: 91.55469, z: -10.22121}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4522284590416826}
@@ -3151,8 +3151,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 1, z: 18}
-  m_Center: {x: -4, y: 0, z: 0}
+  m_Size: {x: 8, y: 10, z: 18}
+  m_Center: {x: -4, y: 5, z: 0}
 --- !u!65 &65423884500373474
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -3199,8 +3199,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 1, z: 18}
-  m_Center: {x: 4, y: 0, z: 0}
+  m_Size: {x: 8, y: 10, z: 18}
+  m_Center: {x: 4, y: 5, z: 0}
 --- !u!65 &65920061114466220
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -3271,6 +3271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d81cc4a7694b6548b26e04b8efd1b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 99
+  reverse: 0
 --- !u!114 &114262256784025432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3307,6 +3309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d81cc4a7694b6548b26e04b8efd1b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 99
+  reverse: 0
 --- !u!114 &114329491140305866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3318,6 +3322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d81cc4a7694b6548b26e04b8efd1b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 99
+  reverse: 0
 --- !u!114 &114330014132616542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3329,6 +3335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d81cc4a7694b6548b26e04b8efd1b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 99
+  reverse: 0
 --- !u!114 &114360398348485300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3340,6 +3348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d81cc4a7694b6548b26e04b8efd1b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 99
+  reverse: 0
 --- !u!114 &114435970519435726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3364,6 +3374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d81cc4a7694b6548b26e04b8efd1b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 99
+  reverse: 0
 --- !u!114 &114457074316349046
 MonoBehaviour:
   m_ObjectHideFlags: 1
