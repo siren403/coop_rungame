@@ -42,9 +42,9 @@ public class InApp : MonoBehaviour, IStoreListener
         PlayGamesPlatform.Activate();
 
         Social.localUser.Authenticate((bool success) => {
+            InitializePurchasing();
         });
 
-        InitializePurchasing();
 
     }
     public void InitializePurchasing()
