@@ -109,6 +109,7 @@ public class CScenePlayGame : MonoBehaviour
             mIsStartBoost = value;
         }
     }
+    private int mCurrentStage = 0;
 
     private void Awake()
     {
@@ -201,8 +202,8 @@ public class CScenePlayGame : MonoBehaviour
         };
         mTrackCreator.OnChangeStage = (stage,theme) =>
         {
-
-            if(IsStartBoost == true)
+            mCurrentStage = stage;
+            if (IsStartBoost == true)
             {
                 if(stage != 1)
                 {
@@ -287,7 +288,7 @@ public class CScenePlayGame : MonoBehaviour
 
         this.AudioData.DeadSound();
 
-        mUIPlayGame.ShowUIGameOver(0, TotalScore, mCoin.Value);
+        mUIPlayGame.ShowUIGameOver(mCurrentStage, TotalScore, mCoin.Value);
         mItemdata.RsetData();
         mUserData.Coin += mCoin.Value;
         StopCoroutine(mCoroutineTickHp);
@@ -359,7 +360,7 @@ public class CScenePlayGame : MonoBehaviour
 
                         int tIsDir = Random.value > 0.5f ? -1 : 1;
                         mUIPlayGame.ShowTheme1UI(tIsDir,1.5f);
-                        InstPlayer.transform.DOMoveX(tIsDir == 1 ? -3.0f : 3.0f, 0.25f)
+                        InstPlayer.transform.DOMoveX(tIsDir == 1 ? -1.5f : 1.5f, 0.25f)
                             .SetDelay(1.5f)
                             .SetRelative()
                             .OnStart(() =>

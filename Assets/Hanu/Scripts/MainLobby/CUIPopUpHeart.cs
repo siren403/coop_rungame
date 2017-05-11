@@ -17,7 +17,7 @@ public class CUIPopUpHeart : MonoBehaviour {
     private CSceneMainLobby mSceneMainLobby;
 
     public const int TOTAL_HEARTCOUNT = 5;
-    public const int HAERT_PRICE = 1;
+    public const int HAERT_PRICE = 3000;
 
     private int mHeart = 0;
 

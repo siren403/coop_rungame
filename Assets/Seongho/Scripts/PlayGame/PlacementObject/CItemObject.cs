@@ -45,11 +45,11 @@ public class CItemObject : CPlacementObject
             case ItemType.None:
                 break;
             default:
-                if (RandomItem <= 40)
+                if (RandomItem <= 20)
                 {
                     _ItemType = ItemType.Boost;
                 }
-                else if (RandomItem <= 70)
+                else if (RandomItem <= 50)
                 {
                     _ItemType = ItemType.Shield;
                 }
@@ -71,12 +71,12 @@ public class CItemObject : CPlacementObject
                 tPlayer.ScenePlayGame.AudioData.GetDashSound();
                 if (mItemdata.Item3 == 1)
                 {
-                    Duration = 5.0f + 2.0f;
+                    Duration = 3.0f + 2.0f;
                     Debug.Log("증가함?");
                 }
                 else
                 {
-                    Duration = 5.0f;
+                    Duration = 3.0f;
                 }
                 if(mItemdata.Item4 == 1)
                 {
@@ -93,12 +93,12 @@ public class CItemObject : CPlacementObject
             case ItemType.Shield:
                 if (mItemdata.Item3 == 1)
                 {
-                    Duration = 10.0f + 2.0f;
+                    Duration = 4.0f + 2.0f;
                     Debug.Log("증가함?");
                 }
                 else
                 {
-                    Duration = 10.0f;
+                    Duration = 4.0f;
                 }
                 if (mItemdata.Item4 == 1)
                 {
@@ -131,7 +131,6 @@ public class CItemObject : CPlacementObject
                 Destroy(this.gameObject);
                 break;
             case ItemType.StartBoost:
-                Debug.Log("쓰따뜨뿌쓰뜨");
  
                 Duration = 99999.0f;
                 CTrackBoostItem StartBoostitem = new CTrackBoostItem(tPlayer, Duration);

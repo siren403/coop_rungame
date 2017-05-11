@@ -167,7 +167,7 @@ public class CItemTimer : MonoBehaviour
                 item.Value.Dispose();
             }
         }
-        mTrackItem.Clear();
+       // mTrackItem.Clear();
     }
     
 }
