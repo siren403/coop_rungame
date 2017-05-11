@@ -13,7 +13,7 @@ public class CUILobby : MonoBehaviour {
     public GameObject[] HeartArray = null;
 
     public const int TOTAL_HEARTCOUNT = 5;
-    public const int WAITINGTIME = 30;
+    public const int WAITINGTIME = 300;
 
 
     public int CurrentHeartCount = 0;

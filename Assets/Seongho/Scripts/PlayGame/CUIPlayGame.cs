@@ -98,6 +98,7 @@ public class CUIPlayGame : MonoBehaviour
         }
         else if(InstSliderHPBar.value>0.2f&&InstChangeHPBar==false)
         {
+            InstSliderHPBar.fillRect.GetComponent<Image>().color = new Color(1, 0, 0, 1);
             DOTween.Kill("ABCD");
             InstChangeHPBar = true;
         }

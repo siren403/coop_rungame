@@ -402,6 +402,10 @@ public class CPlayer : MonoBehaviour
     {
         Debug.Log("HP 전 " + CurrentHp.Value.ToString());
         CurrentHp.Value += tHeal;
+        if(CurrentHp.Value > Hp)
+        {
+            CurrentHp.Value = Hp;
+        }
         Debug.Log("HP 후 " + CurrentHp.Value.ToString());
 
     }

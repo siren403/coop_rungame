@@ -95,6 +95,22 @@ public class CScenePlayGame : MonoBehaviour
 
     private bool mIsInputJumpAndSlide = false;
 
+    public GameObject InstStartBoost = null;
+
+    private bool mIsStartBoost = false;
+    public bool IsStartBoost
+    {
+        get
+        {
+            return mIsStartBoost;
+        }
+        set
+        {
+            mIsStartBoost = value;
+        }
+    }
+    private int mCurrentStage = 0;
+
     private void Awake()
     {
 
@@ -107,6 +123,11 @@ public class CScenePlayGame : MonoBehaviour
         mItemdata = new CItemData();
         mUIPlayGame = FindObjectOfType<CUIPlayGame>();
 
+        if(mItemdata.Item4 == 1)
+        {
+            IsStartBoost = true;
+            InstStartBoost.gameObject.SetActive(true);
+        }
 
         mAudioData = mUIPlayGame.GetComponent<CAudio>();
         this.AudioData.StartBGSound();
@@ -181,6 +202,16 @@ public class CScenePlayGame : MonoBehaviour
         };
         mTrackCreator.OnChangeStage = (stage,theme) =>
         {
+            mCurrentStage = stage;
+            if (IsStartBoost == true)
+            {
+                if(stage != 1)
+                {
+                    mItemdata.Item4 = 0;
+                    IsStartBoost = false;
+                    InstItemTimer.Reset();
+                }
+            }
 
             if(mCurrentStageTick != null)
             {
@@ -257,7 +288,7 @@ public class CScenePlayGame : MonoBehaviour
 
         this.AudioData.DeadSound();
 
-        mUIPlayGame.ShowUIGameOver(0, TotalScore, mCoin.Value);
+        mUIPlayGame.ShowUIGameOver(mCurrentStage, TotalScore, mCoin.Value);
         mItemdata.RsetData();
         mUserData.Coin += mCoin.Value;
         StopCoroutine(mCoroutineTickHp);
@@ -329,7 +360,7 @@ public class CScenePlayGame : MonoBehaviour
 
                         int tIsDir = Random.value > 0.5f ? -1 : 1;
                         mUIPlayGame.ShowTheme1UI(tIsDir,1.5f);
-                        InstPlayer.transform.DOMoveX(tIsDir == 1 ? -3.0f : 3.0f, 0.25f)
+                        InstPlayer.transform.DOMoveX(tIsDir == 1 ? -1.5f : 1.5f, 0.25f)
                             .SetDelay(1.5f)
                             .SetRelative()
                             .OnStart(() =>
@@ -472,7 +503,7 @@ public class CScenePlayGame : MonoBehaviour
             mCoin.Value += 1;
         }
 
-
+        mScore.Value += 10;
         InstPlayer.IncrementBoost(CoinPerBoost);
     }
 

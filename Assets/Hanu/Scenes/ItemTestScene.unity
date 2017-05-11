@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2218,10 +2218,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InstEdgeFire: {fileID: 0}
   InstStartPanel: {fileID: 0}
+  InstChangeHPBar: 1
   InstSliderHPBar: {fileID: 763493898}
   InstSliderAddHPBar: {fileID: 599708858}
+  InstSliderHPBarFill: {fileID: 0}
   InstSliderBoostBar: {fileID: 763493901}
   InstSliderJoyStick: {fileID: 763493900}
+  InstItem_1: {fileID: 0}
+  InstItem_2: {fileID: 0}
   InstTxtScore: {fileID: 1980266196}
   InstTxtCoin: {fileID: 1208011322}
   InstBtnPause: {fileID: 2066236018}
@@ -2653,7 +2657,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: '
+
+'
 --- !u!222 &850730900
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3974,7 +3980,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2
+  m_Text: 
 --- !u!222 &1283833313
 CanvasRenderer:
   m_ObjectHideFlags: 0
