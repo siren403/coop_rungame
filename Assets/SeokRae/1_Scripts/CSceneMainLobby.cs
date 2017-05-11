@@ -73,25 +73,25 @@ public class CSceneMainLobby : MonoBehaviour {
     {
         Debug.Log("Item1!!");
         ItemUseTxt.text = "추가 체력\n게임 시작 시 일정량의 추가 체력을 얻습니다.";
-        ItemBuyCoin.text = "   : 10";
+        ItemBuyCoin.text = "   : 1000";
     }
     void OnItem_2()
     {
         Debug.Log("Item2!!");
         ItemUseTxt.text = "획득 코인 2배\n게임 내에서 획득하는 코인의 가치가 2배로 증가합니다.";
-        ItemBuyCoin.text = "   : 10";
+        ItemBuyCoin.text = "   : 1000";
     }
     void OnItem_3()
     {
         Debug.Log("Item3!!");
         ItemUseTxt.text = "스타트 부스터\n게임시작 부분부터 5초동안 아주 빠른 속도로 이동하게 됩니다.";
-        ItemBuyCoin.text = "   : 10";
+        ItemBuyCoin.text = "   : 1000";
     }
     void OnItem_4()
     {
         Debug.Log("Item4!!");
         ItemUseTxt.text = "아이템 시간 연장\n게임 내에서 획득한 아이템의 지속시간을 2초 증가 시켜줍니다.";
-        ItemBuyCoin.text = "   : 10";
+        ItemBuyCoin.text = "   : 1000";
     }
 
     public void OnCoinShopEnter()
