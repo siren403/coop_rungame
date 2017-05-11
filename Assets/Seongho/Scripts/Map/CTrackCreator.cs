@@ -1,6 +1,6 @@
-﻿//#define DIFFCULTY
+﻿#define DIFFCULTY
 //#define LOW
-#define MEDIUM
+//#define MEDIUM
 
 using System.Collections;
 using System.Collections.Generic;
@@ -182,7 +182,7 @@ namespace Map
                     tIsStartRoad = true;
                     List<TrackType> tTrackDiffcultyList = null;
 #if DIFFCULTY
-                    tTrackDiffcultyList = mTrackData.DiffcultyList[Mathf.Clamp(mStageIndex, 0, mTrackData.DiffcultyList.Count - 1)];
+                    tTrackDiffcultyList = mTrackData.DiffcultyList[Mathf.Clamp(mStageIndex, 0, mTrackData.DiffcultyList.Count - 1)].TypeList;
 #elif LOW
                     tTrackDiffcultyList = new List<TrackType>();
                     for (int start = (int)TrackType.A; start <= (int)TrackType.F; start++)

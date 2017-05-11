@@ -9,8 +9,15 @@ public class CUIPopUpHeart : MonoBehaviour {
     private UserData mUserData = null;
     public CUILobby UILobby = null;
 
+
+    public GameObject CoinIsnull;
+    public GameObject CoinBuyComprete;
+    //public GameObject mBuyHeart;
+
+    private CSceneMainLobby mSceneMainLobby;
+
     public const int TOTAL_HEARTCOUNT = 5;
-    public const int HAERT_PRICE = 10;
+    public const int HAERT_PRICE = 1;
 
     private int mHeart = 0;
 
@@ -33,11 +40,11 @@ public class CUIPopUpHeart : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        UpdateHeartArray();
+      //  UpdateHeartArray();
 
     }
 
-
+    /*
     public void UpdateHeartArray()
     {
         mHeart = UILobby.GetHeart();
@@ -53,7 +60,7 @@ public class CUIPopUpHeart : MonoBehaviour {
             }
         }
     }
-
+    */
     public void OnClickBuyHeart()
     {
         if(mHeart != 5)
@@ -64,11 +71,24 @@ public class CUIPopUpHeart : MonoBehaviour {
                 mUserData.Heart = mHeart;
                 mUserData.Coin -= HAERT_PRICE;
                 UILobby.UIItem.GetCoinText().UpdateUserData();
+                Debug.Log("구입완료!");
+                this.CoinBuyComprete.SetActive(true);
+            }
+            else
+            {
+                // mSceneMainLobby.CoinIsNull.SetActive(true);
+                this.CoinIsnull.SetActive(true);
+                Debug.Log("하트거지");
             }
         }
         else
         {
             Debug.Log("Heart is Full");
         }
+    }
+    public void OnClickComprete()
+    {
+        this.CoinBuyComprete.SetActive(false);
+
     }
 }
