@@ -148,6 +148,7 @@ public class CUIItem : MonoBehaviour {
         }
         else
         {
+            SceneMainLobby.CoinIsNull.SetActive(true);
             Debug.Log("돈이 부족함");
         }
     }
@@ -176,10 +177,22 @@ public class CUIItem : MonoBehaviour {
     }
 
     [Button]
-    public void AddCoin()
+    public void AddSCoin()
     {
         mCoin = mUserData.Coin;
         mCoin += 1000;
+        mUserData.Coin = mCoin;
+    }
+    public void AddMCoin()
+    {
+        mCoin = mUserData.Coin;
+        mCoin += 5000;
+        mUserData.Coin = mCoin;
+    }
+    public void AddLCoin()
+    {
+        mCoin = mUserData.Coin;
+        mCoin += 20000;
         mUserData.Coin = mCoin;
     }
 

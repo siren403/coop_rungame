@@ -246,11 +246,11 @@ public class CUIPlayGame : MonoBehaviour
     }
     private void SetTxtGameOverScore(int tScore)
     {
-        InstTxtGameOverScore.text = string.Format("SCORE : {0}", tScore);
+        InstTxtGameOverScore.text = string.Format("SCORE\n{0}", tScore);
     }
     private void SetTxtGameOverCoin(int tCoin)
     {
-        InstTxtGameOverCoin.text = string.Format("COIN : {0}", tCoin);
+        InstTxtGameOverCoin.text = string.Format("   COIN : {0}", tCoin);
     }
     #endregion
 

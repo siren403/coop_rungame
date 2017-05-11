@@ -96,7 +96,7 @@ public class CUILobby : MonoBehaviour {
 
 
             mFade.gameObject.SetActive(true);
-            DOTween.To(() => { return mFade.color; }, (color) => mFade.color = color, new Color(0, 0, 0, 1), 0.2f)
+            DOTween.To(() => { return mFade.color; }, (color) => mFade.color = color, new Color(1, 1, 1, 1), 2.0f)
                 .OnComplete(() =>
                 {
                     MySource.PlayOneShot(BtnSfx);
@@ -106,6 +106,7 @@ public class CUILobby : MonoBehaviour {
         }
         else
         {
+            SceneMainLobby.HeartIsNull.SetActive(true);
             Debug.Log("Heart is null");
         }
     }

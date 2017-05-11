@@ -11,7 +11,8 @@ public class CSceneMainLobby : MonoBehaviour {
     public CUIMainLobby mUIMainLobby;
     int mHeartCount = 0;
 
-
+    public GameObject HeartIsNull;
+    public GameObject CoinIsNull;
 
     public Text m_Timecontrol;
     public Text ItemUseTxt;
@@ -54,7 +55,7 @@ public class CSceneMainLobby : MonoBehaviour {
     public void OnStart()
     {
         mFade.gameObject.SetActive(true);
-        DOTween.To(() => mFade.color, (color) => mFade.color = color, new Color(0, 0, 0, 1), 1.0f)
+        DOTween.To(() => mFade.color, (color) => mFade.color = color, new Color(1, 1, 1, 1), 2.0f)
         .OnComplete(() => { SceneManager.LoadScene("TestScene");});  
     }
 
@@ -71,38 +72,41 @@ public class CSceneMainLobby : MonoBehaviour {
     void OnItem_1()
     {
         Debug.Log("Item1!!");
-        ItemUseTxt.text = "추가 체력\n\n\n게임 시작 시 일정량의 추가 체력을 얻습니다.";
-        ItemBuyCoin.text = "Coin : 10";
+        ItemUseTxt.text = "추가 체력\n게임 시작 시 일정량의 추가 체력을 얻습니다.";
+        ItemBuyCoin.text = "   : 10";
     }
     void OnItem_2()
     {
         Debug.Log("Item2!!");
-        ItemUseTxt.text = "획득 코인 2배\n\n\n게임 내에서 획득하는 코인의 가치가 2배로 증가합니다.";
-        ItemBuyCoin.text = "Coin : 10";
+        ItemUseTxt.text = "획득 코인 2배\n게임 내에서 획득하는 코인의 가치가 2배로 증가합니다.";
+        ItemBuyCoin.text = "   : 10";
     }
     void OnItem_3()
     {
         Debug.Log("Item3!!");
-        ItemUseTxt.text = "스타트 부스터\n\n\n게임시작 부분부터 5초동안 아주 빠른 속도로 이동하게 됩니다.";
-        ItemBuyCoin.text = "Coin : 10";
+        ItemUseTxt.text = "스타트 부스터\n게임시작 부분부터 5초동안 아주 빠른 속도로 이동하게 됩니다.";
+        ItemBuyCoin.text = "   : 10";
     }
     void OnItem_4()
     {
         Debug.Log("Item4!!");
-        ItemUseTxt.text = "아이템 시간 연장\n\n\n게임 내에서 획득한 아이템의 지속시간을 2초 증가 시켜줍니다.";
-        ItemBuyCoin.text = "Coin : 10";
+        ItemUseTxt.text = "아이템 시간 연장\n게임 내에서 획득한 아이템의 지속시간을 2초 증가 시켜줍니다.";
+        ItemBuyCoin.text = "   : 10";
     }
 
-    void OnCoinShopEnter()
+    public void OnCoinShopEnter()
     {
         CoinShopEnter.SetActive(true);
         CoinShopBackPanel.SetActive(true);
+        CoinIsNull.SetActive(false);
     }
 
-    void OnHeartShopEnter()
+    public void OnHeartShopEnter()
     {
         HeartShopEnter.SetActive(true);
         HeartShopBackPanel.SetActive(true);
+
+        HeartIsNull.SetActive(false);
     }
 
     void OnBackToTitle()
@@ -112,6 +116,13 @@ public class CSceneMainLobby : MonoBehaviour {
         HeartShopBackPanel.SetActive(false);
         CoinShopBackPanel.SetActive(false);
     }
+    //===================================
+    public void CloseHeartIsNull()
+    {
+        HeartIsNull.SetActive(false);
+        CoinIsNull.SetActive(false);
+    }
+    
     /*
     public double Timer()
     {
