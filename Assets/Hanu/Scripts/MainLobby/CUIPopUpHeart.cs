@@ -61,6 +61,15 @@ public class CUIPopUpHeart : MonoBehaviour {
         }
     }
     */
+
+    public void AddHeart()
+    {
+        mHeart += 1;
+        mUserData.Heart = mHeart;
+        UILobby.UIItem.GetCoinText().UpdateUserData();
+        Debug.Log("Add Heart");
+    }
+
     public void OnClickBuyHeart()
     {
         if(mHeart != 5)

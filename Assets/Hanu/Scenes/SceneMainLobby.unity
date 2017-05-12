@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.91792, g: 0.9264706, b: 0.157, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -432,13 +432,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ': '
+  m_Text: 
 --- !u!222 &26701680
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -460,10 +460,10 @@ RectTransform:
   m_Father: {fileID: 191305383}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.128, y: 0.134}
-  m_AnchorMax: {x: 0.52500004, y: 0.22960676}
-  m_AnchoredPosition: {x: 0.40000916, y: 0}
-  m_SizeDelta: {x: -1, y: 0}
+  m_AnchorMin: {x: 0.30813956, y: 0.12320582}
+  m_AnchorMax: {x: 0.55851555, y: 0.2331913}
+  m_AnchoredPosition: {x: 2, y: 1}
+  m_SizeDelta: {x: 1, y: -4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &33101885
 GameObject:
@@ -1103,7 +1103,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2.535}
+  m_AnchoredPosition: {x: 0, y: -0.000002861}
   m_SizeDelta: {x: 0, y: -6.93}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &239798347
@@ -1139,7 +1139,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BUY
+  m_Text: 
 --- !u!222 &239798348
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1681,6 +1681,7 @@ GameObject:
   - component: {fileID: 439809875}
   - component: {fileID: 439809874}
   - component: {fileID: 439809873}
+  - component: {fileID: 439809876}
   m_Layer: 5
   m_Name: AddCoin
   m_TagString: Untagged
@@ -1758,6 +1759,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 439809876}
+        m_MethodName: OnClickBtnShowAds
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &439809874
@@ -1795,6 +1807,43 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 439809871}
+--- !u!114 &439809876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 439809871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e327da46e1e25314aaacba7463f0b07b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AdsFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 85596638}
+        m_MethodName: AddHeart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  AdsSkipped:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  AdsFailed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &445394459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2207,10 +2256,10 @@ RectTransform:
   m_Father: {fileID: 1616825765}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.24016525, y: 0.22800002}
-  m_AnchorMax: {x: 0.76753396, y: 0.75886667}
-  m_AnchoredPosition: {x: -3, y: 3}
-  m_SizeDelta: {x: -3, y: -2.0200043}
+  m_AnchorMin: {x: 0.29200003, y: 0.2845187}
+  m_AnchorMax: {x: 0.7083009, y: 0.7024814}
+  m_AnchoredPosition: {x: -6, y: -14}
+  m_SizeDelta: {x: -91, y: -64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &626805872
 MonoBehaviour:
@@ -4990,10 +5039,10 @@ RectTransform:
   m_Father: {fileID: 191305383}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.17572093, y: 0.08718233}
-  m_AnchorMax: {x: 0.822, y: 0.55230933}
-  m_AnchoredPosition: {x: -22.848, y: -33.3}
-  m_SizeDelta: {x: 2, y: 5}
+  m_AnchorMin: {x: 0.11526753, y: 0.2727739}
+  m_AnchorMax: {x: 0.892, y: 0.44238696}
+  m_AnchoredPosition: {x: -0.39999962, y: -0.5999985}
+  m_SizeDelta: {x: -1.2000008, y: -0.40000153}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1479623675
 CanvasRenderer:
@@ -5035,7 +5084,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC544\uC774\uD15C\uC744 \uACE0\uB974\uC2DC\uC624!"
+  m_Text: "\uAC8C\uC784 \uB0B4\uC5D0\uC11C \uB3C4\uC6C0\uC744 \uC8FC\uB294 \uC544\uC774\uD15C\uC744
+    \uAD6C\uB9E4\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4. \uAD6C\uB9E4 \uC2DC \uC790\uB3D9
+    \uC7A5\uCC29 \uB429\uB2C8\uB2E4."
 --- !u!114 &1480039434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5971,10 +6022,10 @@ RectTransform:
   m_Father: {fileID: 2146897177}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.74675, y: 0.15255131}
-  m_AnchorMax: {x: 0.8845, y: 0.22789373}
-  m_AnchoredPosition: {x: -0.26800537, y: -1}
-  m_SizeDelta: {x: 2.736, y: 1}
+  m_AnchorMin: {x: 0.7405, y: 0.12156165}
+  m_AnchorMax: {x: 0.8744999, y: 0.22789373}
+  m_AnchoredPosition: {x: 3.5, y: -1.0169983}
+  m_SizeDelta: {x: -3, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1704438770
 MonoBehaviour:
@@ -6060,8 +6111,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 62e7df992d54a4e1eb97eb75073c463d, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 137ffee11eabe164f888d534d9a08bf1, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

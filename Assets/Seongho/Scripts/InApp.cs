@@ -65,6 +65,10 @@ public class InApp : MonoBehaviour, IStoreListener
 
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
         builder.AddProduct(mProductID_test, ProductType.Consumable);
+        builder.AddProduct(mProductID_Coin_1000, ProductType.Consumable);
+        builder.AddProduct(mProductID_Coin_5000, ProductType.Consumable);
+        builder.AddProduct(mProductID_Coin_20000, ProductType.Consumable);
+
         UnityPurchasing.Initialize(this, builder);
     }
 
