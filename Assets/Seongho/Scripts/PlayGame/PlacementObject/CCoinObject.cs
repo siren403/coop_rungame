@@ -38,11 +38,10 @@ public class CCoinObject : CPlacementObject
 
         tPlayer.ScenePlayGame.AudioData.GetCoinSound();
 
-        //InstBody.SetActive(false);
-        //InstParticle.SetActive(true);
-        //StartCoroutine(MoveTo(tPlayer));
-        //Invoke("ObjectDestroy", 2.0f);
-        Destroy(this.gameObject);
+        InstBody.SetActive(false);
+        InstParticle.SetActive(true);
+        StartCoroutine(MoveTo(tPlayer));
+        Invoke("ObjectDestroy", 2.0f);
 
     }
 
@@ -51,8 +50,7 @@ public class CCoinObject : CPlacementObject
     {
         for (;;)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, tPlayer.transform.position, 1000.0f);
-
+            this.transform.position = Vector3.MoveTowards(this.transform.position, tPlayer.transform.position+ Vector3.forward, 1000.0f); 
             yield return new WaitForSeconds(0.0f);
         }
     }

@@ -17,10 +17,10 @@ public class CUIItem : MonoBehaviour {
         ITEM4 = 3,
     }
 
-    public const int Item1Price = 10;
-    public const int Item2Price = 10;
-    public const int Item3Price = 10;
-    public const int Item4Price = 10;
+    public const int Item1Price = 1000;
+    public const int Item2Price = 1000;
+    public const int Item3Price = 1000;
+    public const int Item4Price = 1000;
 
     public int IsItem1 = 0;
     public int IsItem2 = 0;

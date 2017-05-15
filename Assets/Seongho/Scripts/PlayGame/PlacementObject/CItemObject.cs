@@ -12,6 +12,8 @@ public class CItemObject : CPlacementObject
         Magnet = 2,
         Heal = 3,
         Dash = 4,
+        StartBoost = 5,
+        None = 6,
     }
 
     private CItemData mItemdata = null;
@@ -30,18 +32,24 @@ public class CItemObject : CPlacementObject
     {
         int RandomItem = 0;
         RandomItem = UnityEngine.Random.Range(1, 100);
+        /*if(mItemdata.Item4 == 1)
+        {
+            _ItemType = ItemType.StartBoost;
+        }*/
         Debug.Log("값 : "+ RandomItem.ToString());
         Debug.Log("들어가기전 " + _ItemType.ToString());
         switch (_ItemType)
         {
             case ItemType.Dash: case ItemType.Heal:
+            case ItemType.StartBoost:
+            case ItemType.None:
                 break;
             default:
-                if (RandomItem <= 40)
+                if (RandomItem <= 20)
                 {
                     _ItemType = ItemType.Boost;
                 }
-                else if (RandomItem <= 70)
+                else if (RandomItem <= 50)
                 {
                     _ItemType = ItemType.Shield;
                 }
@@ -63,12 +71,16 @@ public class CItemObject : CPlacementObject
                 tPlayer.ScenePlayGame.AudioData.GetDashSound();
                 if (mItemdata.Item3 == 1)
                 {
-                    Duration = 5.0f + 2.0f;
+                    Duration = 3.0f + 2.0f;
                     Debug.Log("증가함?");
                 }
                 else
                 {
-                    Duration = 5.0f;
+                    Duration = 3.0f;
+                }
+                if(mItemdata.Item4 == 1)
+                {
+                    Duration = 99999.0f;
                 }
                 CTrackBoostItem item = new CTrackBoostItem(tPlayer, Duration);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType,item);
@@ -81,12 +93,16 @@ public class CItemObject : CPlacementObject
             case ItemType.Shield:
                 if (mItemdata.Item3 == 1)
                 {
-                    Duration = 10.0f + 2.0f;
+                    Duration = 4.0f + 2.0f;
                     Debug.Log("증가함?");
                 }
                 else
                 {
-                    Duration = 10.0f;
+                    Duration = 4.0f;
+                }
+                if (mItemdata.Item4 == 1)
+                {
+                    Duration = 99999.0f;
                 }
                 CShieldItem Shielditem = new CShieldItem(tPlayer, Duration);
                 tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType, Shielditem);
@@ -114,7 +130,20 @@ public class CItemObject : CPlacementObject
                 tPlayer.SetAddHeal(1000);
                 Destroy(this.gameObject);
                 break;
-
+            case ItemType.StartBoost:
+ 
+                Duration = 99999.0f;
+                CTrackBoostItem StartBoostitem = new CTrackBoostItem(tPlayer, Duration);
+                tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType, StartBoostitem);
+                CShieldItem StartShielditem = new CShieldItem(tPlayer, Duration);
+                tPlayer.ScenePlayGame.InstItemTimer.AddTrackItem(_ItemType, StartShielditem);
+                _ItemType = ItemType.None;
+                break;
+            case ItemType.None:
+                Duration = 0.0f;
+                mItemdata.Item4 = 0;
+                _ItemType = ItemType.Boost;
+                break;
             
         }
 

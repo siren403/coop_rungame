@@ -13,7 +13,7 @@ public class COutTrack : MonoBehaviour {
 
             CPlayer tPlayer = other.GetComponent<CPlayer>();
             tPlayer.SetSpeedRatio(0.5f);
-            FindObjectOfType<CScenePlayGame>().HpTickPerHpRatio = 20.0f;
+            FindObjectOfType<CScenePlayGame>().HpTickPerHpRatio = 12.0f;
             tPlayer.ScenePlayGame.UIPlayGame.AlphaValue();
             tPlayer.ScenePlayGame.UIPlayGame.ShowWarning();
             tPlayer.ScenePlayGame.AudioData.OutLineSound();
